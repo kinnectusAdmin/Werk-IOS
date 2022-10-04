@@ -14,6 +14,8 @@
 		B6F9133128EA4C0800D9DB2C /* WerkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133028EA4C0800D9DB2C /* WerkTests.swift */; };
 		B6F9133B28EA4C0800D9DB2C /* WerkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */; };
 		B6F9133D28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */; };
+		B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */; };
+		B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		B6F9133628EA4C0800D9DB2C /* WerkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WerkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITests.swift; sourceTree = "<group>"; };
 		B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListView.swift; sourceTree = "<group>"; };
+		B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 		B6F9131E28EA4C0200D9DB2C /* Werk */ = {
 			isa = PBXGroup;
 			children = (
+				B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */,
+				B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
 				B6F9132128EA4C0200D9DB2C /* ContentView.swift */,
 				B6F9132328EA4C0700D9DB2C /* Assets.xcassets */,
@@ -257,6 +263,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
+				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
 				B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */,
 				B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */,
 			);
@@ -417,6 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Werk/Preview Content\"";
+				DEVELOPMENT_TEAM = EBJ7D2RUUQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -445,6 +454,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Werk/Preview Content\"";
+				DEVELOPMENT_TEAM = EBJ7D2RUUQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
