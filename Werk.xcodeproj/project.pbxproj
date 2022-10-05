@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B635CB2B28ED1350007E69B8 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB2A28ED1350007E69B8 /* ObservableObject.swift */; };
+		B635CB2D28ED16D7007E69B8 /* WorkoutListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
 		B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9132128EA4C0200D9DB2C /* ContentView.swift */; };
 		B6F9132428EA4C0700D9DB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F9132328EA4C0700D9DB2C /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B635CB2A28ED1350007E69B8 /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
+		B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListController.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkApp.swift; sourceTree = "<group>"; };
 		B6F9132128EA4C0200D9DB2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,9 +79,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B635CB2928ED1329007E69B8 /* WorkoutList */ = {
+			isa = PBXGroup;
+			children = (
+				B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */,
+				B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */,
+			);
+			path = WorkoutList;
+			sourceTree = "<group>";
+		};
 		B6F9131328EA4C0200D9DB2C = {
 			isa = PBXGroup;
 			children = (
+				B635CB2A28ED1350007E69B8 /* ObservableObject.swift */,
 				B6F9131E28EA4C0200D9DB2C /* Werk */,
 				B6F9132F28EA4C0800D9DB2C /* WerkTests */,
 				B6F9133928EA4C0800D9DB2C /* WerkUITests */,
@@ -98,8 +112,8 @@
 		B6F9131E28EA4C0200D9DB2C /* Werk */ = {
 			isa = PBXGroup;
 			children = (
+				B635CB2928ED1329007E69B8 /* WorkoutList */,
 				B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */,
-				B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
 				B6F9132128EA4C0200D9DB2C /* ContentView.swift */,
 				B6F9132328EA4C0700D9DB2C /* Assets.xcassets */,
@@ -263,10 +277,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B635CB2B28ED1350007E69B8 /* ObservableObject.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
 				B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */,
 				B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */,
+				B635CB2D28ED16D7007E69B8 /* WorkoutListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

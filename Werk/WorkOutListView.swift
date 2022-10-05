@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WorkOutListView: View {
     
-    var workOuts: [WorkOutExercise]
+    var workOuts: [WorkoutListModel.WorkOutExercise]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -35,7 +35,7 @@ struct WorkOutListView: View {
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
         WorkOutListView(workOuts: (0...9).map{_ in
-            WorkOutExercise.randomWorkout})
+            WorkoutListModel.WorkOutExercise.randomWorkout})
     }
 }
 
