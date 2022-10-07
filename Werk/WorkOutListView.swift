@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WorkOutListView: View {
     
-    var workOuts: [WorkoutListModel.WorkOutExercise]
+    @StateObject var viewModel: WorkoutListViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -19,25 +19,43 @@ struct WorkOutListView: View {
                 Spacer()
             }
             Spacer().frame(height: 8)
-            ScrollView {
-                ForEach(workOuts, id: \.id) { workOut in
-                    VStack(alignment:.leading, spacing: 8) {
-                        Text(workOut.name)
-                        Text(workOut.durationOfWorkout())
-                        Divider()
+            ZStack {
+                ScrollView {
+                    ForEach(viewModel.workOuts, id: \.id) { workOut in
+                        VStack(alignment:.leading, spacing: 8) {
+                            Text(workOut.name)
+                            Text(workOut.durationOfWorkout())
+                            Divider()
+                        }.onTapGesture {
+                            viewModel.didSelectWorkout(workout:workOut)
+                        }
+                       
                     }
-                   
                 }
+                VStack{
+                    Spacer()
+                    Button {
+                        viewModel.didSelectAddWorkout()
+                    } label: {
+                        ZStack{
+                            Circle().frame(width: 60, height: 60)
+                            Image(systemName: "plus").foregroundStyle(Color.white).frame(width: 90, height: 90)
+                        }
+                    }
+                }
+
             }
         }.padding(.leading, 12)
     }
 }
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkOutListView(workOuts: (0...9).map{_ in
-            WorkoutListModel.WorkOutExercise.randomWorkout})
+        WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
+            WorkOutExercise.randomWorkout}))
     }
+
 }
 
 //research VIPER MVVM
 // create a viewModel to hold the data
+
