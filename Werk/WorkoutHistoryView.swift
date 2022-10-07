@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkoutHistoryView: View {
     var body: some View {
-       
+       Text("DERP")
     }
 }
 
