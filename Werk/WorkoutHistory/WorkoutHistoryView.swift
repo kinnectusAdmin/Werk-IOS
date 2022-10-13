@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DataDetection
+import Charts
 
 
 struct WorkoutHistoryView: View {
@@ -23,8 +24,13 @@ struct WorkoutHistoryView: View {
                 ForEach((1..<53)) { weekOfYear in
                     
                     VStack {
-                        Text("week \(weekOfYear)")
-                        Text(weekRangeOfYear(week:weekOfYear).2)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("week \(weekOfYear)")
+                                Text(weekRangeOfYear(week:weekOfYear).2)
+                            }
+                            Spacer()
+                        }
                         Spacer()
                         HStack(spacing: 45)
                         {

@@ -35,6 +35,16 @@ extension WorkOutExercise {
         var secondsRemaining = Int(x) % 60
         return "\(numberOfHours) hr \(numberOfMinutes) min\(secondsRemaining) secs"
     }
+    
+    func dailyWorkourDuration()-> Double {
+        let x = duration
+        var oneHour = 3600
+        var oneMin = 60
+        var oneSec = 1
+
+        
+        return 0.0
+    }
         
 }
 
