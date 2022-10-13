@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B635CB2D28ED16D7007E69B8 /* WorkoutListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
+		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
 		B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9132128EA4C0200D9DB2C /* ContentView.swift */; };
 		B6F9132428EA4C0700D9DB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F9132328EA4C0700D9DB2C /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListController.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
+		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkApp.swift; sourceTree = "<group>"; };
 		B6F9132128EA4C0200D9DB2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				B6F9132328EA4C0700D9DB2C /* Assets.xcassets */,
 				B6F9132528EA4C0700D9DB2C /* Preview Content */,
 				B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */,
+				B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */,
 			);
 			path = Werk;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
+				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
 				B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */,
