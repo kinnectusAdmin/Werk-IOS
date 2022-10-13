@@ -65,13 +65,13 @@ func weekRangeOfYear(week: Int)->(Date, Date, String)  {
 
 
 
-class WeekStats:Identifiable {
-    var dailyData = [WorkOutExercise].self
-        .init(id:"M")
-        .init(duration: 10.2)
-    
-    
-}
+//class WeekStats:Identifiable {
+//    var dailyData = [WorkOutExercise].self
+//        .init(id:"M")
+//        .init(duration: 10.2)
+//
+//
+//}
 
 // graph has to coencide with each week of the year and their individual days
 // mus show colors of workout progressing vertically
