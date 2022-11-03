@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72BD5BC628F7D808000C1AAA /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BD5BC528F7D808000C1AAA /* SwiftUIView.swift */; };
 		B635CB2D28ED16D7007E69B8 /* WorkoutListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
 		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
@@ -40,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		72BD5BC528F7D808000C1AAA /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		722BCA2928FCBC1900163E04 /* Werk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Werk.entitlements; sourceTree = "<group>"; };
 		B635CB2C28ED16D7007E69B8 /* WorkoutListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListController.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
@@ -87,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */,
-				72BD5BC528F7D808000C1AAA /* SwiftUIView.swift */,
 				B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */,
 			);
 			path = WorkoutHistory;
@@ -126,6 +124,7 @@
 		B6F9131E28EA4C0200D9DB2C /* Werk */ = {
 			isa = PBXGroup;
 			children = (
+				722BCA2928FCBC1900163E04 /* Werk.entitlements */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
 				B6F9132128EA4C0200D9DB2C /* ContentView.swift */,
 				B635CB2928ED1329007E69B8 /* WorkoutList */,
@@ -293,7 +292,6 @@
 			files = (
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
-				72BD5BC628F7D808000C1AAA /* SwiftUIView.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
 				B6F9132228EA4C0200D9DB2C /* ContentView.swift in Sources */,
@@ -454,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Werk/Werk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Werk/Preview Content\"";
@@ -483,6 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Werk/Werk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Werk/Preview Content\"";
