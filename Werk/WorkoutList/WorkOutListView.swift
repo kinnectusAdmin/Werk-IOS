@@ -12,6 +12,8 @@ struct WorkOutListView: View {
     
     @StateObject var viewModel: WorkoutListViewModel
     
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {

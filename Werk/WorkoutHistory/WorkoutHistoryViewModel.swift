@@ -1,30 +1,91 @@
 
 import Foundation
 import SwiftUI
-import Charts
+import HealthKit
 
-
-class DateHolder: ObservableObject {
-    var calendar = Calendar.current
-    var date = Date()
+final class WorkoutHistoryViewModel: ObservableObject {
     
-    func showCurrentWeekNumber(startDate: Date) -> Int {
-        var calendar = Calendar.current
-        calendar.firstWeekday =  1 // Monday
-        calendar.locale = Locale.current
+    struct Works {
+        var myWorkOuts: [WorkOutExercise] = [
+            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
+            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
+            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
+            
+            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
+            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
+            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
+            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
+            
+            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
+            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
+            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
+            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
+            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
+            
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
+            
+            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
+            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
+            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
+            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
+            
+            WorkOutExercise.randomWorkoutInRange((10,29),(10,29)),
+            WorkOutExercise.randomWorkoutInRange((10,29),(10,29)),
+            WorkOutExercise.randomWorkoutInRange((10,29),(10,29))
+            
+            //    (0...30).map { _ -> WorkOutExercise in
+            //              WorkOutExercise.randomWorkoutInRange((10,16),(10,22))
+            //
+            //              //make bars from the workouts
+            //          }
+        ]
+    }
+    
+    
+    struct Bar: Identifiable {
         
+        let id = UUID().uuidString
+        var name: String
+        var day: String
+        var value:
+        var color: Color
         
-        let weekNumberForSatrtDate = calendar.component(.weekOfYear, from: startDate)
-        
-        
-        
-        return weekNumberForSatrtDate
+        static var weeklyStats: [Bar] {
+            var dailyBars = [Bar]()
+            var color: Color = .orange
+            let days = ["S","M","T","W","T","F","S"]
+            
+            for i in 1...7 {
+                let stats = Double.random(in: 20...200.0)
+                let bar = Bar(name: "\(i)",day: days[i-1], value: stats, color: color)
+                dailyBars.append(bar)
+            }
+            return dailyBars
+        }
     }
     
 }
+ 
+func showCurrentWeekNumber(startDate: Date) -> Int {
+    var calendar = Calendar.current
+    calendar.firstWeekday =  1 // Monday
+    calendar.locale = Locale.current
+    
+    
+    let weekNumberForSatrtDate = calendar.component(.weekOfYear, from: startDate)
+    
+    
+    
+    return weekNumberForSatrtDate
+}
 
 func weekRangeOfYear(week: Int)->(Date, Date, String)  {
-    var week: Int = 42
+    
     var calendar = Calendar.current
     calendar.locale = Locale.current
     var weekStartComponents = DateComponents()
@@ -49,6 +110,9 @@ func weekRangeOfYear(week: Int)->(Date, Date, String)  {
     
     return (weekStartDate!, weekEndDate!, "\(weekStarDayString) - \(weekEndDayString)")
 }
+
+
+
 
 
 

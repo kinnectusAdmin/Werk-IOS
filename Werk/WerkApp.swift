@@ -11,7 +11,7 @@ import SwiftUI
 struct WerkApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WorkoutHistoryView()
         }
     }
 }
