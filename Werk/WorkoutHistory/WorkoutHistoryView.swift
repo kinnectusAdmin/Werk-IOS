@@ -7,20 +7,17 @@
 
 import SwiftUI
 import DataDetection
-import HealthKit
 
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    @State private var selectedID: UUID = UUID()
-    @State private var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
     var body: some View {
         
         VStack{
             HStack{
                 Text("Workout History").font(.title)
             }
-            TabView(selection: $weekSelection){
+            TabView(selection: viewModel.$weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
