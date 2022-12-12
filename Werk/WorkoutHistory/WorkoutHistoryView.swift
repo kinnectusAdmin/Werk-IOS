@@ -12,7 +12,6 @@ import HealthKit
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    @State private var bars = WorkoutHistoryViewModel.Bar.weeklyStats
     @State private var selectedID: UUID = UUID()
     @State private var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
     var body: some View {
@@ -36,17 +35,14 @@ struct WorkoutHistoryView: View {
                         }.padding(10)
                         Spacer()
                         HStack(alignment: .bottom, spacing: 20) {
-                            ForEach(bars) { bar in
+                            ForEach(viewModel.bars) { bar in
                                 VStack {
                                     Rectangle()
-                                        .foregroundColor(bar.color)
-                                        .frame(width: 35, height: bar.value, alignment: .bottom)
-                                    
-//                                        .opacity(selectedID == bar.id ? 0.5 : 1.0)
+                                        .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))
+                                        .frame(width: 35, height: viewModel.relativeDuration(duration: bar.totalDuration),
+                                               alignment: .bottom)
                                         .cornerRadius(90)
                                     Text(bar.day)
-                                    //each bar.day should equal a day and the total workout duration time for that day
-                                    // bar.value will be the total duration of the times
                                 }
                             }
                         }
@@ -57,8 +53,6 @@ struct WorkoutHistoryView: View {
                 }
             }
             .tabViewStyle(.page)
-            
-            
         }
         
     }

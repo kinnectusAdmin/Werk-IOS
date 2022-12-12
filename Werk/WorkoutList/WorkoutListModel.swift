@@ -18,6 +18,14 @@ struct WorkOutExercise: Identifiable, Hashable {
 
 extension WorkOutExercise {
     
+    
+//    static var werkOuts: WorkOutExercise {
+////        
+////        var pushUps = WorkOutExercise(name: "Push ups", duration: <#T##Double#>, date: <#T##Date#>, color: <#T##[Color]#>)
+////        
+////        
+////    }
+    
     static var randomWorkout: WorkOutExercise {
         var names: [String] {
             return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
@@ -122,5 +130,27 @@ extension Date {
         let endInterval = range.upperBound.timeIntervalSince1970
         let timestamp = (Int(startInterval)...Int(endInterval)).map { $0 }.randomElement() ?? 0
         return Date(timeIntervalSince1970: Double(timestamp))
+    }
+    
+    static func weekOfDates(today: Date) -> [Date] {
+        //what day is it
+        //what year
+        //what month is
+        // date component
+        // week of this year relative to today
+        
+        // generate a date component with above information
+        //for each day of the week
+        //that includes the sunday of this week to the saturday of this week
+        let days = (1...7).map { dayValue -> Date? in
+            let component = DateComponents(calendar: Calendar.current,
+                                           month: Calendar.current.dateComponents([.month], from: today).month,
+                                           weekday: dayValue,
+                                           weekOfYear: Calendar.current.dateComponents([.weekOfYear], from: today).weekOfYear
+            )
+            return component.date
+        }.compactMap { $0 }
+        
+        return days
     }
 }

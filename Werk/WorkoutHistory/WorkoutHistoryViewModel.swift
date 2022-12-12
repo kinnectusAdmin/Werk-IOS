@@ -1,76 +1,74 @@
 
 import Foundation
 import SwiftUI
-import HealthKit
+extension CGFloat {
+    static var randomHex: CGFloat {
+        CGFloat.random(in: (0..<2))
+    }
+}
+extension UIColor {
+    static var random: UIColor {
+        UIColor(red: CGFloat.randomHex,
+                green: CGFloat.randomHex,
+                blue: CGFloat.randomHex,
+                alpha: 1.0)
+    }
+}
+struct Bar: Identifiable {
+    
+    let id = UUID().uuidString
+    var name: String
+    var day: String
+    var value: [Double]
+    var color: [Color] {
+        value.map { _  -> Color in
+            let color = UIColor.random
+            return Color(uiColor: color)
+        }
+    }
+    var totalDuration: CGFloat {
+        CGFloat(value.reduce(0, +))
+    }
+    var workouts: [[WorkOutExercise]]
+}
 
 final class WorkoutHistoryViewModel: ObservableObject {
     
-    struct Works {
-        var myWorkOuts: [WorkOutExercise] = [
-            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
-            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
-            WorkOutExercise.randomWorkoutInRange((10,24),(10,24)),
-            
-            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
-            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
-            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
-            WorkOutExercise.randomWorkoutInRange((10,25),(10,25)),
-            
-            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
-            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
-            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
-            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
-            WorkOutExercise.randomWorkoutInRange((10,26),(10,26)),
-            
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            WorkOutExercise.randomWorkoutInRange((10,27),(10,27)),
-            
-            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
-            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
-            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
-            WorkOutExercise.randomWorkoutInRange((10,28),(10,28)),
-            
-            WorkOutExercise.randomWorkoutInRange((10,29),(10,29)),
-            WorkOutExercise.randomWorkoutInRange((10,29),(10,29)),
-            WorkOutExercise.randomWorkoutInRange((10,29),(10,29))
-            
-            //    (0...30).map { _ -> WorkOutExercise in
-            //              WorkOutExercise.randomWorkoutInRange((10,16),(10,22))
-            //
-            //              //make bars from the workouts
-            //          }
-        ]
-    }
-    
-    
-    struct Bar: Identifiable {
-        
-        let id = UUID().uuidString
-        var name: String
-        var day: String
-        var value:
-        var color: Color
-        
-        static var weeklyStats: [Bar] {
-            var dailyBars = [Bar]()
-            var color: Color = .orange
-            let days = ["S","M","T","W","T","F","S"]
-            
-            for i in 1...7 {
-                let stats = Double.random(in: 20...200.0)
-                let bar = Bar(name: "\(i)",day: days[i-1], value: stats, color: color)
-                dailyBars.append(bar)
-            }
-            return dailyBars
+    var bars: [Bar] {
+        myWorkOuts.map { workouts -> Bar in
+            Bar(name: "",
+                day: dayStringFrom(date:workouts.first!.date),
+                value: workouts.map { $0.duration },
+                workouts: [])
         }
     }
+    var maxDuration: CGFloat {
+        bars.map { $0.totalDuration }.max() ?? 0
+    }
+    
+    func relativeDuration(duration: CGFloat) -> CGFloat {
+        (duration / maxDuration) * 100
+    }
+    
+    var myWorkOuts: [[WorkOutExercise]] {
+       Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
+           let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
+           let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
+           let tuple = (month, day)
+           return tuple
+       }.map { tuple in
+           [WorkOutExercise.randomWorkoutInRange(tuple, tuple)]
+       }
+    }
+        
     
 }
- 
+
+func dayStringFrom(date: Date) -> String {
+    let day = Calendar.current.dateComponents([.weekday], from: date).weekday!
+    let dayString = ["S","M","T","W","T","F","S"][day - 1]
+    return dayString
+}
 func showCurrentWeekNumber(startDate: Date) -> Int {
     var calendar = Calendar.current
     calendar.firstWeekday =  1 // Monday
