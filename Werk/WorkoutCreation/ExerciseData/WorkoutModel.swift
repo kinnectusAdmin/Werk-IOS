@@ -25,6 +25,16 @@ struct WorkoutTemplate: Identifiable, Hashable {
     let date: Date
 }
 
+public func durationOfWorkout(duration: Double)->String {
+    let x = duration
+    let oneHour = 3600
+    let numberOfHours = Int(x) / oneHour
+    let minutesRemaining = Int(x) % oneHour
+    let numberOfMinutes = minutesRemaining / 60
+    let secondsRemaining = Int(x) % 60
+    return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
+}
+
 extension WorkoutTemplate {
     
     static var randomWorkout: WorkoutTemplate {
@@ -43,15 +53,7 @@ extension WorkoutTemplate {
         
         
     }
-    func durationOfWorkout()->String {
-        let x = duration
-        let oneHour = 3600
-        let numberOfHours = Int(x) / oneHour
-        let minutesRemaining = Int(x) % oneHour
-        let numberOfMinutes = minutesRemaining / 60
-        let secondsRemaining = Int(x) % 60
-        return "\(numberOfHours) hr \(numberOfMinutes) min\(secondsRemaining) secs"
-    }
+    
     
     func dailyWorkourDuration()-> Double {
         let x = duration

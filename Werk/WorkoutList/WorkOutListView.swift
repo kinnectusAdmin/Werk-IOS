@@ -26,7 +26,7 @@ struct WorkOutListView: View {
                     ForEach(viewModel.workOuts, id: \.id) { workOut in
                         VStack(alignment:.leading, spacing: 8) {
                             Text(workOut.name)
-                            Text(workOut.durationOfWorkout())
+                            Text(durationOfWorkout(duration: workOut.duration))
                             Divider()
                         }.onTapGesture {
                             viewModel.didSelectWorkout(workout:workOut)

@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		726483312954140B0045A951 /* WarmUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726483302954140B0045A951 /* WarmUpDetails.swift */; };
+		7264833729542AAC0045A951 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833629542AAC0045A951 /* DurationPicker.swift */; };
+		7264833A29552C970045A951 /* IntervalDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833929552C970045A951 /* IntervalDetails.swift */; };
 		726954872942CD0400B0DD5D /* WorkoutCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954862942CD0400B0DD5D /* WorkoutCreationView.swift */; };
 		726954892942CD4800B0DD5D /* WorkoutCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */; };
 		7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269548D2947B4F700B0DD5D /* Date+Ext.swift */; };
 		726954912947C0BB00B0DD5D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954902947C0BB00B0DD5D /* WorkoutModel.swift */; };
 		726954942947C2FD00B0DD5D /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954932947C2FD00B0DD5D /* DateModel.swift */; };
+		7269549629494E2000B0DD5D /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269549529494E2000B0DD5D /* TimerModel.swift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
 		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
@@ -43,11 +47,15 @@
 
 /* Begin PBXFileReference section */
 		722BCA2928FCBC1900163E04 /* Werk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Werk.entitlements; sourceTree = "<group>"; };
+		726483302954140B0045A951 /* WarmUpDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpDetails.swift; sourceTree = "<group>"; };
+		7264833629542AAC0045A951 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
+		7264833929552C970045A951 /* IntervalDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalDetails.swift; sourceTree = "<group>"; };
 		726954862942CD0400B0DD5D /* WorkoutCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreationView.swift; sourceTree = "<group>"; };
 		726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreationViewModel.swift; sourceTree = "<group>"; };
 		7269548D2947B4F700B0DD5D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		726954902947C0BB00B0DD5D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		726954932947C2FD00B0DD5D /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
+		7269549529494E2000B0DD5D /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,9 +99,11 @@
 		726954852942CCA100B0DD5D /* WorkoutCreation */ = {
 			isa = PBXGroup;
 			children = (
+				726483302954140B0045A951 /* WarmUpDetails.swift */,
 				726954862942CD0400B0DD5D /* WorkoutCreationView.swift */,
 				726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */,
 				7269548F2947C02400B0DD5D /* ExerciseData */,
+				7264833929552C970045A951 /* IntervalDetails.swift */,
 			);
 			path = WorkoutCreation;
 			sourceTree = "<group>";
@@ -101,7 +111,9 @@
 		7269548A2947B17900B0DD5D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7269549529494E2000B0DD5D /* TimerModel.swift */,
 				7269548D2947B4F700B0DD5D /* Date+Ext.swift */,
+				7264833629542AAC0045A951 /* DurationPicker.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -331,16 +343,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7269549629494E2000B0DD5D /* TimerModel.swift in Sources */,
 				7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
+				7264833729542AAC0045A951 /* DurationPicker.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
 				726954942947C2FD00B0DD5D /* DateModel.swift in Sources */,
 				B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */,
 				726954892942CD4800B0DD5D /* WorkoutCreationViewModel.swift in Sources */,
 				726954912947C0BB00B0DD5D /* WorkoutModel.swift in Sources */,
+				726483312954140B0045A951 /* WarmUpDetails.swift in Sources */,
 				726954872942CD0400B0DD5D /* WorkoutCreationView.swift in Sources */,
+				7264833A29552C970045A951 /* IntervalDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
