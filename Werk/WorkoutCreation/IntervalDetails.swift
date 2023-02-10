@@ -16,23 +16,19 @@ import AVFoundation
 
 struct IntervalDetails: View {
     @Environment(\.presentationMode) var presentationMode
-    var viewModel: WorkoutCreationViewModel
-    @State var numberOfsets = 1
-    var intenseArray = [
+    var intViewModel: IntervalViewModel = IntervalViewModel()
     
-    
-    ]
     
     
     var body: some View {
-        NavigationView{
-            List {
+        NavigationStack{
+            Form {
                 
                 Section {
                     
                     HStack(alignment: .bottom) {
-                        Picker("Number of sets", selection: $numberOfsets) {
-                            ForEach(0 ..< 100) {
+                        Picker("Number of sets", selection: intViewModel.$numberOfsets) {
+                            ForEach(1 ..< 100) {
                                 Text("\($0)")
                             }
                             
@@ -42,43 +38,24 @@ struct IntervalDetails: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: Text("High Intensity View")) {
-                        
-                        HStack {
-                            Text("High Intensity")
-                            Spacer()
-                            Text("\(viewModel.highIntensityDuration)")
-                        }
-                    }
-                    NavigationLink(destination: Text("Low Intensity View")) {
-                        HStack {
-                            Text("Low Intensity ")
-                            Spacer()
-                            Text("\(viewModel.lowIntensityDuration)")
-                        }
+                    List {
+                        ForEach(intViewModel.phases) { phase in
+                            HStack {
+                                Text("\(phase.name)")
+                                Spacer()
+                                Text("\(phase.duration)")
+                            }
+                        }.onMove(perform: intViewModel.move)
                     }
                 }
-                }
-            }        .navigationTitle("Interval Cycle")
-            
+            }.environment(\.editMode, intViewModel.$editMode)
         }
-    }
-    
-
-
-
-
-
-struct IntervalDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        IntervalDetails(viewModel: WorkoutCreationViewModel())
     }
 }
 
-//extension IntervalDetails {
-//
-//    var numberOfSets: some View {
-//
-//
-//
-//}
+struct IntervalDetails_Previews: PreviewProvider {
+    static var previews: some View {
+        IntervalDetails(intViewModel: IntervalViewModel())
+    }
+}
+

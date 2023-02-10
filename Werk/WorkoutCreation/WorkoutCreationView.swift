@@ -10,12 +10,12 @@ import SwiftUI
 
 
 struct WorkoutCreationViewForm: View {
-    var viewModel: WorkoutCreationViewModel
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: WorkoutCreationViewModel = WorkoutCreationViewModel()
+   
     
-
     
-    @State var bgColor =
-    Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+    
     
     var body: some View {
         NavigationView {
@@ -23,11 +23,10 @@ struct WorkoutCreationViewForm: View {
                 
                 Section {
                     HStack {
-
+                        
                         TextField("Timer Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
-                        Spacer()
-                        ColorPicker("", selection: $bgColor)
+                        ColorPicker("", selection: $viewModel.bgColor)
                     }
                 }
                 NavigationLink(destination: WarmUpDetails()) {
@@ -38,34 +37,48 @@ struct WorkoutCreationViewForm: View {
                     }
                 }
                 
-                Section {
-                    
-                    NavigationLink(destination: Text("Interval View")) {
-                        HStack {
-                            Text("Interval Cycle")
-                            Spacer()
-                            Text("\(viewModel.setNumber.count) set")
-                            
-                        }
-                    }
-                    
-                    NavigationLink(destination: Text("High Intensity View")) {
-                        HStack {
-                            Text("High Intensity")
-                            Spacer()
-                            Text("\(viewModel.highIntensityDuration)")
-                        }
-                    }
-                    NavigationLink(destination: Text("Low Intensity View")) {
-                        HStack {
-                            Text("Low Intensity ")
-                            Spacer()
-                            Text("\(viewModel.lowIntensityDuration)")
+                
+                ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
+                    Section {
+                        NavigationLink(destination: IntervalDetails()) {
+                            HStack {
+                                Text("Interval Cycle")
+                                Spacer()
+                                Text("\(cycle.numberOfSets) set")
+                                
+                            }
                         }
                         
+                        NavigationLink(destination: Text("High Intensity View")) {
+                            HStack {
+                                Text("High Intensity")
+                                Spacer()
+                                Text("\(cycle.highIntensity.duration)")
+                            }
+                        }
+                        NavigationLink(destination: Text("Low Intensity View")) {
+                            HStack {
+                                Text("Low Intensity ")
+                                Spacer()
+                                Text("\(cycle.lowIntensity.duration)")
+                            }
+                            //data transfer between views
+                            //pass the parent view model to presented child viewmodel so the child has a subset of the data that it needs. once the child mutates the date it needs to report to the parent
+                            //read up on structs
+                            //refresh on MVVM MVM Viper and MVI and  MVC
+                        }
                     }
-                    
                 }
+                
+                Section {
+                    Button("Add Cycle") {
+                        
+                        print("Print!")
+                        viewModel.didSelectAddNewCycle()
+                    }
+                }
+                //make a button that'll add a cycle to the view
+                //check to make sure forms scroll automattically
                 
                 Section {
                     
@@ -75,7 +88,7 @@ struct WorkoutCreationViewForm: View {
                             Spacer()
                             Text(viewModel.cooldownDuration)
                         }
-    
+                        
                     }
                     
                 }
@@ -87,7 +100,7 @@ struct WorkoutCreationViewForm: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel", role: .cancel) {
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
@@ -100,16 +113,10 @@ struct WorkoutCreationViewForm: View {
 
 struct WorkoutCreationViewForm_Previews: PreviewProvider {
     static var previews: some View{
-        WorkoutCreationViewForm(viewModel: WorkoutCreationViewModel())
+        WorkoutCreationViewForm(
+            viewModel: WorkoutCreationViewModel())
     }
 }
-
-
-// A Vstack of view
-//one view is a view of warm up phase
-//second is the interval phase
-//3rd 
-// watch a video on view Hiearchy
 
 
 

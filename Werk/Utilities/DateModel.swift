@@ -48,8 +48,8 @@ func weekRangeOfYear(week: Int)->(Date, Date, String)  {
     formatter.dateFormat = "LLL dd"
     let weekStarDayString = formatter.string(from: weekStartDate!)
     let weekEndDayString = formatter.string(from: weekEndDate!)
-    print(weekStartDate)
-    print(weekEndDate)
+    print(weekStartDate!)
+    print(weekEndDate!)
     
     return (weekStartDate!, weekEndDate!, "\(weekStarDayString) - \(weekEndDayString)")
 }

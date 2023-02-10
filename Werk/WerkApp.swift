@@ -11,7 +11,7 @@ import SwiftUI
 struct WerkApp: App {
     var body: some Scene {
         WindowGroup {
-            WorkoutHistoryView()
+            WorkoutCreationViewForm(viewModel: WorkoutCreationViewModel())
         }
     }
 }

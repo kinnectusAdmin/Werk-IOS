@@ -10,7 +10,8 @@ import SwiftUI
 
 struct WorkOutListView: View {
     
-    @StateObject var viewModel: WorkoutListViewModel
+    @ObservedObject var viewModel: WorkoutListViewModel
+    
     
     
     
@@ -31,7 +32,7 @@ struct WorkOutListView: View {
                         }.onTapGesture {
                             viewModel.didSelectWorkout(workout:workOut)
                         }
-                       
+                        
                     }
                 }
                 VStack{
@@ -45,7 +46,7 @@ struct WorkOutListView: View {
                         }
                     }
                 }
-
+                
             }
         }.padding(.leading, 12)
     }
@@ -55,7 +56,7 @@ struct WorkOutListView_Previews: PreviewProvider {
         WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
             WorkoutTemplate.randomWorkout}))
     }
-
+    
 }
 
 //research VIPER MVVM

@@ -11,13 +11,15 @@ import DataDetection
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
+    
+    
     var body: some View {
         
         VStack{
             HStack{
                 Text("Workout History").font(.title)
             }
-            TabView(selection: viewModel.$weekSelection){
+            TabView(selection: $viewModel.weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
@@ -34,7 +36,7 @@ struct WorkoutHistoryView: View {
                         HStack(alignment: .bottom, spacing: 20) {
                             ForEach(viewModel.bars) { bar in
                                 VStack {
-                                    Rectangle()
+                                     Rectangle()
                                         .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))
                                         .frame(width: 35, height: viewModel.relativeDuration(duration: bar.totalDuration),
                                                alignment: .bottom)
