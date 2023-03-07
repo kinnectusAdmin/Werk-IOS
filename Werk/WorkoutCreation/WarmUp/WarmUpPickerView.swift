@@ -12,10 +12,11 @@ struct WarmUpPickerView: View {
     
     @State var hours: Int = 0
     @State var minutes: Int = 0
-    @State var seconds: Int = 0 
+    @State var seconds: Int = 0
+    
     
     var body: some View {
-        HStack {
+        HStack(alignment: .bottom) {
             Picker("", selection: $hours){
                 ForEach(0..<24, id: \.self) { i in
                     Text("\(i) hr").tag(i)
@@ -40,3 +41,20 @@ struct WarmUpPickerView_Previews: PreviewProvider {
         WarmUpPickerView()
     }
 }
+
+
+
+
+//static var columns = [
+//    DurationPicker.Column(label: "hr", options: Array(0...24).map { DurationPicker.Column.Option(text: "\($0)", tag: $0) }),
+//    DurationPicker.Column(label: "min", options: Array(0...60).map { DurationPicker.Column.Option(text: "\($0)", tag: $0) }),
+//    DurationPicker.Column(label: "sec", options: Array(0...60).map { DurationPicker.Column.Option(text: "\($0)", tag: $0) }),
+//]
+//
+//static var selection1: Int = 0
+//static var selection2: Int = 0
+//static var selection3: Int = 0
+//
+//static var previews: some View {
+//    DurationPicker(columns: columns, selections: [.constant(selection1), .constant(selection2), .constant(selection3)]).frame(height: 300).previewLayout(.sizeThatFits)
+//}
