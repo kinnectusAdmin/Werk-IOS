@@ -37,21 +37,21 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private func updateWorkoutName(updatedName: String) {
         workOutName = updatedName
     }
-    func didSelectCancel(){
-        //goes back to previous screen
-    }
+//    func didSelectCancel(){
+//        //goes back to previous screen
+//    }
     
     func didSelectSave() {
         //expect some wokr to save this information
     }
-    func didSelectPhase(phase: WorkoutPhase) {
-        
-    }
-    
-    func didSelectNumberOfSets() {
-        
-    }
-    
+//    func didSelectPhase(phase: WorkoutPhase) {
+//
+//    }
+//
+//    func didSelectNumberOfSets() {
+//
+//    }
+
     func didSelectAddNewCycle() {
         workout.intervals.cycles.append(.initial)
         print("\(workout.intervals.cycles.count)")

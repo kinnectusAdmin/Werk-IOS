@@ -9,12 +9,21 @@ import Foundation
 import SwiftUI
 
 
-class IntervalViewModel: Identifiable, ObservableObject {
+class IntervalViewModel: ObservableObject {
         var phases = [WorkoutPhase.lowIntensitiy, WorkoutPhase.highItensitity]
         //^ Arrary to make sortable list
-    @State var numberOfsets = 1
+    @Published var numberOfsets = 0
     @State var editMode: EditMode = .active
-        
+    var numberOfsetsBinding: Binding<Int> {
+        Binding<Int>.init {
+            return self.numberOfsets
+        } set: { numberOfSets in
+            self.numberOfsets = numberOfSets
+        }
+
+    }
+    
+    
     
     
 }

@@ -9,16 +9,7 @@ import Foundation
 import SwiftUI
 
 class WarmUpViewModel: ObservableObject {
-    @State var isPickerPresented: Bool = false
-    
-    
-    
-    
-}
 
-
-extension WarmUpViewModel {
-    
     
     
     func picker() -> AnyView {
@@ -34,5 +25,14 @@ extension WarmUpViewModel {
         
         return AnyView(DurationPicker(columns: columns, selections: [.constant(selection1), .constant(selection2), .constant(selection3)]).frame(height: 300, alignment: .bottom).previewLayout(.sizeThatFits))
     }
+    
+    
+}
+
+
+extension WarmUpViewModel {
+    
+    
+
 }
 
