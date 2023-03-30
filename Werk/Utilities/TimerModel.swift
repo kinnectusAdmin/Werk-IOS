@@ -59,6 +59,6 @@ struct Timer {
         
         // Updates the time string with the formatted time
         //        minutes = Double(minutes)
-        time = String(format:"%d:%02d", minutes, seconds)
+        time = String(format:"\(minutes):\(seconds)", minutes, seconds)
     }
 }

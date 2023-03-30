@@ -16,7 +16,7 @@ import AVFoundation
 
 struct IntervalDetails: View {
     @Environment(\.presentationMode) var presentationMode
-    var intViewModel: IntervalViewModel = IntervalViewModel()
+    @ObservedObject var intViewModel: IntervalViewModel = IntervalViewModel()
     
     
     
@@ -27,7 +27,7 @@ struct IntervalDetails: View {
                 Section {
                     
                     HStack(alignment: .bottom) {
-                        Picker("Number of sets", selection: intViewModel.$numberOfsets) {
+                        Picker("Number of sets", selection: intViewModel.numberOfsetsBinding) {
                             ForEach(1 ..< 100) {
                                 Text("\($0)")
                             }
@@ -47,8 +47,8 @@ struct IntervalDetails: View {
                             }
                         }.onMove(perform: intViewModel.move)
                     }
-                }
-            }.environment(\.editMode, intViewModel.$editMode)
+                }.environment(\.editMode, $intViewModel.editMode)
+            }
         }
     }
 }

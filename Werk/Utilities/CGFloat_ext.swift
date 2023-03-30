@@ -10,7 +10,7 @@ import SwiftUI
 
 extension CGFloat {
     static var randomHex: CGFloat {
-        CGFloat.random(in: (0..<2))
+        CGFloat.random(in: (0..<1))
     }
 }
 

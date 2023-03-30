@@ -11,20 +11,19 @@ import DataDetection
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    
+    @ObservedObject var model = WorkoutHistoryModel()
     
     var body: some View {
         
         VStack{
-            HStack{
                 Text("Workout History").font(.title)
-            }
-            TabView(selection: $viewModel.weekSelection){
+            
+            TabView(selection: $model.weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("week \(weekOfYear)").font(.title2).bold()
+                                Text("Week \(weekOfYear)").font(.title2).bold()
                                 Text(weekRangeOfYear(week:weekOfYear).2)
                             }
                             Spacer()
@@ -36,7 +35,7 @@ struct WorkoutHistoryView: View {
                         HStack(alignment: .bottom, spacing: 20) {
                             ForEach(viewModel.bars) { bar in
                                 VStack {
-                                     Rectangle()
+                                    Rectangle()
                                         .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))
                                         .frame(width: 35, height: viewModel.relativeDuration(duration: bar.totalDuration),
                                                alignment: .bottom)
@@ -49,6 +48,7 @@ struct WorkoutHistoryView: View {
                         .padding(20)
                         .cornerRadius(6)
                     }.tag(weekOfYear)
+                    
                 }
             }
             .tabViewStyle(.page)
