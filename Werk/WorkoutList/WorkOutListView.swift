@@ -9,10 +9,7 @@ import SwiftUI
 
 
 struct WorkOutListView: View {
-    
     @ObservedObject var viewModel: WorkoutListViewModel
-    
-    
     
     
     var body: some View {
@@ -46,11 +43,11 @@ struct WorkOutListView: View {
                         }
                     }
                 }
-                
             }
         }.padding(.leading, 12)
     }
 }
+
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
         WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
@@ -58,7 +55,4 @@ struct WorkOutListView_Previews: PreviewProvider {
     }
     
 }
-
-//research VIPER MVVM
-// create a viewModel to hold the data
 

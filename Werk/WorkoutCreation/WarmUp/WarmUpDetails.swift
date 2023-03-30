@@ -10,7 +10,7 @@ import AVFoundation
 
 struct WarmUpDetails: View {
     var viewModel = WorkoutCreationViewModel()
-    @State var model = WarmUpViewModel()
+//    @State var model = WarmUpViewModel()
     @State var soundModel = Audio()
     @State var isPickerPresented: Bool = false
     @State var isSoundPickerPresented: Bool = false
@@ -28,7 +28,7 @@ struct WarmUpDetails: View {
                 HStack {
                    Text("Duration")
                     Spacer()
-                    Button("\(hours)h:\(minutes)m:\(seconds)s") {
+                    Button("\(hours):\(minutes):\(seconds)") {
                         isPickerPresented.toggle()
                     }
                 }

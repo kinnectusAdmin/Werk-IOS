@@ -47,8 +47,8 @@ struct IntervalDetails: View {
                             }
                         }.onMove(perform: intViewModel.move)
                     }
-                }
-            }.environment(\.editMode, intViewModel.$editMode)
+                }.environment(\.editMode, $intViewModel.editMode)
+            }
         }
     }
 }

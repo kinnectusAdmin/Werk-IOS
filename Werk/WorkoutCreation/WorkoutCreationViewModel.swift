@@ -31,6 +31,8 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
         $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$highIntensityDuration)
         $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$lowIntensityDuration)
     }
+    
+    
     private func provideWorkoutName() -> String {
         workOutName
     }
