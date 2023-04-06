@@ -7,11 +7,6 @@
 import Foundation
 import SwiftUI
 
-class WorkoutHistoryModel: ObservableObject {
-    @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
-    
-    
-}
 
 struct Bar: Identifiable {
     
