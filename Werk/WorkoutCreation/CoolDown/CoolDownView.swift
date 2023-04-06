@@ -45,13 +45,6 @@ struct CoolDownView: View {
                     }
                 }
                 
-                
-                Picker(selection: soundModel.$selectedSound,label: Text("Sound")) {
-                    ForEach(soundModel.systemSounds, id: \.self) {
-                        Text("\($0)")
-                        
-                    }
-                }
             }.navigationTitle("Cool Down")
         }
         .sheet(isPresented: $isPickerPresented) {
@@ -76,7 +69,7 @@ struct CoolDownView: View {
 
 struct CoolDownView_Previews: PreviewProvider {
     static var previews: some View {
-        WarmUpView()
+        CoolDownView()
     }
 }
 

@@ -1,4 +1,4 @@
-//
+
 //  WarmUpPickerView.swift
 //  Werk
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-struct CoolDownPickerView: View {
+struct HighIntensityPickerView: View {
     //    @Binding var show: Bool
 
 
@@ -38,28 +38,8 @@ struct CoolDownPickerView: View {
     }
 }
 
-struct CoolDownPickerView_Previews: PreviewProvider {
+struct HighIntensityPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        CoolDownPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
+        HighIntensityPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
     }
 }
-
-//struct SoundPickerView: View {
-//    var systemSounds: [Int] = [1304,1307,1308,1309,1310]
-//    @State var sound: Int = 1304
-//    var body: some View {
-//        HStack(alignment: .bottom) {
-//            Picker("", selection: $sound) {
-//                ForEach(systemSounds, id: \.self) { i in
-//                    Button {
-//                        AudioServicesPlaySystemSound(SystemSoundID(i))
-//                    } label: {
-//                        Text("Sound \(i)").tag(i)
-//                    }
-//                }
-//            }.pickerStyle(WheelPickerStyle())
-//        }.padding(.horizontal)
-//    }
-//}
-
-

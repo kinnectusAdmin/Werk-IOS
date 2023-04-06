@@ -8,7 +8,7 @@ import SwiftUI
 import Foundation
 import AVFoundation
 
-struct WarmUpView: View {
+struct HighIntensityView: View {
     var viewModel = WorkoutCreationViewModel()
 //    @State var model = WarmUpViewModel()
     @State var soundModel = Audio()
@@ -44,10 +44,11 @@ struct WarmUpView: View {
                         isSoundPickerPresented.toggle()
                     }
                 }
-            }.navigationTitle("Warm Up")
+
+            }.navigationTitle("High Intensity")
         }
         .sheet(isPresented: $isPickerPresented) {
-            WarmUpPickerView(hours: $hours, minutes: $minutes, seconds: $seconds)
+            CoolDownPickerView(hours: $hours, minutes: $minutes, seconds: $seconds)
                 .presentationDetents([.medium])
         }
         .sheet(isPresented: $isSoundPickerPresented) {
@@ -66,9 +67,9 @@ struct WarmUpView: View {
     }
 }
 
-struct WarmUpView_Previews: PreviewProvider {
+struct HighIntensityView_Previews: PreviewProvider {
     static var previews: some View {
-        WarmUpView()
+        HighIntensityView()
     }
 }
 

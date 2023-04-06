@@ -10,8 +10,9 @@
 		724AED5C29DE5B4C004B6E3D /* CoolDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED5B29DE5B4C004B6E3D /* CoolDownView.swift */; };
 		724AED5E29DE5CF6004B6E3D /* CoolDownPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED5D29DE5CF6004B6E3D /* CoolDownPickerModel.swift */; };
 		724AED6029DE5D18004B6E3D /* CoolDownPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED5F29DE5D18004B6E3D /* CoolDownPickerView.swift */; };
-		724AED6229DE5D2B004B6E3D /* CoolDownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED6129DE5D2B004B6E3D /* CoolDownViewModel.swift */; };
-		724AED6429DE5D3C004B6E3D /* CoolDownModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED6329DE5D3C004B6E3D /* CoolDownModel.swift */; };
+		724AED6629DE5F32004B6E3D /* HighIntensityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED6529DE5F32004B6E3D /* HighIntensityView.swift */; };
+		724AED6829DE5F5D004B6E3D /* HighIntesityPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED6729DE5F5D004B6E3D /* HighIntesityPickerView.swift */; };
+		724AED6A29DE5FDE004B6E3D /* HighIntensityPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED6929DE5FDE004B6E3D /* HighIntensityPickerModel.swift */; };
 		726483312954140B0045A951 /* WarmUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726483302954140B0045A951 /* WarmUpView.swift */; };
 		7264833A29552C970045A951 /* IntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833929552C970045A951 /* IntervalView.swift */; };
 		7264833C29765A130045A951 /* IntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833B29765A130045A951 /* IntervalViewModel.swift */; };
@@ -66,8 +67,9 @@
 		724AED5B29DE5B4C004B6E3D /* CoolDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolDownView.swift; sourceTree = "<group>"; };
 		724AED5D29DE5CF6004B6E3D /* CoolDownPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolDownPickerModel.swift; sourceTree = "<group>"; };
 		724AED5F29DE5D18004B6E3D /* CoolDownPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolDownPickerView.swift; sourceTree = "<group>"; };
-		724AED6129DE5D2B004B6E3D /* CoolDownViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolDownViewModel.swift; sourceTree = "<group>"; };
-		724AED6329DE5D3C004B6E3D /* CoolDownModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolDownModel.swift; sourceTree = "<group>"; };
+		724AED6529DE5F32004B6E3D /* HighIntensityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighIntensityView.swift; sourceTree = "<group>"; };
+		724AED6729DE5F5D004B6E3D /* HighIntesityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighIntesityPickerView.swift; sourceTree = "<group>"; };
+		724AED6929DE5FDE004B6E3D /* HighIntensityPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighIntensityPickerModel.swift; sourceTree = "<group>"; };
 		726483302954140B0045A951 /* WarmUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpView.swift; sourceTree = "<group>"; };
 		7264833929552C970045A951 /* IntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalView.swift; sourceTree = "<group>"; };
 		7264833B29765A130045A951 /* IntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalViewModel.swift; sourceTree = "<group>"; };
@@ -207,6 +209,9 @@
 		72C4C14229B815A20050C45C /* HighIntensity */ = {
 			isa = PBXGroup;
 			children = (
+				724AED6529DE5F32004B6E3D /* HighIntensityView.swift */,
+				724AED6729DE5F5D004B6E3D /* HighIntesityPickerView.swift */,
+				724AED6929DE5FDE004B6E3D /* HighIntensityPickerModel.swift */,
 			);
 			path = HighIntensity;
 			sourceTree = "<group>";
@@ -217,8 +222,6 @@
 				724AED5B29DE5B4C004B6E3D /* CoolDownView.swift */,
 				724AED5D29DE5CF6004B6E3D /* CoolDownPickerModel.swift */,
 				724AED5F29DE5D18004B6E3D /* CoolDownPickerView.swift */,
-				724AED6129DE5D2B004B6E3D /* CoolDownViewModel.swift */,
-				724AED6329DE5D3C004B6E3D /* CoolDownModel.swift */,
 			);
 			path = CoolDown;
 			sourceTree = "<group>";
@@ -426,25 +429,26 @@
 				72648348298F772A0045A951 /* LowIntensitiyView.swift in Sources */,
 				72648340298F70A20045A951 /* WorkOutData.swift in Sources */,
 				7269549629494E2000B0DD5D /* TimerModel.swift in Sources */,
-				724AED6229DE5D2B004B6E3D /* CoolDownViewModel.swift in Sources */,
 				7264834A298F9BE30045A951 /* WarmUpViewModel.swift in Sources */,
 				7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
 				7264833E298C8CF50045A951 /* WorkoutCreation+Models.swift in Sources */,
-				724AED6429DE5D3C004B6E3D /* CoolDownModel.swift in Sources */,
 				72648346298F73570045A951 /* UIColor_ext.swift in Sources */,
 				724AED5E29DE5CF6004B6E3D /* CoolDownPickerModel.swift in Sources */,
+				724AED6629DE5F32004B6E3D /* HighIntensityView.swift in Sources */,
 				72C4C14529B8163E0050C45C /* WarmUpModel.swift in Sources */,
 				724AED5C29DE5B4C004B6E3D /* CoolDownView.swift in Sources */,
 				724AED6029DE5D18004B6E3D /* CoolDownPickerView.swift in Sources */,
+				724AED6A29DE5FDE004B6E3D /* HighIntensityPickerModel.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */,
 				7264834E299069220045A951 /* WarmUpPickerView.swift in Sources */,
 				726954942947C2FD00B0DD5D /* DateModel.swift in Sources */,
 				7264833C29765A130045A951 /* IntervalViewModel.swift in Sources */,
 				B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */,
 				726954892942CD4800B0DD5D /* WorkoutCreationViewModel.swift in Sources */,
+				724AED6829DE5F5D004B6E3D /* HighIntesityPickerView.swift in Sources */,
 				72C4C14029B80DC50050C45C /* Bar.swift in Sources */,
 				72C4C14729B817900050C45C /* WarmUpPickerModel.swift in Sources */,
 				726954912947C0BB00B0DD5D /* WorkoutModel.swift in Sources */,
