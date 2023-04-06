@@ -29,7 +29,7 @@ struct WorkoutCreationViewForm: View {
                         ColorPicker("", selection: $viewModel.bgColor)
                     }
                 }
-                NavigationLink(destination: WarmUpDetails()) {
+                NavigationLink(destination: WarmUpView()) {
                     HStack {
                         Text("Warm Up")
                         Spacer()
@@ -40,7 +40,7 @@ struct WorkoutCreationViewForm: View {
                 
                 ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
                     Section {
-                        NavigationLink(destination: IntervalDetails()) {
+                        NavigationLink(destination: IntervalView()) {
                             HStack {
                                 Text("Interval Cycle")
                                 Spacer()

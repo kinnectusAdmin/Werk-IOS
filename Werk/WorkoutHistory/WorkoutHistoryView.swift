@@ -11,14 +11,13 @@ import DataDetection
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    @ObservedObject var model = WorkoutHistoryModel()
     
     var body: some View {
         
         VStack{
                 Text("Workout History").font(.title)
             
-            TabView(selection: $model.weekSelection){
+            TabView(selection: $viewModel.weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {

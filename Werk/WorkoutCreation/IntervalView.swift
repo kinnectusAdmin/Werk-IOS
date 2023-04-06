@@ -14,9 +14,9 @@ import SwiftUI
 import Foundation
 import AVFoundation
 
-struct IntervalDetails: View {
+struct IntervalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var intViewModel: IntervalViewModel = IntervalViewModel()
+    @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel()
     
     
     
@@ -27,7 +27,7 @@ struct IntervalDetails: View {
                 Section {
                     
                     HStack(alignment: .bottom) {
-                        Picker("Number of sets", selection: intViewModel.numberOfsetsBinding) {
+                        Picker("Number of sets", selection: viewModel.numberOfsetsBinding) {
                             ForEach(1 ..< 100) {
                                 Text("\($0)")
                             }
@@ -39,23 +39,23 @@ struct IntervalDetails: View {
                 
                 Section {
                     List {
-                        ForEach(intViewModel.phases) { phase in
+                        ForEach(viewModel.phases) { phase in
                             HStack {
                                 Text("\(phase.name)")
                                 Spacer()
                                 Text("\(phase.duration)")
                             }
-                        }.onMove(perform: intViewModel.move)
+                        }.onMove(perform: viewModel.move)
                     }
-                }.environment(\.editMode, $intViewModel.editMode)
+                }.environment(\.editMode, $viewModel.editMode)
             }
         }
     }
 }
 
-struct IntervalDetails_Previews: PreviewProvider {
+struct IntervalView_Previews: PreviewProvider {
     static var previews: some View {
-        IntervalDetails(intViewModel: IntervalViewModel())
+        IntervalView(viewModel: IntervalViewModel())
     }
 }
 

@@ -8,7 +8,7 @@ import SwiftUI
 import Foundation
 import AVFoundation
 
-struct WarmUpDetails: View {
+struct WarmUpView: View {
     var viewModel = WorkoutCreationViewModel()
 //    @State var model = WarmUpViewModel()
     @State var soundModel = Audio()
@@ -76,7 +76,7 @@ struct WarmUpDetails: View {
 
 struct WarmUpView_Previews: PreviewProvider {
     static var previews: some View {
-        WarmUpDetails()
+        WarmUpView()
     }
 }
 

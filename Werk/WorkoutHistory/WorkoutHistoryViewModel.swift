@@ -3,8 +3,7 @@ import Foundation
 import SwiftUI
 
 final class WorkoutHistoryViewModel: ObservableObject {
-    var model = WorkoutHistoryModel()
-    
+    @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
     
     var bars: [Bar] {
         workoutDateComponent.map { workouts -> Bar in
