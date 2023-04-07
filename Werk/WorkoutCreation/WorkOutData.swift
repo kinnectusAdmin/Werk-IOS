@@ -9,24 +9,30 @@ import Foundation
 import SwiftUI
 
 
-enum Sound {
-    case ding, dingding
+enum Sound: Int {
+    case ding = 1309
+    case dingding = 1304
 }
 
 struct WorkoutPhase: Identifiable, Hashable {
     let id: String
     var name: String
-    var duration: Double
     var color: Color
     var sound: Sound
+    var hours: Int = 0
+    var minutes: Int = 0
+    var seconds: Int = 0
+    var duration: Int {
+        hours + minutes + seconds
+    }
 }
 
 extension WorkoutPhase {
-    static var coolDown = WorkoutPhase.init(id: UUID().uuidString, name: "Cool Down", duration: 0.0, color: .blue, sound: .ding)
-    static let warmUP = WorkoutPhase(id: UUID().uuidString, name: "Warm Up", duration: 0.0, color: .yellow, sound: .dingding)
-    static let lowIntensitiy = WorkoutPhase(id: UUID().uuidString, name: "Low Intentsity", duration: 10.0, color: .cyan, sound: .ding)
-    static let highItensitity = WorkoutPhase(id: UUID().uuidString, name: "High Intensitiy", duration: 20.0, color: .red, sound: .dingding)
-    static let rest = WorkoutPhase(id: UUID().uuidString, name: "Rest Between Cycles", duration: 00.0, color: .indigo, sound: .dingding)
+    static var coolDown = WorkoutPhase.init(id: UUID().uuidString, name: "Cool Down",  color: .blue, sound: .ding,  hours: 0, minutes: 0, seconds: 0)
+    static let warmUP = WorkoutPhase(id: UUID().uuidString, name: "Warm Up", color: .yellow, sound: .dingding, hours: 0, minutes: 0, seconds: 0)
+    static let lowIntensitiy = WorkoutPhase(id: UUID().uuidString, name: "Low Intentsity", color: .cyan, sound: .ding, hours: 0, minutes: 0, seconds: 10)
+    static let highItensitity = WorkoutPhase(id: UUID().uuidString, name: "High Intensitiy", color: .red, sound: .dingding, hours: 0, minutes: 0, seconds: 20)
+    static let rest = WorkoutPhase(id: UUID().uuidString, name: "Rest Between Cycles", color: .indigo, sound: .dingding, hours: 0, minutes: 0, seconds: 0)
 }
 
 struct IntervalCollection {

@@ -25,11 +25,11 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     init() {
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
-        $workout.map(\.warmup.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$warmupDuration)
-        $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$cooldownDuration)
+        $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
+        $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
-        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$highIntensityDuration)
-        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: $0)}).assign(to: &$lowIntensityDuration)
+        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
+        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
     }
     
     
@@ -72,5 +72,9 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
 
 
 
-
+extension WorkoutCreationViewModel {
+    func didUpdateWarmup(warmup: WorkoutPhase) {
+        workout.warmup = warmup
+    }
+}
 

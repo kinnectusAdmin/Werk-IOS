@@ -29,7 +29,9 @@ struct WorkoutCreationViewForm: View {
                         ColorPicker("", selection: $viewModel.bgColor)
                     }
                 }
-                NavigationLink(destination: WarmUpView()) {
+                NavigationLink(destination: WarmUpView(viewModel: WarmUpViewModel(warmup: viewModel.workout.warmup, updateFunction: { warmup in
+                    viewModel.didUpdateWarmup(warmup: warmup)
+                }))) {
                     HStack {
                         Text("Warm Up")
                         Spacer()

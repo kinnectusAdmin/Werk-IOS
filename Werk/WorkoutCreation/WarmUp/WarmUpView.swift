@@ -7,20 +7,28 @@
 import SwiftUI
 import Foundation
 import AVFoundation
+import Combine
+
+class WarmUpViewModel: ObservableObject {
+    private var cancellables = Set<AnyCancellable>()
+    @Published var warmup: WorkoutPhase
+    init(warmup: WorkoutPhase, updateFunction: @escaping (WorkoutPhase) -> Void) {
+        self.warmup = warmup
+        $warmup.sink { warmup in
+            updateFunction(warmup)
+        }.store(in: &cancellables)
+    }
+}
+
 
 struct WarmUpView: View {
-    var viewModel = WorkoutCreationViewModel()
-//    @State var model = WarmUpViewModel()
+    @ObservedObject var viewModel: WarmUpViewModel
     @State var soundModel = Audio()
     @State var isPickerPresented: Bool = false
     @State var isSoundPickerPresented: Bool = false
-    @State var sound: Int = 1309
-    @State var hours: Int = 0
-    @State var minutes: Int = 0
-    @State var seconds: Int = 0
-    @State var bgColor =
-    Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
-
+    init(viewModel: WarmUpViewModel) {
+        self.viewModel = viewModel
+    }
     var body: some View {
         NavigationView{
             Form {
@@ -28,16 +36,14 @@ struct WarmUpView: View {
                 HStack {
                    Text("Duration")
                     Spacer()
-                    Button("\(hours):\(minutes):\(seconds)") {
+                    Button("\(viewModel.warmup.hours):\(viewModel.warmup.minutes):\(viewModel.warmup.seconds)") {
                         isPickerPresented.toggle()
                     }
                 }
-                ColorPicker("Color", selection: $bgColor)
-                
-                
+                ColorPicker("Color", selection: $viewModel.warmup.color)
                 HStack {
                     Button("Sound"){
-                        AudioServicesPlaySystemSound(SystemSoundID(sound))
+                        AudioServicesPlaySystemSound(SystemSoundID(viewModel.warmup.sound.rawValue))
                     }
                     Spacer()
                     Button("Sound"){
@@ -47,7 +53,7 @@ struct WarmUpView: View {
             }.navigationTitle("Warm Up")
         }
         .sheet(isPresented: $isPickerPresented) {
-            WarmUpPickerView(hours: $hours, minutes: $minutes, seconds: $seconds)
+            WarmUpPickerView(hours: $viewModel.warmup.hours, minutes: $viewModel.warmup.minutes, seconds: $viewModel.warmup.seconds)
                 .presentationDetents([.medium])
         }
         .sheet(isPresented: $isSoundPickerPresented) {
@@ -68,7 +74,7 @@ struct WarmUpView: View {
 
 struct WarmUpView_Previews: PreviewProvider {
     static var previews: some View {
-        WarmUpView()
+        WarmUpView(viewModel: WarmUpViewModel(warmup: .lowIntensitiy, updateFunction: {_ in }))
     }
 }
 
