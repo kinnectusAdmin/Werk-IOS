@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-struct WarmUpPickerView: View {
+struct IntensityPickerView: View {
     //    @Binding var show: Bool
 
 
@@ -40,7 +40,7 @@ struct WarmUpPickerView: View {
 
 struct WarmUpPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        WarmUpPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
+        IntensityPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
     }
 }
 
