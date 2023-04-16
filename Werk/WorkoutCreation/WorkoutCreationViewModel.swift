@@ -10,9 +10,26 @@ import SwiftUI
 import Combine
 
 
+
+class DataStorageService: DataStorageServiceIdentity {
+    func saveWorkout(workout: Workout) {
+//        UserDefaults.standard.setValue(workout.name, forKey: "workout_name")
+        do{
+            let data = try JSONEncoder().encode(workout)
+            UserDefaults.standard.setValue(data, forKey: "workout")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+protocol DataStorageServiceIdentity {
+    func saveWorkout(workout: Workout)
+}
+
+
 class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
-    @Published var bgColor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+    @Published var selectedColorIndex: Int = 0
     @Published var workOutName = ""
     @Published var workout: Workout = Workout.initial
     @Published var warmupDuration: String  = ""
@@ -21,9 +38,11 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     @Published var lowIntensityDuration: String = ""
     @Published var highIntensityDuration: String = ""
     
+    private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init() {
+    init(service: DataStorageServiceIdentity = DataStorageService()) {
+        self.service = service
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
@@ -34,10 +53,10 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     
     private func provideWorkoutName() -> String {
-        workOutName
+        workout.name
     }
     private func updateWorkoutName(updatedName: String) {
-        workOutName = updatedName
+        workout.name = updatedName
     }
 //    func didSelectCancel(){
 //        //goes back to previous screen
@@ -45,6 +64,7 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     func didSelectSave() {
         //expect some wokr to save this information
+        service.saveWorkout(workout: workout)
     }
 //    func didSelectPhase(phase: WorkoutPhase) {
 //
@@ -75,6 +95,18 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
 extension WorkoutCreationViewModel {
     func didUpdateWarmup(warmup: WorkoutPhase) {
         workout.warmup = warmup
+    }
+    
+    func didUpdateLowIntensity(lowIntensity: WorkoutPhase) {
+        workout.lowIntensity = lowIntensity
+    }
+    
+    func didUpdateHighIntensity(highIntensity: WorkoutPhase) {
+        workout.highIntensity = highIntensity
+    }
+    
+    func didUpdateCoolDown(coolDown: WorkoutPhase) {
+        workout.cooldown = coolDown
     }
 }
 

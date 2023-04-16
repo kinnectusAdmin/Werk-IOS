@@ -24,7 +24,7 @@ struct WorkOutListView: View {
                     ForEach(viewModel.workOuts, id: \.id) { workOut in
                         VStack(alignment:.leading, spacing: 8) {
                             Text(workOut.name)
-                            Text(durationOfWorkout(duration: workOut.duration))
+                            Text(durationOfWorkout(duration: Double(workOut.duration)))
                             Divider()
                         }.onTapGesture {
                             viewModel.didSelectWorkout(workout:workOut)
@@ -51,7 +51,7 @@ struct WorkOutListView: View {
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
         WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
-            WorkoutTemplate.randomWorkout}))
+            Workout.randomWorkout}))
     }
     
 }

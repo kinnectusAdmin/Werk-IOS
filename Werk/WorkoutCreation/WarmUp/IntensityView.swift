@@ -22,43 +22,48 @@ import Combine
 
 
 struct IntensityView: View {
-    @ObservedObject var viewModel: WarmUpViewModel
+
+    @ObservedObject var viewModel: IntensityViewModel
     @State var soundModel = Audio()
     @State var isPickerPresented: Bool = false
     @State var isSoundPickerPresented: Bool = false
-    init(viewModel: WarmUpViewModel) {
+    @State var color: Color = .blue
+    init(viewModel: IntensityViewModel) {
         self.viewModel = viewModel
     }
     var body: some View {
         NavigationView{
             Form {
-                
                 HStack {
-                   Text("Duration")
+                    Text("Duration")
                     Spacer()
-                    Button("\(viewModel.intensity.hours):\(viewModel.intensity.minutes):\(viewModel.intensity.seconds)") {
+                    Button("\(viewModel.workoutPhase.hours):\(viewModel.workoutPhase.minutes):\(viewModel.workoutPhase.seconds)") {
                         isPickerPresented.toggle()
                     }
                 }
-                ColorPicker("Color", selection: $viewModel.intensity.color)
+                ColorPicker("Color", selection: $color)
                 HStack {
                     Button("Sound"){
-                        AudioServicesPlaySystemSound(SystemSoundID(viewModel.intensity.sound.rawValue))
+                        AudioServicesPlaySystemSound(SystemSoundID(viewModel.workoutPhase.sound.rawValue))
                     }
                     Spacer()
                     Button("Sound"){
                         isSoundPickerPresented.toggle()
                     }
                 }
-            }.navigationTitle("Warm Up")
+            }.navigationTitle(viewModel.title)
         }
         .sheet(isPresented: $isPickerPresented) {
-            WarmUpPickerView(hours: $viewModel.intensity.hours, minutes: $viewModel.intensity.minutes, seconds: $viewModel.intensity.seconds)
-                .presentationDetents([.medium])
+            IntensityPickerView(hours: $viewModel.workoutPhase.hours,
+                                minutes: $viewModel.workoutPhase.minutes,
+                                seconds: $viewModel.workoutPhase.seconds)
+                                .presentationDetents([.medium])
         }
         .sheet(isPresented: $isSoundPickerPresented) {
             SoundPickerView().presentationDetents([.medium])
         }
+        .onDisappear(perform: viewModel.didDisappear)
+
     }
     
     
@@ -72,9 +77,9 @@ struct IntensityView: View {
     }
 }
 
-struct WarmUpView_Previews: PreviewProvider {
+struct IntensityView_Previews: PreviewProvider {
     static var previews: some View {
-        IntensityView(viewModel: WarmUpViewModel(intensity: .lowIntensitiy, updateFunction: {_ in }))
+        IntensityView(viewModel: IntensityViewModel(workoutPhase: .coolDown, intensity: .warmup, updateFunction: {_ in }))
     }
 }
 

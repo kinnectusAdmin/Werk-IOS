@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 class WorkoutListViewModel: ObservableObject {
-    @Published var workOuts: [WorkoutTemplate]
-    init(workOuts: [WorkoutTemplate]) {
+    @Published var workOuts: [Workout]
+    init(workOuts: [Workout]) {
         self.workOuts = workOuts
     }
 }
 
 extension WorkoutListViewModel {
-    func didSelectWorkout(workout:WorkoutTemplate) {
+    func didSelectWorkout(workout:Workout) {
         
     }
     

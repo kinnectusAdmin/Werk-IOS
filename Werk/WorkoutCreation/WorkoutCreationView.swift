@@ -12,11 +12,12 @@ import SwiftUI
 struct WorkoutCreationViewForm: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: WorkoutCreationViewModel = WorkoutCreationViewModel()
-   
-    
-    
-    
-    
+
+    let colors:[Color] =
+    [
+        Color.red, Color.blue, Color.green, Color.indigo, Color.orange
+    ]
+
     var body: some View {
         NavigationView {
             Form {
@@ -26,18 +27,23 @@ struct WorkoutCreationViewForm: View {
                         
                         TextField("Timer Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
-                        ColorPicker("", selection: $viewModel.bgColor)
+                        Picker("", selection: $viewModel.selectedColorIndex) {
+                            ForEach(0..<5) { index in
+                                Text(colors[index].description)
+                            }
+                        }
                     }
                 }
-                NavigationLink(destination: WarmUpView(viewModel: WarmUpViewModel(warmup: viewModel.workout.warmup, updateFunction: { warmup in
-                    viewModel.didUpdateWarmup(warmup: warmup)
-                }))) {
+                NavigationLink {
+                    IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.warmup, intensity: .warmup, updateFunction: viewModel.didUpdateWarmup))
+                } label: {
                     HStack {
                         Text("Warm Up")
                         Spacer()
                         Text("\(viewModel.warmupDuration)")
                     }
                 }
+
                 
                 
                 ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
@@ -51,23 +57,23 @@ struct WorkoutCreationViewForm: View {
                             }
                         }
                         
-                        NavigationLink(destination: Text("High Intensity View")) {
+                        NavigationLink {
+                            IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.highIntensity, intensity: .warmup, updateFunction: viewModel.didUpdateHighIntensity))
+                        } label: {
                             HStack {
                                 Text("High Intensity")
                                 Spacer()
-                                Text("\(cycle.highIntensity.duration)")
+                                Text("\(viewModel.highIntensityDuration)")
                             }
                         }
-                        NavigationLink(destination: Text("Low Intensity View")) {
+                        NavigationLink {
+                            IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.lowIntensity, intensity: .lowIntensity, updateFunction: viewModel.didUpdateLowIntensity))
+                        } label: {
                             HStack {
-                                Text("Low Intensity ")
+                                Text("Low Intensity")
                                 Spacer()
-                                Text("\(cycle.lowIntensity.duration)")
+                                Text("\(viewModel.lowIntensityDuration)")
                             }
-                            //data transfer between views
-                            //pass the parent view model to presented child viewmodel so the child has a subset of the data that it needs. once the child mutates the date it needs to report to the parent
-                            //read up on structs
-                            //refresh on MVVM MVM Viper and MVI and  MVC
                         }
                     }
                 }
@@ -83,21 +89,21 @@ struct WorkoutCreationViewForm: View {
                 //check to make sure forms scroll automattically
                 
                 Section {
-                    
-                    NavigationLink(destination: Text("Cool Down View")) {
+                    NavigationLink {
+                        IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.cooldown, intensity: .coolDown, updateFunction: viewModel.didUpdateCoolDown))
+                    } label: {
                         HStack {
-                            Text("Cool Down ")
+                            Text("Cool Down")
                             Spacer()
-                            Text(viewModel.cooldownDuration)
+                            Text("\(viewModel.warmupDuration)")
                         }
-                        
                     }
                     
                 }
             }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        
+                        viewModel.didSelectSave()
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -107,7 +113,6 @@ struct WorkoutCreationViewForm: View {
                 }
             }
         }
-        
     }
     
 }
@@ -119,8 +124,3 @@ struct WorkoutCreationViewForm_Previews: PreviewProvider {
             viewModel: WorkoutCreationViewModel())
     }
 }
-
-
-
-
-

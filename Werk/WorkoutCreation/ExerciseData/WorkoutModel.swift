@@ -7,14 +7,14 @@
 
 
 
-var workoutDateComponenet: [[WorkoutTemplate]] {
+var workoutDateComponenet: [[Workout]] {
     Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
         let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
         let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
         let tuple = (month, day)
         return tuple
     }.map { tuple in
-        [WorkoutTemplate.randomWorkoutInRange(tuple, tuple)]
+        [Workout.randomWorkoutInRange(tuple, tuple)]
     }
 }
 
@@ -35,21 +35,21 @@ public func durationOfWorkout(duration: Double)->String {
     return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
 }
 
-extension WorkoutTemplate {
+extension Workout {
     
-    static var randomWorkout: WorkoutTemplate {
+    static var randomWorkout: Workout {
         var names: [String] {
             return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
         }
-        return WorkoutTemplate(id: UUID().uuidString, name: names.randomElement()!, duration: Double.random(in: (1200...5400)), date: Date.randomDateThisYear())
+        return Workout.initial
         
         
     }
-    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> WorkoutTemplate = { startRange, endRange in
+    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> Workout = { startRange, endRange in
         var names: [String] {
             return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
         }
-        return WorkoutTemplate(id: UUID().uuidString, name: names.randomElement()!, duration: Double.random(in: (1200...5400)), date: Date.randomDateFrom(firstDate: startRange, secondDate: endRange))
+        return Workout.initial
         
         
     }
