@@ -10,21 +10,52 @@ import SwiftUI
 import Combine
 
 
+protocol DataStorageServiceIdentity {
+    func saveWorkout(workout: Workout)
+    func getWorkout() -> Workout?
+}
+
+enum DataKey: String {
+    case workout
+}
 
 class DataStorageService: DataStorageServiceIdentity {
     func saveWorkout(workout: Workout) {
-//        UserDefaults.standard.setValue(workout.name, forKey: "workout_name")
         do{
             let data = try JSONEncoder().encode(workout)
-            UserDefaults.standard.setValue(data, forKey: "workout")
+            UserDefaults.standard.setValue(data, forKey: DataKey.workout.rawValue)
+            
         } catch {
             print(error.localizedDescription)
         }
     }
+    
+    func getWorkout() -> Workout? {
+        do {
+            guard let data =  UserDefaults.standard.data(forKey: DataKey.workout.rawValue) else {
+                return nil
+            }
+            let workout = try JSONDecoder().decode(Workout.self, from: data)
+            return workout
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    
 }
-protocol DataStorageServiceIdentity {
-    func saveWorkout(workout: Workout)
-}
+    
+
+
+
+
+
+
+
+
+
+
 
 
 class WorkoutCreationViewModel:Identifiable, ObservableObject {
@@ -58,22 +89,22 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private func updateWorkoutName(updatedName: String) {
         workout.name = updatedName
     }
-//    func didSelectCancel(){
-//        //goes back to previous screen
-//    }
+    //    func didSelectCancel(){
+    //        //goes back to previous screen
+    //    }
     
     func didSelectSave() {
         //expect some wokr to save this information
         service.saveWorkout(workout: workout)
     }
-//    func didSelectPhase(phase: WorkoutPhase) {
-//
-//    }
-//
-//    func didSelectNumberOfSets() {
-//
-//    }
-
+    //    func didSelectPhase(phase: WorkoutPhase) {
+    //
+    //    }
+    //
+    //    func didSelectNumberOfSets() {
+    //
+    //    }
+    
     func didSelectAddNewCycle() {
         workout.intervals.cycles.append(.initial)
         print("\(workout.intervals.cycles.count)")
