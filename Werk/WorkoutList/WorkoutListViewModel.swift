@@ -9,9 +9,13 @@ import Foundation
 import SwiftUI
 
 class WorkoutListViewModel: ObservableObject {
-    @Published var workOuts: [Workout]
-    init(workOuts: [Workout]) {
-        self.workOuts = workOuts
+    @Published var workOuts: [Workout] = []
+    private let service: DataStorageServiceIdentity
+    init(service: DataStorageServiceIdentity = DataStorageService()) {
+        self.service = service
+        if let workout = service.getWorkout() {
+            self.workOuts = [workout]
+        }
     }
 }
 
