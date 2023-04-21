@@ -50,8 +50,7 @@ struct WorkOutListView: View {
 
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
-            Workout.randomWorkout}))
+        WorkOutListView(viewModel: WorkoutListViewModel())
     }
     
 }
