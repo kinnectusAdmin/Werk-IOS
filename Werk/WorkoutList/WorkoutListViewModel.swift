@@ -21,10 +21,17 @@ class WorkoutListViewModel: ObservableObject {
 
 extension WorkoutListViewModel {
     func didSelectWorkout(workout:Workout) {
-        
+      
     }
     
-    func didSelectAddWorkout(){
+//    func didSelectAddWorkout()-> any View {
+//        return  WorkoutEditViewForm()
+//    }
+    
+    func didSelectAddworkout()-> any View {
         
+       return NavigationLink(destination: WorkoutEditViewForm()) {
+               EmptyView()
+           }
     }
 }
