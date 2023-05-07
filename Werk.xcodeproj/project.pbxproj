@@ -15,7 +15,7 @@
 		724AED7729F208B6004B6E3D /* WorkoutEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7629F208B6004B6E3D /* WorkoutEditViewModel.swift */; };
 		724AED7A29F435C0004B6E3D /* WorkoutHistoryEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7929F435C0004B6E3D /* WorkoutHistoryEdit.swift */; };
 		724AED7C29F43644004B6E3D /* WorkoutHistoryEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7B29F43644004B6E3D /* WorkoutHistoryEditModel.swift */; };
-		724AED7E29F4369A004B6E3D /* EditCombined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7D29F4369A004B6E3D /* EditCombined.swift */; };
+		724AED7E29F4369A004B6E3D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7D29F4369A004B6E3D /* MainView.swift */; };
 		726483312954140B0045A951 /* IntensityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726483302954140B0045A951 /* IntensityView.swift */; };
 		7264833A29552C970045A951 /* IntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833929552C970045A951 /* IntervalView.swift */; };
 		7264833C29765A130045A951 /* IntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833B29765A130045A951 /* IntervalViewModel.swift */; };
@@ -71,7 +71,7 @@
 		724AED7629F208B6004B6E3D /* WorkoutEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutEditViewModel.swift; sourceTree = "<group>"; };
 		724AED7929F435C0004B6E3D /* WorkoutHistoryEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryEdit.swift; sourceTree = "<group>"; };
 		724AED7B29F43644004B6E3D /* WorkoutHistoryEditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryEditModel.swift; sourceTree = "<group>"; };
-		724AED7D29F4369A004B6E3D /* EditCombined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCombined.swift; sourceTree = "<group>"; };
+		724AED7D29F4369A004B6E3D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		726483302954140B0045A951 /* IntensityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityView.swift; sourceTree = "<group>"; };
 		7264833929552C970045A951 /* IntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalView.swift; sourceTree = "<group>"; };
 		7264833B29765A130045A951 /* IntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalViewModel.swift; sourceTree = "<group>"; };
@@ -146,7 +146,6 @@
 				724AED7629F208B6004B6E3D /* WorkoutEditViewModel.swift */,
 				724AED7929F435C0004B6E3D /* WorkoutHistoryEdit.swift */,
 				724AED7B29F43644004B6E3D /* WorkoutHistoryEditModel.swift */,
-				724AED7D29F4369A004B6E3D /* EditCombined.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -244,6 +243,7 @@
 				724AED7829F4359E004B6E3D /* Edit */,
 				722BCA2928FCBC1900163E04 /* Werk.entitlements */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
+				724AED7D29F4369A004B6E3D /* MainView.swift */,
 				B635CB2928ED1329007E69B8 /* WorkoutList */,
 				72BD5B5628F7CD19000C1AAA /* WorkoutHistory */,
 				726954852942CCA100B0DD5D /* WorkoutCreation */,
@@ -424,7 +424,7 @@
 				7269549629494E2000B0DD5D /* TimerModel.swift in Sources */,
 				7264834A298F9BE30045A951 /* IntensityViewModel.swift in Sources */,
 				7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */,
-				724AED7E29F4369A004B6E3D /* EditCombined.swift in Sources */,
+				724AED7E29F4369A004B6E3D /* MainView.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				724AED7529F20889004B6E3D /* WorkoutEditView.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
