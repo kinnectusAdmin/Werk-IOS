@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct EditCombined: View {
+struct MainView: View {
     var body: some View {
         ZStack {
             VStack {
-                WorkoutHistoryEdit()
+                WorkoutHistoryView()
                 Spacer()
             }
             VStack {
@@ -24,6 +24,6 @@ struct EditCombined: View {
 
 struct EditCombined_Previews: PreviewProvider {
     static var previews: some View {
-        EditCombined()
+        MainView()
     }
 }

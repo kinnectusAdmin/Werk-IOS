@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 class WorkoutListViewModel: ObservableObject {
-    @Published var workOuts: [Workout] = []
+    @Published var workOuts: [WorkoutBlueprint] = []
     private let service: DataStorageServiceIdentity
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
-        if let workout = service.getWorkout() {
+        if let workout = service.getWorkoutBlueprint() {
             self.workOuts = [workout]
         }
     }
 }
 
 extension WorkoutListViewModel {
-    func didSelectWorkout(workout:Workout) {
+    func didSelectWorkout(workout:WorkoutBlueprint) {
       
     }
     
@@ -30,7 +30,7 @@ extension WorkoutListViewModel {
     
     func didSelectAddworkout()-> any View {
         
-       return NavigationLink(destination: WorkoutEditViewForm()) {
+       return NavigationLink(destination: WorkoutCreationViewForm()) {
                EmptyView()
            }
     }

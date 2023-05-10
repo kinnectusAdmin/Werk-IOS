@@ -62,7 +62,9 @@ extension Interval {
     static let initial = Interval.init(highIntensity: .highItensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
 }
 
-struct Workout: Codable {
+
+// v rename to workout plan/blue print
+struct WorkoutBlueprint: Codable {
     var id: String = UUID().uuidString
     var name: String
     var warmup: WorkoutPhase
@@ -78,22 +80,41 @@ struct Workout: Codable {
     
 }
 
-extension Workout {
-    static var initial = Workout(
-                                id: ""
-                                ,name: ""
-                                , warmup: .warmUP
-                                 , intervals: .initial
-                                 , cooldown: .coolDown
-                                 , highIntensity: .highItensitity
-                                 , lowIntensity: .lowIntensitiy
-                                , date: Date()
+extension WorkoutBlueprint {
+    static var initial = WorkoutBlueprint(
+        id: ""
+        ,name: ""
+        , warmup: .warmUP
+        , intervals: .initial
+        , cooldown: .coolDown
+        , highIntensity: .highItensitity
+        , lowIntensity: .lowIntensitiy
+        , date: Date()
     )
 }
 
-
-
-
-//MOVE ALL OF THIS
-//FIRE BASE
-//
+extension WorkoutBlueprint {
+    
+    static var randomWorkout: WorkoutBlueprint {
+        var names: [String] {
+            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
+        }
+        return WorkoutBlueprint.initial
+        
+        
+    }
+    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> WorkoutBlueprint = { startRange, endRange in
+        var names: [String] {
+            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
+        }
+        return WorkoutBlueprint.initial
+        
+        
+    }
+    
+    
+    
+    //MOVE ALL OF THIS
+    //FIRE BASE
+    //
+}

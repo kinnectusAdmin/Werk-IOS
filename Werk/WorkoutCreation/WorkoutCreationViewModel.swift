@@ -10,59 +10,12 @@ import SwiftUI
 import Combine
 
 
-protocol DataStorageServiceIdentity {
-    func saveWorkout(workout: Workout)
-    func getWorkout() -> Workout?
-}
-
-enum DataKey: String {
-    case workout
-}
-
-class DataStorageService: DataStorageServiceIdentity {
-    func saveWorkout(workout: Workout) {
-        do{
-            let data = try JSONEncoder().encode(workout)
-            UserDefaults.standard.setValue(data, forKey: DataKey.workout.rawValue)
-            
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func getWorkout() -> Workout? {
-        do {
-            guard let data =  UserDefaults.standard.data(forKey: DataKey.workout.rawValue) else {
-                return nil
-            }
-            let workout = try JSONDecoder().decode(Workout.self, from: data)
-            return workout
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-
-    
-}
-    
-
-
-
-
-
-
-
-
-
-
-
 
 class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     @Published var selectedColorIndex: Int = 0
     @Published var workOutName = ""
-    @Published var workout: Workout = Workout.initial
+    @Published var workout: WorkoutBlueprint
     @Published var warmupDuration: String  = ""
     @Published var cooldownDuration: String = ""
     @Published var intervals: IntervalCollection = .initial
@@ -72,14 +25,16 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init(service: DataStorageServiceIdentity = DataStorageService()) {
+    init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
+        self.workout = workout
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
         $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
         $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
+        
     }
     
     
@@ -95,7 +50,7 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     func didSelectSave() {
         //expect some wokr to save this information
-        service.saveWorkout(workout: workout)
+        service.saveWorkoutBlueprint(workout: workout)
     }
     //    func didSelectPhase(phase: WorkoutPhase) {
     //
@@ -112,10 +67,6 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
         //            static let initial = IntervalCollection(cycles: [.initial, .initial], restBetweenPhases: .rest)
         //        }
     }
-    
-    
-    
-    
 }
 
 

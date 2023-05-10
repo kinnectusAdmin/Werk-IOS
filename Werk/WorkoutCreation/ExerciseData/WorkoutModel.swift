@@ -6,53 +6,39 @@
 //
 
 
+import Foundation
+import SwiftUI
 
-var workoutDateComponenet: [[Workout]] {
+var workoutDateComponenet: [[WorkoutBlueprint]] {
     Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
         let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
         let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
         let tuple = (month, day)
         return tuple
     }.map { tuple in
-        [Workout.randomWorkoutInRange(tuple, tuple)]
+        [WorkoutBlueprint.randomWorkoutInRange(tuple, tuple)]
     }
 }
 
-struct WorkoutTemplate: Identifiable, Hashable {
+struct RecordedWorkout: Identifiable, Codable {
     var id: String = UUID().uuidString
     let name: String
     let duration: Double
     let date: Date
-}
-
-public func durationOfWorkout(duration: Double)->String {
-    let x = duration
-    let oneHour = 3600
-    let numberOfHours = Int(x) / oneHour
-    let minutesRemaining = Int(x) % oneHour
-    let numberOfMinutes = minutesRemaining / 60
-    let secondsRemaining = Int(x) % 60
-    return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
-}
-
-extension Workout {
     
-    static var randomWorkout: Workout {
-        var names: [String] {
-            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-        }
-        return Workout.initial
-        
-        
+    //change name to workout record
+    
+    public func durationOfWorkout(duration: Double)->String {
+        let x = duration
+        let oneHour = 3600
+        let numberOfHours = Int(x) / oneHour
+        let minutesRemaining = Int(x) % oneHour
+        let numberOfMinutes = minutesRemaining / 60
+        let secondsRemaining = Int(x) % 60
+        return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
     }
-    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> Workout = { startRange, endRange in
-        var names: [String] {
-            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-        }
-        return Workout.initial
-        
-        
-    }
+    
+    
     
     
     func dailyWorkourDuration()-> Double {
@@ -65,7 +51,4 @@ extension Workout {
         return 0.0
     }
     
-}
-
-
-import Foundation
+    }

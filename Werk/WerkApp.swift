@@ -14,7 +14,7 @@ struct WerkApp: App {
 
     var body: some Scene {
         WindowGroup {
-            WorkoutCreationViewForm(viewModel: WorkoutCreationViewModel())
+            MainView()
         }
     }
 }

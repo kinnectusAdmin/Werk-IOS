@@ -46,7 +46,7 @@ struct WorkOutListView: View {
                         Image(systemName: "plus").foregroundStyle(Color.white)
                     }
                 }.sheet(isPresented: $showingSheet) {
-                    WorkoutEditViewForm()
+                    WorkoutCreationViewForm()
                 }
             }
         }
