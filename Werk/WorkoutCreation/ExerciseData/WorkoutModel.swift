@@ -9,17 +9,26 @@
 import Foundation
 import SwiftUI
 
-var workoutDateComponenet: [[WorkoutBlueprint]] {
-    Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
-        let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
-        let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
-        let tuple = (month, day)
-        return tuple
-    }.map { tuple in
-        [WorkoutBlueprint.randomWorkoutInRange(tuple, tuple)]
-    }
-}
+//var workoutDateComponenet: [[WorkoutBlueprint]] {
+//    Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
+//        let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
+//        let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
+//        let tuple = (month, day)
+//        return tuple
+//    }.map { tuple in
+//        [WorkoutBlueprint.randomWorkoutInRange(tuple, tuple)]
+//    }
+//}
 
+public func durationOfWorkout(duration: Double)->String {
+    let x = duration
+    let oneHour = 3600
+    let numberOfHours = Int(x) / oneHour
+    let minutesRemaining = Int(x) % oneHour
+    let numberOfMinutes = minutesRemaining / 60
+    let secondsRemaining = Int(x) % 60
+    return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
+}
 struct RecordedWorkout: Identifiable, Codable {
     var id: String = UUID().uuidString
     let name: String
@@ -28,15 +37,6 @@ struct RecordedWorkout: Identifiable, Codable {
     
     //change name to workout record
     
-    public func durationOfWorkout(duration: Double)->String {
-        let x = duration
-        let oneHour = 3600
-        let numberOfHours = Int(x) / oneHour
-        let minutesRemaining = Int(x) % oneHour
-        let numberOfMinutes = minutesRemaining / 60
-        let secondsRemaining = Int(x) % 60
-        return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
-    }
     
     
     
@@ -51,4 +51,10 @@ struct RecordedWorkout: Identifiable, Codable {
         return 0.0
     }
     
+}
+
+extension RecordedWorkout: Equatable {
+    static func ==(lhs:RecordedWorkout,rhs:RecordedWorkout) -> Bool {
+        return lhs.id == rhs.id
     }
+}

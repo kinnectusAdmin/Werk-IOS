@@ -23,5 +23,5 @@ struct Bar: Identifiable {
     var totalDuration: CGFloat {
         CGFloat(value.reduce(0, +))
     }
-    var workouts: [[RecordedWorkout]]
+//    var recordedWorkouts: [[RecordedWorkout]]
 }

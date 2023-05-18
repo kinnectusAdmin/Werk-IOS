@@ -72,7 +72,6 @@ struct WorkoutBlueprint: Codable {
     var cooldown: WorkoutPhase
     var highIntensity: WorkoutPhase
     var lowIntensity: WorkoutPhase
-    var date: Date
     var duration: Int {
         return
         warmup.duration + cooldown.duration + highIntensity.duration + lowIntensity.duration
@@ -89,32 +88,35 @@ extension WorkoutBlueprint {
         , cooldown: .coolDown
         , highIntensity: .highItensitity
         , lowIntensity: .lowIntensitiy
-        , date: Date()
     )
 }
-
-extension WorkoutBlueprint {
-    
-    static var randomWorkout: WorkoutBlueprint {
-        var names: [String] {
-            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-        }
-        return WorkoutBlueprint.initial
-        
-        
+extension WorkoutBlueprint: Equatable {
+    static func ==(lhs:WorkoutBlueprint,rhs:WorkoutBlueprint) -> Bool {
+        return lhs.id == rhs.id
     }
-    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> WorkoutBlueprint = { startRange, endRange in
-        var names: [String] {
-            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-        }
-        return WorkoutBlueprint.initial
-        
-        
-    }
-    
-    
-    
-    //MOVE ALL OF THIS
-    //FIRE BASE
-    //
 }
+//extension WorkoutBlueprint {
+//
+//    static var randomWorkout: WorkoutBlueprint {
+//        var names: [String] {
+//            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
+//        }
+//        return WorkoutBlueprint.initial
+//
+//
+//    }
+//    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> WorkoutBlueprint = { startRange, endRange in
+//        var names: [String] {
+//            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
+//        }
+//        return WorkoutBlueprint.initial
+//
+//
+//    }
+//
+//
+//
+//    //MOVE ALL OF THIS
+//    //FIRE BASE
+//    //
+//}

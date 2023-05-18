@@ -13,6 +13,13 @@ class IntensityViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published private var currentIntensity: Intensity
     @Published var workoutPhase: WorkoutPhase
+    @State var isSoundPickerPresented: Bool = false
+    @State var soundModel = Audio()
+    @State var isPickerPresented: Bool = false
+    @State var color: Color = .blue
+//    init(viewModel: IntensityViewModel) {
+//        self.viewModel = viewModel
+//    }
     
     var title: String {
         switch currentIntensity {
