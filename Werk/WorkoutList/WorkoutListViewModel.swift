@@ -14,7 +14,7 @@ class WorkoutListViewModel: ObservableObject {
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         if let workout = service.getWorkoutBlueprint() {
-            self.workOuts = [workout]
+            self.workOuts = workout
         }
     }
 }

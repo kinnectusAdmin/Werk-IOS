@@ -32,7 +32,7 @@ public func durationOfWorkout(duration: Double)->String {
 struct RecordedWorkout: Identifiable, Codable {
     var id: String = UUID().uuidString
     let name: String
-    let duration: Double
+    var duration: Double
     let date: Date
     
     //change name to workout record

@@ -54,6 +54,29 @@ extension Date {
         return Date(timeIntervalSince1970: Double(timestamp))
     }
     
+    static func weekOfDates(weekOfYear: Int) -> [Date] {
+        //what day is it
+        //what year
+        //what month is
+        // date component
+        // week of this year relative to today
+        let date = Calendar.current.date(from: DateComponents(calendar: Calendar.current, weekOfYear: weekOfYear))!
+        // generate a date component with above information
+        //for each day of the week
+        //that includes the sunday of this week to the saturday of this week
+        let days = (1...7).map { dayValue -> Date? in
+            let component = DateComponents(calendar: Calendar.current,
+                                           month: Calendar.current.dateComponents([.month], from:date).month,
+                                           weekday: dayValue,
+                                           weekOfYear: weekOfYear
+            )
+            return component.date
+        }.compactMap { $0 }
+        
+        return days
+    }
+    
+    
     static func weekOfDates(today: Date) -> [Date] {
         //what day is it
         //what year
@@ -74,5 +97,13 @@ extension Date {
         }.compactMap { $0 }
         
         return days
+    }
+    
+    
+    func isSameDay(_ date: Date) -> Bool {
+        let dayMatches = Calendar.current.compare(self, to: date, toGranularity: .day) == .orderedSame
+        let monthMatches = Calendar.current.compare(self, to: date, toGranularity: .month) == .orderedSame
+        return dayMatches && monthMatches
+        
     }
 }

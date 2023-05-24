@@ -50,7 +50,7 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     
     func didSelectSave() {
         //expect some wokr to save this information
-        service.saveWorkoutBlueprint(workout: workout)
+        service.saveWorkoutBlueprint(workoutBlueprint: workout)
     }
     //    func didSelectPhase(phase: WorkoutPhase) {
     //
