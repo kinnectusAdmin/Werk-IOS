@@ -9,6 +9,7 @@ import Foundation
 
 
 struct Timer {
+    private let wListVm = WorkoutListViewModel()
     var isActive = false
     var showingAlert = false
     var time: String = "5:00"

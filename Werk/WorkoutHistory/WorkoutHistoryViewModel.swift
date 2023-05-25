@@ -9,7 +9,6 @@ final class WorkoutHistoryViewModel: ObservableObject {
     private let service: DataStorageServiceIdentity!
     private var allWorkouts: [RecordedWorkout] = []
     private var cancellables = Set<AnyCancellable>()
-    
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         self.allWorkouts = service.getRecordedWorkouts()
