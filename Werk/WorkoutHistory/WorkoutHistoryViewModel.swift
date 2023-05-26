@@ -24,8 +24,6 @@ final class WorkoutHistoryViewModel: ObservableObject {
             }
         }.assign(to: &$bars)
     }
-    
-    
     var maxDuration: CGFloat {
         bars.map { $0.totalDuration }.max() ?? 0
     }

@@ -8,11 +8,13 @@ import SwiftUI
 import Foundation
 
 
-struct Timer {
-    private let wListVm = WorkoutListViewModel()
-    var isActive = false
+struct TimerModel {
+    @State var timeRemaining: TimeInterval = 0
+    @State var timeElapsed = 0
+    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var isActive = false
     var showingAlert = false
-    var time: String = "5:00"
+    var time: String = "00:00"
     var minutes: Double = 5.0 {
         didSet {time = "\(minutes)"
         }
@@ -62,4 +64,10 @@ struct Timer {
         //        minutes = Double(minutes)
         time = String(format:"\(minutes):\(seconds)", minutes, seconds)
     }
+    
+    func timeString(from timeInterval: TimeInterval) -> String {
+       let minutes = Int(timeInterval) / 60
+       let seconds = Int(timeInterval) % 60
+       return String(format: "%02d:%02d", minutes, seconds)
+   }
 }
