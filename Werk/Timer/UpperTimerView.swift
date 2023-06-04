@@ -27,7 +27,6 @@ struct UpperTimerView: View {
                          .accessibility(hint:Text("Tap to close the screen"))
                          .accessibility(addTraits: .isButton)
                          .accessibility(removeTraits: .isImage)
-//                         .frame(width:130, alignment:.topLeading)
                     
                     Spacer()
                     
@@ -35,7 +34,6 @@ struct UpperTimerView: View {
                         .font(.title3)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-//                        .padding(.trailing, 100)
                    
                     Spacer()
                     
@@ -49,17 +47,47 @@ struct UpperTimerView: View {
                          .accessibility(hint:Text("Tap to close the screen"))
                          .accessibility(addTraits: .isButton)
                          .accessibility(removeTraits: .isImage)
-                         
                 }
                 
-                
                 Text(model.timeString(from: model.timeRemaining))
-                    .font(.largeTitle)
+                    .font(.system(size: 140))
+                    
                     .onReceive(model.timer) { _ in
                         if model.timeRemaining > 0 {
                             model.timeRemaining -= 1
                         }
                     }
+                HStack {
+                    Image(systemName: "lessthan.circle")
+                         .font(.system(size: 25))
+                         .foregroundColor(.white)
+                         .padding(.all, 5)
+                         .background(Color.black.opacity(0.0))
+                         .clipShape(Circle())
+                         .accessibility(label:Text("Close"))
+                         .accessibility(hint:Text("Tap to close the screen"))
+                         .accessibility(addTraits: .isButton)
+                         .accessibility(removeTraits: .isImage)
+                    
+                    Spacer()
+                    
+                    
+                    Text("High Intensity")
+                        .font(.system(size:30))
+                    
+                    Spacer()
+                    
+                    Image(systemName: "greaterthan.circle")
+                         .font(.system(size: 25))
+                         .foregroundColor(.white)
+                         .padding(.all, 5)
+                         .background(Color.black.opacity(0.0))
+                         .clipShape(Circle())
+                         .accessibility(label:Text("Close"))
+                         .accessibility(hint:Text("Tap to close the screen"))
+                         .accessibility(addTraits: .isButton)
+                         .accessibility(removeTraits: .isImage)
+                }
                 Spacer()
             }
         }

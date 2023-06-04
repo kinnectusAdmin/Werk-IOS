@@ -13,13 +13,12 @@ class IntensityViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published private var currentIntensity: Intensity
     @Published var workoutPhase: WorkoutPhase
+//    @Published var workoutInterval: IntervalCollection
     @State var isSoundPickerPresented: Bool = false
     @State var soundModel = Audio()
     @State var isPickerPresented: Bool = false
     @State var color: Color = .blue
-//    init(viewModel: IntensityViewModel) {
-//        self.viewModel = viewModel
-//    }
+
     
     var title: String {
         switch currentIntensity {
@@ -44,13 +43,13 @@ class IntensityViewModel: ObservableObject {
     }
 }
 
+enum Intensity {
+    case warmup
+    case lowIntensity
+    case highIntensity
+    case coolDown
+}
 extension IntensityViewModel {
-    enum Intensity {
-        case warmup
-        case lowIntensity
-        case highIntensity
-        case coolDown
-    }
     
     func didDisappear() {
         updateFunction(workoutPhase)

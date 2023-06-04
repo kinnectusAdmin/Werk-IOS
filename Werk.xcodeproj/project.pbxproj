@@ -31,8 +31,8 @@
 		72C4C0FE29A5A2A20050C45C /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C0FD29A5A2A20050C45C /* SoundModel.swift */; };
 		72C4C14029B80DC50050C45C /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C13F29B80DC50050C45C /* Bar.swift */; };
 		72C4C14729B817900050C45C /* IntensityPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C14629B817900050C45C /* IntensityPickerModel.swift */; };
-		72D8C33E2A1FBED0004FC60D /* LowerTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C33D2A1FBED0004FC60D /* LowerTimerView.swift */; };
-		72D8C3412A1FDA2E004FC60D /* UpperTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C3402A1FDA2E004FC60D /* UpperTimerView.swift */; };
+		72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C33D2A1FBED0004FC60D /* TimerView.swift */; };
+		72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C3422A2964B4004FC60D /* TimerViewModel.swift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
 		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
@@ -86,8 +86,8 @@
 		72C4C0FD29A5A2A20050C45C /* SoundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundModel.swift; sourceTree = "<group>"; };
 		72C4C13F29B80DC50050C45C /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		72C4C14629B817900050C45C /* IntensityPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityPickerModel.swift; sourceTree = "<group>"; };
-		72D8C33D2A1FBED0004FC60D /* LowerTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerTimerView.swift; sourceTree = "<group>"; };
-		72D8C3402A1FDA2E004FC60D /* UpperTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperTimerView.swift; sourceTree = "<group>"; };
+		72D8C33D2A1FBED0004FC60D /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		72D8C3422A2964B4004FC60D /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,8 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				7269549529494E2000B0DD5D /* TimerModel.swift */,
-				72D8C33D2A1FBED0004FC60D /* LowerTimerView.swift */,
-				72D8C3402A1FDA2E004FC60D /* UpperTimerView.swift */,
+				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
+				72D8C3422A2964B4004FC60D /* TimerViewModel.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -424,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */,
 				724AED7329F204D1004B6E3D /* AppDelegate.swift in Sources */,
 				72648340298F70A20045A951 /* WorkOutData.swift in Sources */,
 				7269549629494E2000B0DD5D /* TimerModel.swift in Sources */,
@@ -433,9 +434,8 @@
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
-				72D8C33E2A1FBED0004FC60D /* LowerTimerView.swift in Sources */,
+				72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */,
 				7264833E298C8CF50045A951 /* WorkoutCreation+Models.swift in Sources */,
-				72D8C3412A1FDA2E004FC60D /* UpperTimerView.swift in Sources */,
 				72648346298F73570045A951 /* UIColor_ext.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */,
 				7264834E299069220045A951 /* IntensityPickerView.swift in Sources */,

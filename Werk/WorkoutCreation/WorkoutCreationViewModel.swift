@@ -32,8 +32,8 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
-        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
-        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
+//        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
+//        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
         
     }
     
@@ -79,13 +79,14 @@ extension WorkoutCreationViewModel {
         workout.warmup = warmup
     }
     
-    func didUpdateLowIntensity(lowIntensity: WorkoutPhase) {
-        workout.lowIntensity = lowIntensity
+//    func didUpdateCycless(intervals: ) {
+//        workout.intervals = intervals
+//    }
+    
+    func didUpdateIntervals(intervals: IntervalCollection) {
+        workout.intervals = intervals
     }
     
-    func didUpdateHighIntensity(highIntensity: WorkoutPhase) {
-        workout.highIntensity = highIntensity
-    }
     
     func didUpdateCoolDown(coolDown: WorkoutPhase) {
         workout.cooldown = coolDown

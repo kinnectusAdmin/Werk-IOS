@@ -60,24 +60,17 @@ struct WorkoutCreationViewForm: View {
                                 }
                             }
                             
-                            NavigationLink {
-                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.highIntensity, intensity: .warmup, updateFunction: viewModel.didUpdateHighIntensity))
-                            } label: {
-                                HStack {
-                                    Text("High Intensity")
-                                    Spacer()
-                                    Text("\(viewModel.highIntensityDuration)")
-                                }
-                            }
-                            NavigationLink {
-                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.lowIntensity, intensity: .lowIntensity, updateFunction: viewModel.didUpdateLowIntensity))
-                            } label: {
-                                HStack {
-                                    Text("Low Intensity")
-                                    Spacer()
-                                    Text("\(viewModel.lowIntensityDuration)")
-                                }
-                            }
+//                            NavigationLink {
+//                                IntensityViewModel(workoutPhase: viewModel.workout., intensity: .highIntensity, updateFunction: viewModel.didUpdateIntervals)
+//                            } label: {
+//                                HStack {
+//                                    Text("High Intensity")
+//                                    Spacer()
+//                                    Text("\(viewModel.highIntensityDuration)")
+//                                }
+//                            }
+                            
+
                         }
                     }
                     
@@ -128,3 +121,15 @@ struct WorkoutCreationViewForm_Previews: PreviewProvider {
             viewModel: WorkoutCreationViewModel(workout: WorkoutBlueprint.initial))
     }
 }
+
+
+
+//                            NavigationLink {
+//                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.lowIntensity, intensity: .lowIntensity, updateFunction: viewModel.didUpdateLowIntensity))
+//                            } label: {
+//                                HStack {
+//                                    Text("Low Intensity")
+//                                    Spacer()
+//                                    Text("\(viewModel.lowIntensityDuration)")
+//                                }
+//                            }
