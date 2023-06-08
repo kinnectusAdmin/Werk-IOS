@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TimerView: View {
+    @Environment(\.presentationMode) var presentationMode
     var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial)
     
     let interval: Int = 0
@@ -19,14 +20,18 @@ struct TimerView: View {
             VStack {
                 HStack {
                     // exit button
-                    Image(systemName: "xmark")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                        .padding(.all, 5)
-                        .background(Color.black.opacity(0.0))
-                        .clipShape(Circle())
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 25))
+                            .foregroundColor(.white)
+                            .padding(.all, 5)
+                            .background(Color.black.opacity(0.0))
+                            .clipShape(Circle())
+                    }
 
-                    
+                  
                     Spacer()
                     // workout name
                     Text("Workout Timer")
@@ -62,7 +67,7 @@ struct TimerView: View {
                 
                 // blocks user screen interaction
                 Button {
-                    Toggle("lock", isOn: viewModel.$isScreenLocked)
+                    viewModel.didPressLock()
                 } label: {
                     ZStack {
                         Circle()

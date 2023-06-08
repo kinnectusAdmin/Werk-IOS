@@ -83,8 +83,8 @@ extension WorkoutCreationViewModel {
 //        workout.intervals = intervals
 //    }
     
-    func didUpdateIntervals(intervals: IntervalCollection) {
-        workout.intervals = intervals
+    func didUpdateIntervals(intervals: WorkoutPhase) {
+        workout.intervals.restBetweenPhases = intervals
     }
     
     

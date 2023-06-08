@@ -61,7 +61,7 @@ struct WorkoutCreationViewForm: View {
                             }
                             
 //                            NavigationLink {
-//                                IntensityViewModel(workoutPhase: viewModel.workout., intensity: .highIntensity, updateFunction: viewModel.didUpdateIntervals)
+//                                IntensityViewModel(workoutPhase: Interval().highIntensity, intensity: .highIntensity, updateFunction: viewModel.didUpdateIntervals)
 //                            } label: {
 //                                HStack {
 //                                    Text("High Intensity")

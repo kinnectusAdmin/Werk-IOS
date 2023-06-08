@@ -17,9 +17,10 @@ class TimerViewModel: ObservableObject {
     @Published var setIndicator:String = ""
     @Published var phaseTime:String = ""
     @Published var elapsedTime:String = ""
-    @Published var timeRemaining:String = "00:00"
+    @Published var timeRemaining:Int = 0
     @Published var isTimerActive:Bool = false
     @State var isScreenLocked:Bool = false
+    
     init(workout: WorkoutBlueprint) {
         self.workout = workout
         let cycleBlocks = workout.intervals.cycles.map { cycle in
@@ -50,8 +51,8 @@ class TimerViewModel: ObservableObject {
         workoutBlocks.append(cooldownBlock)
         
     }
-    @Published var timer:Timer!
     
+    @State var timer:Timer
     
     func didPressExit(){
         
@@ -60,6 +61,7 @@ class TimerViewModel: ObservableObject {
     
     func didPressEdit(){
         
+        //when the edit button is pressed this should bring up the saved workoutCreationView for this saved workout
     }
     
     func didPressPreviousPhase() {
@@ -73,25 +75,30 @@ class TimerViewModel: ObservableObject {
     }
     
     func didPressLock() {
-        let view = TimerView()
+        Toggle("lock", isOn: $isScreenLocked)
         
         //toggles user touch input
     }
     
     func didPressStartorResume()-> Int {
-        let fullDuration = workout.intervals.duration
-        if isTimerActive == true && fullDuration > 0 {
-                fullDuration - 1
-        }
-        return fullDuration
+        //starts or resumes timer
+        isTimerActive.toggle()
+        timeRemaining = workoutBlocks.map { durations in
+            durations.plannedDuration
+        }.reduce(0, +)
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+            self.timeRemaining -= 1
+        })
+        return timeRemaining
     }
     
     func didPressStop() {
-        isTimerActive = false
+        isTimerActive.toggle()
     }
     
     func didPressReset() {
         isTimerActive = false
+        
     }
     
 
