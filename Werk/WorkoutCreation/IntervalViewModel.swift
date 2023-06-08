@@ -10,7 +10,7 @@ import SwiftUI
 
 
 class IntervalViewModel: ObservableObject {
-        var phases = [WorkoutPhase.lowIntensitiy, WorkoutPhase.highItensitity]
+      @Published  var phases = [WorkoutPhase.lowIntensitiy, WorkoutPhase.highItensitity]
         //^ Arrary to make sortable list
     @Published var numberOfsets = 0
     @State var editMode: EditMode = .active

@@ -7,16 +7,11 @@
 import Foundation
 import SwiftUI
 
-class WorkoutHistoryModel: ObservableObject {
-    @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
-    
-    
-}
 
 struct Bar: Identifiable {
     
     let id = UUID().uuidString
-    var name: String
+//    var name: String
     var day: String
     var value: [Double]
     var color: [Color] {
@@ -28,5 +23,5 @@ struct Bar: Identifiable {
     var totalDuration: CGFloat {
         CGFloat(value.reduce(0, +))
     }
-    var workouts: [[WorkoutTemplate]]
+//    var recordedWorkouts: [[RecordedWorkout]]
 }

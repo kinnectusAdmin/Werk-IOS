@@ -10,48 +10,53 @@ import SwiftUI
 
 struct WorkOutListView: View {
     @ObservedObject var viewModel: WorkoutListViewModel
-    
+    @State var showingSheet = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("My Workouts").font(.title)
-                Spacer()
-            }
-            Spacer().frame(height: 8)
-            ZStack {
+        ZStack {
+            //List
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text("My Workouts").font(.title)
+                    Spacer()
+                }
+                Spacer().frame(height: 8)
                 ScrollView {
                     ForEach(viewModel.workOuts, id: \.id) { workOut in
-                        VStack(alignment:.leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 8) {
                             Text(workOut.name)
-                            Text(durationOfWorkout(duration: workOut.duration))
+                            Text(durationOfWorkout(duration: Double(workOut.duration)))
                             Divider()
                         }.onTapGesture {
                             viewModel.didSelectWorkout(workout:workOut)
                         }
-                        
-                    }
-                }
-                VStack{
-                    Spacer()
-                    Button {
-                        viewModel.didSelectAddWorkout()
-                    } label: {
-                        ZStack{
-                            Circle().frame(width: 60, height: 60)
-                            Image(systemName: "plus").foregroundStyle(Color.white).frame(width: 90, height: 90)
-                        }
                     }
                 }
             }
-        }.padding(.leading, 12)
+            .frame(maxHeight: 200)
+            .padding(.leading, 12)
+            //Add Button
+            VStack {
+                Spacer()
+                Button {
+                    showingSheet.toggle()
+                } label: {
+                    ZStack{
+                        Circle().frame(width: 60, height: 60)
+                        Image(systemName: "plus").foregroundStyle(Color.white)
+                    }
+                }.sheet(isPresented: $showingSheet) {
+                    WorkoutCreationViewForm()
+                }
+            }
+        }
+        
     }
 }
 
 struct WorkOutListView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkOutListView(viewModel: WorkoutListViewModel(workOuts: (0...9).map{_ in
-            WorkoutTemplate.randomWorkout}))
+        WorkOutListView(viewModel: WorkoutListViewModel())
     }
     
 }

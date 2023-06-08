@@ -14,10 +14,10 @@
             filePath = "Werk/WorkoutCreation/ExerciseData/WorkoutModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "WorkoutTemplate"
-            landmarkType = "14">
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "durationOfWorkout(duration:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -39,17 +39,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ABF14C73-4FE5-4C20-88CA-587C9518300B"
+            uuid = "D2E9C817-3457-48FA-8A7B-D6B41FE1A4FF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Werk/WorkoutHistory/WorkoutHistoryViewModel.swift"
+            filePath = "Werk/WerkApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "WorkoutHistoryViewModel"
-            landmarkType = "3">
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "WerkApp"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27AEC272-8B9D-4C86-B8B8-31500CB148A7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Werk/Edit/WorkoutHistoryEditModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "workoutDateComponent"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
