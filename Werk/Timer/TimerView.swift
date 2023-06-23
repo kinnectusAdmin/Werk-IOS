@@ -54,7 +54,7 @@ struct TimerView: View {
                 }
                 
                 //time remaining in workout
-                Text("\(viewModel.phaseTime)")
+                Text("\(viewModel.currentPhaseTime)")
                 //should be duration of current block minus time elapsed
                     .font(.largeTitle)
                 //                    .onReceive(viewModel.$timer) { _ in
@@ -66,6 +66,7 @@ struct TimerView: View {
                 HStack{
                     // Goes back to the previous phase in workout
                     Button {
+                        viewModel.didPressPreviousPhase()
                     } label: {
                         Image(systemName: "lessthan")
                             .resizable()
@@ -76,13 +77,20 @@ struct TimerView: View {
                             .cornerRadius(10)
                     }
                     Spacer()
+                    //displays current set
+                    VStack{
+                        Text("\(viewModel.currentPhaseName)")
+                            .multilineTextAlignment(.center)
+                        Text("\(viewModel.currentPhaseIndex+1)/\(viewModel.workoutBlocks.count) Set")
                     
-                    Text(viewModel.currentPhaseName)
+                    }
+                    
                     
                     Spacer()
                     
                     //goes to the next phase in workout
                     Button {
+                        viewModel.didPressNextPhase()
                     } label: {
                         Image(systemName: "greaterthan")
                             .resizable()
@@ -150,7 +158,7 @@ struct TimerView: View {
                         } label: {
                             ZStack {
                                 Circle()
-                                    .fill(Color.black)//Will remove after button code is set
+                                    .fill(Color.cyan)//Will remove after button code is set
                                     .opacity(0.2)
                                     .frame(width: 100, height: 100)
                                 Text(viewModel.isTimerActive ? "Resume" : "Start")
@@ -224,7 +232,7 @@ struct TimerView: View {
                     }
                     .padding()
                     .foregroundColor(.white)
-
+                    
                 }
                 
             }
