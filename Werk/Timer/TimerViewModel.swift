@@ -117,22 +117,14 @@ class TimerViewModel: ObservableObject {
     
     
     func didPressNextPhase() {
+     //   for index in currentPhaseIndex 
         currentPhaseIndex += 1
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
             return  //change to save workout option later
         }
-        
-        let phaseDurations = workoutBlocks.map{ durations in
-            durations.plannedDuration
-        }
-        var totalDurations = 0
-        for index in (0...currentPhaseIndex - 1){
-            let completedPhaseDuration = phaseDurations[index]
-            totalDurations += completedPhaseDuration
-            
-        }
-        elapsedTime = totalDurations
+        timerElapsedTime = 0
+        calculateElapsedTime()
 //        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
     }
     
@@ -143,15 +135,8 @@ class TimerViewModel: ObservableObject {
             elapsedTime = 0
             return
         }
-//        let phaseDurations = workoutBlocks.map{ durations in
-//            durations.plannedDuration
-//        }
-//        var totalDurations = 0
-//        for index in (0...currentPhaseIndex - 1){
-//            let completedPhaseDuration = phaseDurations[index]
-//            totalDurations += completedPhaseDuration
-//        }
-//        elapsedTime = totalDurations
+        timerElapsedTime = 0
+        calculateElapsedTime()
         //switches to the previous intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
     }
     
@@ -164,18 +149,20 @@ class TimerViewModel: ObservableObject {
     func didPressStartorResume() {
         //starts or resumes timer
         isTimerActive.toggle()
-        if isTimerActive == true {
             createTimer()
-        }
+        
     }
     private func createTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] time in
             if self?.currentPhaseTime == 0 {
-                self?.timer?.invalidate()
+//                self?.timer?.invalidate()
+                self?.timerElapsedTime = 0
+                self?.didPressNextPhase()
             }
-            else {
+            else if self?.currentPhaseTime != 0 && self?.isTimerActive == true {
                 self?.timerElapsedTime += 1
                 self?.elapsedTime += 1
+                
             }
         })
     }
@@ -185,8 +172,22 @@ class TimerViewModel: ObservableObject {
     }
     
     func didPressReset() {
-        isTimerActive = false
-        
+        isTimerActive.toggle()
+        timerElapsedTime = 0
+        calculateElapsedTime()
+    }
+    
+    func calculateElapsedTime() {
+        let phaseDurations = workoutBlocks.map{ durations in
+            durations.plannedDuration
+        }
+        var totalDurations = 0
+        for index in (0...(currentPhaseIndex - 1)){
+            let completedPhaseDuration = phaseDurations[index]
+            totalDurations += completedPhaseDuration
+            
+        }
+        elapsedTime = totalDurations
     }
     
     
