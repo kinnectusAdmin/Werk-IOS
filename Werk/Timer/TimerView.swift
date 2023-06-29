@@ -161,7 +161,7 @@ struct TimerView: View {
                                     .fill(Color.cyan)//Will remove after button code is set
                                     .opacity(0.2)
                                     .frame(width: 100, height: 100)
-                                Text(viewModel.isTimerActive ? "Resume" : "Start")
+                                Text(viewModel.isTimerActive ? "Pause" : viewModel.elapsedTime > 0 ? "Resume" : "Start")
                                     .font(.headline)
                                     .foregroundColor(.white)
                             }

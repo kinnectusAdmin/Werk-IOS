@@ -146,12 +146,28 @@ class TimerViewModel: ObservableObject {
         //toggles user touch input should disable other buttons not lock entire screen
     }
     
+    
     func didPressStartorResume() {
-        //starts or resumes timer
-        isTimerActive.toggle()
+        // starts
+        if elapsedTime == 0 && timer == nil {
+            isTimerActive = true
             createTimer()
+            return
+        }
+        ///pause
+        if  isTimerActive {
+            isTimerActive = false
+            return
+        }
+        // resume
+        if  !isTimerActive {
+            isTimerActive = true
+        }
         
+        // if my timer is active create a timer to
     }
+    
+    
     private func createTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] time in
             if self?.currentPhaseTime == 0 {
@@ -172,7 +188,7 @@ class TimerViewModel: ObservableObject {
     }
     
     func didPressReset() {
-        isTimerActive.toggle()
+        isTimerActive = false
         timerElapsedTime = 0
         calculateElapsedTime()
     }
@@ -182,7 +198,7 @@ class TimerViewModel: ObservableObject {
             durations.plannedDuration
         }
         var totalDurations = 0
-        for index in (0...(currentPhaseIndex - 1)){
+        for index in (0...currentPhaseIndex){
             let completedPhaseDuration = phaseDurations[index]
             totalDurations += completedPhaseDuration
             
