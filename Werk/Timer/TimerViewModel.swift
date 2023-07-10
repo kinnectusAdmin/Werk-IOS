@@ -183,11 +183,11 @@ class TimerViewModel: ObservableObject {
             }
     }
     
-    func didPressStop() {
-        //        isTimerActive.toggle()
-        timer.invalidate()
-    }
-    
+//    func didPressStop() {
+//        //        isTimerActive.toggle()
+//        timer.invalidate()
+//    }
+//    
     func didPressReset() {
         isTimerActive = false
         timerElapsedTime = 0
