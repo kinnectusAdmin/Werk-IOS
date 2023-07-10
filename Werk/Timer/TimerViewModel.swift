@@ -42,7 +42,7 @@ class TimerViewModel: ObservableObject {
     
     @State var timer:Timer!
     
-    var subscriptions = Set<AnyCancellable>()
+    private var timerSubscription: AnyCancellable?
     
     
     
@@ -65,7 +65,7 @@ class TimerViewModel: ObservableObject {
             
         }.reduce(0, +)
         
-//        elapsedTime = timer.countDownDuration
+        //        elapsedTime = timer.countDownDuration
         
         
         let cycleBlocks = workout.intervals.cycles.map { cycle in
@@ -91,12 +91,12 @@ class TimerViewModel: ObservableObject {
         let warmupBlock = WorkoutBlock(name: workout.warmup.name, timeElapsed: 0, plannedDuration: workout.warmup.duration, type: .warmup)
         let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
         
-//        workoutBlocks.append(warmupBlock)
-//        workoutBlocks.append(contentsOf: cycleBlocks)
-//        workoutBlocks.append(cooldownBlock)
+        //        workoutBlocks.append(warmupBlock)
+        //        workoutBlocks.append(contentsOf: cycleBlocks)
+        //        workoutBlocks.append(cooldownBlock)
         
     }
-  
+    
     
     func didPressExit(){
         
@@ -110,7 +110,7 @@ class TimerViewModel: ObservableObject {
     
     
     func didPressNextPhase() {
-     //   for index in currentPhaseIndex
+        //   for index in currentPhaseIndex
         currentPhaseIndex += 1
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
@@ -119,7 +119,7 @@ class TimerViewModel: ObservableObject {
         timerElapsedTime = 0
         
         calculateElapsedTime()
-//        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
+        //        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
     }
     
     func didPressPreviousPhase() {
@@ -158,30 +158,30 @@ class TimerViewModel: ObservableObject {
             isTimerActive = true
             return
         }
-
+        
         
         // if my timer is active create a timer to
     }
     
     
     private func createTimer() {
-        
-        Timer.publish(every: 1.0, on: .main, in: .common)
+        timerSubscription = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
-            .map { _ in
-                self.timerElapsedTime += 1
-                self.elapsedTime += 1
-            }
-            .sink { _ in
-                if self.timerElapsedTime >= self.selectedPhase.plannedDuration {
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                if self.currentPhaseTime == 0 {
+                    self.timerElapsedTime = 0
                     self.didPressNextPhase()
+                } else if self.currentPhaseTime != 0 && self.isTimerActive {
+                    self.timerElapsedTime += 1
+                    self.elapsedTime += 1
+                }
+                if self.elapsedTime == self.totalPlannedDuration {
+                    self.isTimerActive = false
+                    self.timerSubscription?.cancel()
                 }
             }
-            .store(in: &subscriptions)
-
-
     }
-    
     
     func didPressStop() {
         //        isTimerActive.toggle()

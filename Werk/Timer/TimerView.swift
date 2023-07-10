@@ -126,6 +126,7 @@ struct TimerView: View {
                     } label: {
                         ZStack {
                             Circle()
+//                                .trim(from: CGFloat(1.0 -), to: 1.0)
                                 .stroke(Color.white, lineWidth: 2)
                                 .frame(width: 50, height: 50,alignment: .leading)
                                 .padding(10)
@@ -167,7 +168,10 @@ struct TimerView: View {
                             }
                         }.disabled(viewModel.isScreenLocked)
                         
+                        
                     }
+                    
+                    
                     //resets timer
                     Button {
                         viewModel.didPressReset()
@@ -244,3 +248,4 @@ struct LowerTimerView_Previews: PreviewProvider {
         TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial))
     }
 }
+
