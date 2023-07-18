@@ -11,15 +11,21 @@ import Foundation
 import SwiftUI
 
 
-struct WorkoutCreationViewForm: View {
+struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: WorkoutCreationViewModel = WorkoutCreationViewModel(workout: .initial)
+    @ObservedObject var viewModel: WorkoutCreationEditViewModel 
+    
+    init(viewModel: WorkoutCreationEditViewModel) {
 
+        self.viewModel = viewModel
+    }
+    
+    
     let colors:[Color] =
     [
         Color.red, Color.blue, Color.green, Color.indigo, Color.orange
     ]
-
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -46,7 +52,7 @@ struct WorkoutCreationViewForm: View {
                             Text("\(viewModel.warmupDuration)")
                         }
                     }
-
+                    
                     
                     
                     ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
@@ -56,21 +62,13 @@ struct WorkoutCreationViewForm: View {
                                     Text("Interval Cycle")
                                     Spacer()
                                     Text("\(cycle.numberOfSets) set")
-                                    
                                 }
+    
                             }
                             
-//                            NavigationLink {
-//                                IntensityViewModel(workoutPhase: Interval().highIntensity, intensity: .highIntensity, updateFunction: viewModel.didUpdateIntervals)
-//                            } label: {
-//                                HStack {
-//                                    Text("High Intensity")
-//                                    Spacer()
-//                                    Text("\(viewModel.highIntensityDuration)")
-//                                }
-//                            }
                             
-
+                            
+                            
                         }
                     }
                     
@@ -117,19 +115,10 @@ struct WorkoutCreationViewForm: View {
 
 struct WorkoutCreationViewForm_Previews: PreviewProvider {
     static var previews: some View{
-        WorkoutCreationViewForm(
-            viewModel: WorkoutCreationViewModel(workout: WorkoutBlueprint.initial))
+        WorkoutCreationEditViewForm(
+            viewModel: WorkoutCreationEditViewModel(workout: WorkoutBlueprint.initial))
     }
 }
 
 
 
-//                            NavigationLink {
-//                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.lowIntensity, intensity: .lowIntensity, updateFunction: viewModel.didUpdateLowIntensity))
-//                            } label: {
-//                                HStack {
-//                                    Text("Low Intensity")
-//                                    Spacer()
-//                                    Text("\(viewModel.lowIntensityDuration)")
-//                                }
-//                            }

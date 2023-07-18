@@ -30,7 +30,7 @@ extension WorkoutListViewModel {
     
     func didSelectAddworkout()-> any View {
         
-       return NavigationLink(destination: WorkoutCreationViewForm()) {
+       return NavigationLink(destination: WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())) {
                EmptyView()
            }
     }

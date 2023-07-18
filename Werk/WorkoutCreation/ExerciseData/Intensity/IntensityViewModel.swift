@@ -14,8 +14,6 @@ class IntensityViewModel: ObservableObject {
     @Published private var currentIntensity: Intensity
     @Published var workoutPhase: WorkoutPhase
 //    @Published var workoutInterval: IntervalCollection
-    @State var isSoundPickerPresented: Bool = false
-    @State var soundModel = Audio()
     @State var isPickerPresented: Bool = false
     @State var color: Color = .blue
 

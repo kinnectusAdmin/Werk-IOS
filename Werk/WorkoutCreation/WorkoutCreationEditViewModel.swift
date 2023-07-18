@@ -11,7 +11,7 @@ import Combine
 
 
 
-class WorkoutCreationViewModel:Identifiable, ObservableObject {
+class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     
     @Published var selectedColorIndex: Int = 0
     @Published var workOutName = ""
@@ -25,7 +25,7 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
+    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial, service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         self.workout = workout
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
@@ -44,28 +44,15 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private func updateWorkoutName(updatedName: String) {
         workout.name = updatedName
     }
-    //    func didSelectCancel(){
-    //        //goes back to previous screen
-    //    }
-    
+
     func didSelectSave() {
         //expect some wokr to save this information
         service.saveWorkoutBlueprint(workoutBlueprint: workout)
     }
-    //    func didSelectPhase(phase: WorkoutPhase) {
-    //
-    //    }
-    //
-    //    func didSelectNumberOfSets() {
-    //
-    //    }
     
     func didSelectAddNewCycle() {
         workout.intervals.cycles.append(.initial)
         print("\(workout.intervals.cycles.count)")
-        //        extension IntervalCollection {
-        //            static let initial = IntervalCollection(cycles: [.initial, .initial], restBetweenPhases: .rest)
-        //        }
     }
 }
 
@@ -74,15 +61,12 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
 
 
 
-extension WorkoutCreationViewModel {
+extension WorkoutCreationEditViewModel {
     func didUpdateWarmup(warmup: WorkoutPhase) {
         workout.warmup = warmup
     }
     
-//    func didUpdateCycless(intervals: ) {
-//        workout.intervals = intervals
-//    }
-    
+
     func didUpdateIntervals(intervals: WorkoutPhase) {
         workout.intervals.restBetweenPhases = intervals
     }

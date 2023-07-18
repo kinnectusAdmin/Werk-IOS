@@ -23,15 +23,6 @@ struct IntensityView: View {
                     }
                 }
                 ColorPicker("Color", selection: viewModel.$color)
-                HStack {
-                    Button("Sound"){
-                        AudioServicesPlaySystemSound(SystemSoundID(viewModel.workoutPhase.sound.rawValue))
-                    }
-                    Spacer()
-                    Button("Sound"){
-                        viewModel.isSoundPickerPresented.toggle()
-                    }
-                }
             }.navigationTitle(viewModel.title)
         }
         .sheet(isPresented: viewModel.$isPickerPresented) {
@@ -39,9 +30,6 @@ struct IntensityView: View {
                                 minutes: $viewModel.workoutPhase.minutes,
                                 seconds: $viewModel.workoutPhase.seconds)
                                 .presentationDetents([.medium])
-        }
-        .sheet(isPresented: viewModel.$isSoundPickerPresented) {
-            SoundPickerView().presentationDetents([.medium])
         }
         .onDisappear(perform: viewModel.didDisappear)
 

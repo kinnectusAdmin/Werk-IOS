@@ -1,14 +1,13 @@
 //
-//  WarmUpPickerView.swift
+//  IntervalPicker.swift
 //  Werk
 //
-//  Created by Shaquil Campbell on 2/5/23.
+//  Created by Shaquil Campbell on 7/16/23.
 //
 
 import SwiftUI
-import AVFoundation
 
-struct IntensityPickerView: View {
+struct IntervalPicker: View {
     //    @Binding var show: Bool
 
 
@@ -38,28 +37,8 @@ struct IntensityPickerView: View {
     }
 }
 
-struct WarmUpPickerView_Previews: PreviewProvider {
+struct IntervalPicker_Previews: PreviewProvider {
     static var previews: some View {
-        IntensityPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
+        IntervalPicker(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
     }
 }
-
-struct SoundPickerView: View {
-    var systemSounds: [Int] = [1304,1307,1308,1309,1310]
-    @State var sound: Int = 1304
-    var body: some View {
-        HStack(alignment: .bottom) {
-            Picker("", selection: $sound) {
-                ForEach(systemSounds, id: \.self) { i in
-                    Button {
-                        AudioServicesPlaySystemSound(SystemSoundID(i))
-                    } label: {
-                        Text("Sound \(i)").tag(i)
-                    }
-                }
-            }.pickerStyle(WheelPickerStyle())
-        }.padding(.horizontal)
-    }
-}
-
-

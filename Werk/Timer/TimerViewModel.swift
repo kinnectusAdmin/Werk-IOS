@@ -8,14 +8,17 @@
 import Foundation
 import SwiftUI
 import Combine
+import AudioToolbox
 
 class TimerViewModel: ObservableObject {
-    private var workout: WorkoutBlueprint!
+    var soundModel = Audio()
+    var workout: WorkoutBlueprint!
+    @Published var circleProgress: CGFloat = 0.0
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] =
     [
-        WorkoutBlock(name: "Jump Rope", timeElapsed: 0, plannedDuration: 5, type: .warmup),
-        WorkoutBlock(name: "Push Ups", timeElapsed: 0, plannedDuration: 10, type: .lowIntensity)
+        WorkoutBlock(name: "Jump Rope", timeElapsed: 0, plannedDuration: 65, type: .warmup),
+        WorkoutBlock(name: "Push Ups", timeElapsed: 0, plannedDuration: 110, type: .lowIntensity)
     ]
     @Published var currentPhaseIndex: Int = 0
     var currentPhaseType: Intensity = .warmup
@@ -40,6 +43,18 @@ class TimerViewModel: ObservableObject {
     @Published var isTimerActive:Bool = false
     @Published var isScreenLocked:Bool = false
     
+    
+    var convertedCurrentPhaseTime:String {
+        return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
+    }
+    
+    var convertedTotalDuration:String {
+        return String(format: "%02d:%02d", (totalPlannedDuration / 60), (totalPlannedDuration % 60))
+    }
+    
+    var convertedElapsedTime:String {
+        return String(format: "%02d:%02d", (elapsedTime / 60), (elapsedTime % 60))
+    }
     @State var timer:Timer!
     
     private var timerSubscription: AnyCancellable?
@@ -49,7 +64,6 @@ class TimerViewModel: ObservableObject {
     
     init(workout: WorkoutBlueprint) {
         self.workout = workout
-        
         //        $workoutBlocks.map { blocks in
         //            blocks.map { $0.timeElapsed }.reduce(0, +)
         //        }.map { [weak self] sum -> Int in
@@ -64,8 +78,6 @@ class TimerViewModel: ObservableObject {
             durations.plannedDuration
             
         }.reduce(0, +)
-        
-        //        elapsedTime = timer.countDownDuration
         
         
         let cycleBlocks = workout.intervals.cycles.map { cycle in
@@ -94,6 +106,13 @@ class TimerViewModel: ObservableObject {
         //        workoutBlocks.append(warmupBlock)
         //        workoutBlocks.append(contentsOf: cycleBlocks)
         //        workoutBlocks.append(cooldownBlock)
+        
+        $elapsedTime.map { [weak self] time -> CGFloat in
+            guard let self = self else { return 0 }
+            let totalTime = self.totalPlannedDuration
+            let percentTimeElapsed = time.toCGFloat/totalTime.toCGFloat
+            return 1 - percentTimeElapsed
+        }.assign(to: &$circleProgress)
         
     }
     
@@ -168,9 +187,10 @@ class TimerViewModel: ObservableObject {
         timerSubscription = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                guard let self = self else { return }
+                guard let self = self else { return }  //REMEMBER: so i dont have to unwrap or make each one of these optionals v
                 if self.currentPhaseTime == 0 {
                     self.timerElapsedTime = 0
+                    AudioServicesPlaySystemSound(SystemSoundID(1309))
                     self.didPressNextPhase()
                 } else if self.currentPhaseTime != 0 && self.isTimerActive {
                     self.timerElapsedTime += 1
@@ -183,11 +203,7 @@ class TimerViewModel: ObservableObject {
             }
     }
     
-//    func didPressStop() {
-//        //        isTimerActive.toggle()
-//        timer.invalidate()
-//    }
-//    
+    
     func didPressReset() {
         isTimerActive = false
         timerElapsedTime = 0
@@ -208,52 +224,14 @@ class TimerViewModel: ObservableObject {
     }
     
     
+    
 }
-// FINISH THIS IF STUCK THEN GO ADD SET FUNCTION TO WORKOUT CREATION REMEMBER TO SWITCH BRANCHES !
-/*
- 
- [0, 1, 2, 3]
- 
- [Block 1, Block 2, Block 3, Block 4]
- 
- [Blocks].map. { $0.plannedDuration }
- 
- [Block 1 duration, Block 2 duration, Block 3 duration, Block 4 duration]
- 
- 
- [Block 1, Block 2, Block 3].map { $0.plannedDuration }.reduce(0, +)
- 
- var totalDuration: Int = 0
- for block in blocks1 through 3 {
- totalDuration += block.plannedDuration
- }
- 
- var totalDuration: Int = 0
- for index in (0...currentPhaseIndex) {
- let completedBlock = blocks[index]
- totalDuration += completedBlock.plannedDuration
- }
- 
- 
- When the user hits the next or previous button what is the time elapsed on your timer
- the timer has to reset to "0" which is the planned duration of the selceted phase
- */
 
 
-//OLD TIMER
 
-//timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: isTimerActive, block: { [weak self] time in
-//            if self?.currentPhaseTime == 0 {
-//                self?.timerElapsedTime = 0
-//                self?.didPressNextPhase()
-//            }
-//            else if self?.currentPhaseTime != 0 && self?.isTimerActive == true {
-//                self?.timerElapsedTime += 1
-//                self?.elapsedTime += 1
-//
-//            }
-//            if self?.elapsedTime == self?.totalPlannedDuration {
-//                self?.isTimerActive = false
-//
-//            }
-//        })
+
+extension Int {
+    var toCGFloat: CGFloat {
+        CGFloat(self)
+    }
+}

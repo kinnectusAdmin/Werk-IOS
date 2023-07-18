@@ -10,8 +10,9 @@ import SwiftUI
 struct TimerView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial)
+    @State private var showingSheet = false
     
-    let interval: Int = 0
+    //    let interval: Int = 0
     
     var body: some View {
         
@@ -29,7 +30,7 @@ struct TimerView: View {
                             .padding(.all, 5)
                             .background(Color.black.opacity(0.0))
                             .clipShape(Circle())
-                    }.disabled(!viewModel.isScreenLocked)
+                    }
                     
                     
                     Spacer()
@@ -43,26 +44,28 @@ struct TimerView: View {
                     Spacer()
                     
                     //edit button
-                    Image(systemName: "pencil.circle")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                        .padding(.all, 5)
-                        .background(Color.black.opacity(0.0))
-                        .clipShape(Circle())
+                    Button {
+                        showingSheet.toggle()
+                    } label: {
+                        Image(systemName: "pencil.circle")
+                            .font(.system(size: 25))
+                            .foregroundColor(.white)
+                            .padding(.all, 5)
+                            .background(Color.black.opacity(0.0))
+                            .clipShape(Circle())
                     
-                    
+                    }.sheet(isPresented: $showingSheet) {
+                        WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel(workout: viewModel.workout)
+                        )
+                    }
+
                 }
-                
+
                 //time remaining in workout
-                Text("\(viewModel.currentPhaseTime)")
-                //should be duration of current block minus time elapsed
-                    .font(.largeTitle)
-                //                    .onReceive(viewModel.$timer) { _ in
-                //                        if Int(viewModel.work)! > 0 {
-                //                            Int(viewModel.timeRemaining)  -= 1
-                //                        }
-                //                    }
-                
+                Text("\(viewModel.convertedCurrentPhaseTime)")
+                    .font(.system(size: 100.00, weight: .bold))
+                    .foregroundColor(.white)
+           
                 HStack{
                     // Goes back to the previous phase in workout
                     Button {
@@ -82,8 +85,8 @@ struct TimerView: View {
                         Text("\(viewModel.currentPhaseName)")
                             .multilineTextAlignment(.center)
                         Text("\(viewModel.currentPhaseIndex+1)/\(viewModel.workoutBlocks.count) Set")
-                    
-                    }
+                        
+                    }.foregroundColor(.white)
                     
                     
                     Spacer()
@@ -102,20 +105,21 @@ struct TimerView: View {
                     }
                 }
                 
-                
+    
                 HStack{
                     Spacer()
                     //shows the total amont of time that has elapsed during the workout
-                    Text("\(viewModel.elapsedTime) \nElapsed")
+                    Text("\(viewModel.convertedElapsedTime) \nElapsed")
                         .multilineTextAlignment(.center)
                     
                     Spacer()
                     //shows the total duration of the workout
-                    Text("\(viewModel.timeRemaining) \nRemaining")
+                    Text("\(viewModel.convertedTotalDuration) \nRemaining")
                         .multilineTextAlignment(.center)
                     
                     Spacer()
                 }
+                .foregroundColor(.white)
                 Spacer()
                 
                 HStack{
@@ -126,7 +130,6 @@ struct TimerView: View {
                     } label: {
                         ZStack {
                             Circle()
-//                                .trim(from: CGFloat(1.0 -), to: 1.0)
                                 .stroke(Color.white, lineWidth: 2)
                                 .frame(width: 50, height: 50,alignment: .leading)
                                 .padding(10)
@@ -148,11 +151,12 @@ struct TimerView: View {
                             .frame(width: 220, height: 220)
                         // shows decrease in time over course of current phase
                         Circle()
-                            .trim(from: 0, to: 1)
+                            .trim(from: 0.0, to: viewModel.circleProgress)
                             .stroke(Color.white, lineWidth: 2.5)
                             .frame(width: 220, height: 220)
-                            .rotationEffect(.degrees(90))
-                        
+                            .rotationEffect(.degrees(-90))
+
+                            
                         //  start/resume button
                         Button {
                             viewModel.didPressStartorResume()
@@ -166,8 +170,7 @@ struct TimerView: View {
                                     .font(.headline)
                                     .foregroundColor(.white)
                             }
-                        }.disabled(viewModel.isScreenLocked)
-                        
+                        }
                         
                     }
                     
@@ -205,9 +208,7 @@ struct TimerView: View {
                     }
                     .padding()
                     .foregroundColor(.white)
-                    
-                    
-                    
+                     
                     Button {
                         
                     } label: {
@@ -243,9 +244,9 @@ struct TimerView: View {
         }
     }
 }
+
 struct LowerTimerView_Previews: PreviewProvider {
     static var previews: some View {
         TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial))
     }
 }
-

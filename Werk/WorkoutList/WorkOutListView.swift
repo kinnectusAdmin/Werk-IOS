@@ -35,6 +35,7 @@ struct WorkOutListView: View {
             }
             .frame(maxHeight: 200)
             .padding(.leading, 12)
+            
             //Add Button
             VStack {
                 Spacer()
@@ -46,7 +47,7 @@ struct WorkOutListView: View {
                         Image(systemName: "plus").foregroundStyle(Color.white)
                     }
                 }.sheet(isPresented: $showingSheet) {
-                    WorkoutCreationViewForm()
+                    WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())
                 }
             }
         }
