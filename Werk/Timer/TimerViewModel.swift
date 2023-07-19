@@ -61,8 +61,7 @@ class TimerViewModel: ObservableObject {
     
     
     
-    
-    init(workout: WorkoutBlueprint) {
+    init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
         self.workout = workout
         //        $workoutBlocks.map { blocks in
         //            blocks.map { $0.timeElapsed }.reduce(0, +)
@@ -114,6 +113,9 @@ class TimerViewModel: ObservableObject {
             return 1 - percentTimeElapsed
         }.assign(to: &$circleProgress)
         
+        
+        maxPhaseIndex = workoutBlocks.count - 1
+        
     }
     
     
@@ -131,12 +133,14 @@ class TimerViewModel: ObservableObject {
     func didPressNextPhase() {
         //   for index in currentPhaseIndex
         currentPhaseIndex += 1
+
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
-            return  //change to save workout option later
+            saveTimedWorkout()
+            return  // this should save the workout to the workout history and exit the timer
         }
         timerElapsedTime = 0
-        
+
         calculateElapsedTime()
         //        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
     }
@@ -223,7 +227,10 @@ class TimerViewModel: ObservableObject {
         elapsedTime = workoutBlocks[0..<currentPhaseIndex].map { $0.plannedDuration }.reduce(0, +)
     }
     
-    
+    private func saveTimedWorkout() {
+        let dataStorageService = DataStorageService()
+        dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
+    }
     
 }
 
