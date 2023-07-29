@@ -16,7 +16,6 @@ struct IntensityPickerView: View {
     @Binding var minutes: Int
     @Binding var seconds: Int
 
-
     var body: some View {
         HStack(alignment: .bottom) {
             Picker("", selection: _hours){

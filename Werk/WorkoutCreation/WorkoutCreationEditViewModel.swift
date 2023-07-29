@@ -32,19 +32,16 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
-//        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
-//        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
-        
     }
-    
     
     private func provideWorkoutName() -> String {
         workout.name
     }
+    
     private func updateWorkoutName(updatedName: String) {
         workout.name = updatedName
     }
-
+    
     func didSelectSave() {
         //expect some work to save this information
         service.saveWorkoutBlueprint(workoutBlueprint: workout)

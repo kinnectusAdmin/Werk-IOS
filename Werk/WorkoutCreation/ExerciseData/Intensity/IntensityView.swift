@@ -34,9 +34,7 @@ struct IntensityView: View {
         .onDisappear(perform: viewModel.didDisappear)
 
     }
-    
-    
-    
+
     func isPickerPresentedBinding() -> Binding<Bool> {
         Binding(get: {
             viewModel.isPickerPresented

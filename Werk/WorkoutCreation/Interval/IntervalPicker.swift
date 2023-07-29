@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct IntervalPicker: View {
-    //    @Binding var show: Bool
-
-
     @Binding var hours: Int
     @Binding var minutes: Int
     @Binding var seconds: Int
-
-
     var body: some View {
         HStack(alignment: .bottom) {
             Picker("", selection: _hours){

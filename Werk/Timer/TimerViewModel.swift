@@ -43,6 +43,24 @@ class TimerViewModel: ObservableObject {
     @Published var isTimerActive:Bool = false
     @Published var isScreenLocked:Bool = false
     
+    var displayedPhasename:String {
+        "\(currentPhaseName)"
+        
+    }
+    
+    var displayedSetInfo:String {
+        "\(currentPhaseIndex+1)/\(workoutBlocks.count) Set"
+    }
+    
+    var displayedElapsedTime:String {
+        "\(convertedElapsedTime) \nElapsed"
+    }
+    
+    var displayedTimeRemaining:String {
+        "\(convertedTotalDuration) \nRemaining"
+    }
+        
+    
     
     var convertedCurrentPhaseTime:String {
         return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
@@ -115,6 +133,8 @@ class TimerViewModel: ObservableObject {
         
         
         maxPhaseIndex = workoutBlocks.count - 1
+        
+        
         
     }
     

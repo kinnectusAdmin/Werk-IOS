@@ -13,27 +13,22 @@ import SwiftUI
 
 struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: WorkoutCreationEditViewModel 
-    
+    @ObservedObject var viewModel: WorkoutCreationEditViewModel
     init(viewModel: WorkoutCreationEditViewModel) {
 
         self.viewModel = viewModel
     }
-    
-    
     let colors:[Color] =
     [
         Color.red, Color.blue, Color.green, Color.indigo, Color.orange
     ]
-    
     var body: some View {
         ZStack {
             NavigationView {
                 Form {
-                    
                     Section {
                         HStack {
-                            
+                            //Text field to name workout and select its color to appear on graph
                             TextField("Timer Name",text: viewModel.workoutNameBinding)
                                 .keyboardType(.alphabet)
                             Picker("", selection: $viewModel.selectedColorIndex) {
@@ -44,6 +39,7 @@ struct WorkoutCreationEditViewForm: View {
                         }
                     }
                     NavigationLink {
+                        //takes user to warm up intensity set up
                         IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.warmup, intensity: .warmup, updateFunction: viewModel.didUpdateWarmup))
                     } label: {
                         HStack {
@@ -52,12 +48,12 @@ struct WorkoutCreationEditViewForm: View {
                             Text("\(viewModel.warmupDuration)")
                         }
                     }
-                    
-                    
-                    
-                    ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
+                    ForEach(viewModel.intervals.cycles, id: \.id) {
+                        cycle in
                         Section {
-                            NavigationLink(destination: IntervalView()) {
+                            NavigationLink(destination:
+                            //selects the number of sets for the warm up phase
+                                IntervalView()) {
                                 HStack {
                                     Text("Interval Cycle")
                                     Spacer()
@@ -65,25 +61,19 @@ struct WorkoutCreationEditViewForm: View {
                                 }
     
                             }
-                            
-                            
-                            
-                            
                         }
                     }
-                    
+
                     Section {
                         Button("Add Cycle") {
                             
                             print("Print!")
                             viewModel.didSelectAddNewCycle()
                         }
-                    }
-                    //make a button that'll add a cycle to the view
-                    //check to make sure forms scroll automattically
-                    
+                    } 
                     Section {
                         NavigationLink {
+                            
                             IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.cooldown, intensity: .coolDown, updateFunction: viewModel.didUpdateCoolDown))
                         } label: {
                             HStack {
