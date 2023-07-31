@@ -11,7 +11,7 @@ import Combine
 
 
 
-class WorkoutCreationViewModel:Identifiable, ObservableObject {
+class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     
     @Published var selectedColorIndex: Int = 0
     @Published var workOutName = ""
@@ -25,47 +25,31 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
+    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial, service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         self.workout = workout
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
-        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
-        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
-        
     }
-    
     
     private func provideWorkoutName() -> String {
         workout.name
     }
+    
     private func updateWorkoutName(updatedName: String) {
         workout.name = updatedName
     }
-    //    func didSelectCancel(){
-    //        //goes back to previous screen
-    //    }
     
     func didSelectSave() {
-        //expect some wokr to save this information
+        //expect some work to save this information
         service.saveWorkoutBlueprint(workoutBlueprint: workout)
     }
-    //    func didSelectPhase(phase: WorkoutPhase) {
-    //
-    //    }
-    //
-    //    func didSelectNumberOfSets() {
-    //
-    //    }
     
     func didSelectAddNewCycle() {
         workout.intervals.cycles.append(.initial)
         print("\(workout.intervals.cycles.count)")
-        //        extension IntervalCollection {
-        //            static let initial = IntervalCollection(cycles: [.initial, .initial], restBetweenPhases: .rest)
-        //        }
     }
 }
 
@@ -74,18 +58,16 @@ class WorkoutCreationViewModel:Identifiable, ObservableObject {
 
 
 
-extension WorkoutCreationViewModel {
+extension WorkoutCreationEditViewModel {
     func didUpdateWarmup(warmup: WorkoutPhase) {
         workout.warmup = warmup
     }
     
-    func didUpdateLowIntensity(lowIntensity: WorkoutPhase) {
-        workout.lowIntensity = lowIntensity
+
+    func didUpdateIntervals(intervals: WorkoutPhase) {
+        workout.intervals.restBetweenPhases = intervals
     }
     
-    func didUpdateHighIntensity(highIntensity: WorkoutPhase) {
-        workout.highIntensity = highIntensity
-    }
     
     func didUpdateCoolDown(coolDown: WorkoutPhase) {
         workout.cooldown = coolDown

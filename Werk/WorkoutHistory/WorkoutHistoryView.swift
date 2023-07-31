@@ -13,10 +13,9 @@ struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
     
     var body: some View {
-        
         VStack(spacing: 0){
+            //Graph and weekly workout stats
             Text("Workout History").font(.title)
-            
             TabView(selection: $viewModel.weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
@@ -51,7 +50,6 @@ struct WorkoutHistoryView: View {
             .frame(maxHeight: 270)
             .tabViewStyle(.page)
         }
-        
     }
     
     struct WorkoutHistoryEdit_Previews: PreviewProvider {

@@ -11,23 +11,24 @@ import Foundation
 import SwiftUI
 
 
-struct WorkoutCreationViewForm: View {
+struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: WorkoutCreationViewModel = WorkoutCreationViewModel(workout: .initial)
+    @ObservedObject var viewModel: WorkoutCreationEditViewModel
+    init(viewModel: WorkoutCreationEditViewModel) {
 
+        self.viewModel = viewModel
+    }
     let colors:[Color] =
     [
         Color.red, Color.blue, Color.green, Color.indigo, Color.orange
     ]
-
     var body: some View {
         ZStack {
             NavigationView {
                 Form {
-                    
                     Section {
                         HStack {
-                            
+                            //Text field to name workout and select its color to appear on graph
                             TextField("Timer Name",text: viewModel.workoutNameBinding)
                                 .keyboardType(.alphabet)
                             Picker("", selection: $viewModel.selectedColorIndex) {
@@ -38,6 +39,7 @@ struct WorkoutCreationViewForm: View {
                         }
                     }
                     NavigationLink {
+                        //takes user to warm up intensity set up
                         IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.warmup, intensity: .warmup, updateFunction: viewModel.didUpdateWarmup))
                     } label: {
                         HStack {
@@ -46,53 +48,32 @@ struct WorkoutCreationViewForm: View {
                             Text("\(viewModel.warmupDuration)")
                         }
                     }
-
-                    
-                    
-                    ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
+                    ForEach(viewModel.intervals.cycles, id: \.id) {
+                        cycle in
                         Section {
-                            NavigationLink(destination: IntervalView()) {
+                            NavigationLink(destination:
+                            //selects the number of sets for the warm up phase
+                                IntervalView()) {
                                 HStack {
                                     Text("Interval Cycle")
                                     Spacer()
                                     Text("\(cycle.numberOfSets) set")
-                                    
                                 }
-                            }
-                            
-                            NavigationLink {
-                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.highIntensity, intensity: .warmup, updateFunction: viewModel.didUpdateHighIntensity))
-                            } label: {
-                                HStack {
-                                    Text("High Intensity")
-                                    Spacer()
-                                    Text("\(viewModel.highIntensityDuration)")
-                                }
-                            }
-                            NavigationLink {
-                                IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.lowIntensity, intensity: .lowIntensity, updateFunction: viewModel.didUpdateLowIntensity))
-                            } label: {
-                                HStack {
-                                    Text("Low Intensity")
-                                    Spacer()
-                                    Text("\(viewModel.lowIntensityDuration)")
-                                }
+    
                             }
                         }
                     }
-                    
+
                     Section {
                         Button("Add Cycle") {
                             
                             print("Print!")
                             viewModel.didSelectAddNewCycle()
                         }
-                    }
-                    //make a button that'll add a cycle to the view
-                    //check to make sure forms scroll automattically
-                    
+                    } 
                     Section {
                         NavigationLink {
+                            
                             IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.cooldown, intensity: .coolDown, updateFunction: viewModel.didUpdateCoolDown))
                         } label: {
                             HStack {
@@ -124,7 +105,10 @@ struct WorkoutCreationViewForm: View {
 
 struct WorkoutCreationViewForm_Previews: PreviewProvider {
     static var previews: some View{
-        WorkoutCreationViewForm(
-            viewModel: WorkoutCreationViewModel(workout: WorkoutBlueprint.initial))
+        WorkoutCreationEditViewForm(
+            viewModel: WorkoutCreationEditViewModel(workout: WorkoutBlueprint.initial))
     }
 }
+
+
+

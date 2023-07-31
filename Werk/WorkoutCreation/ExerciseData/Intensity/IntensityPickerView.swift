@@ -1,4 +1,4 @@
-
+//
 //  WarmUpPickerView.swift
 //  Werk
 //
@@ -8,14 +8,13 @@
 import SwiftUI
 import AVFoundation
 
-struct HighIntensityPickerView: View {
+struct IntensityPickerView: View {
     //    @Binding var show: Bool
 
 
     @Binding var hours: Int
     @Binding var minutes: Int
     @Binding var seconds: Int
-
 
     var body: some View {
         HStack(alignment: .bottom) {
@@ -38,8 +37,12 @@ struct HighIntensityPickerView: View {
     }
 }
 
-struct HighIntensityPickerView_Previews: PreviewProvider {
+struct WarmUpPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        HighIntensityPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
+        IntensityPickerView(hours: .constant(0), minutes: .constant(0), seconds: .constant(0))
     }
 }
+
+
+
+

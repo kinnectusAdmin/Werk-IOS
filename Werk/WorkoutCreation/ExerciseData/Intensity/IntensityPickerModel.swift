@@ -13,6 +13,4 @@ struct IntensityPickerModel {
     @Binding var hours: Int
     @Binding var minutes: Int
     @Binding var seconds: Int
-    
-    
 }

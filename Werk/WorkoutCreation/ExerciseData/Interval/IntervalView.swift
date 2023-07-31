@@ -17,26 +17,19 @@ import AVFoundation
 struct IntervalView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel()
-    
-    
-    
+ 
     var body: some View {
         NavigationStack{
             Form {
-                
                 Section {
-                    
                     HStack(alignment: .bottom) {
                         Picker("Number of sets", selection: viewModel.numberOfsetsBinding) {
                             ForEach(1 ..< 100) {
                                 Text("\($0)")
                             }
-                            
                         }.frame(maxHeight: .infinity, alignment: .bottom)
-                        
                     }
                 }
-                
                 Section {
                     List {
                         ForEach(viewModel.phases) { phase in

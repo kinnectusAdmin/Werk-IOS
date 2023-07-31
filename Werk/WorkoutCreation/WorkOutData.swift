@@ -15,6 +15,13 @@ enum Sound: Int, Codable {
 }
 
 
+struct WorkoutBlock {
+    let name: String
+    var timeElapsed: Int
+    let plannedDuration: Int
+    let type: Intensity
+}
+
 
 struct WorkoutPhase: Identifiable, Hashable, Codable {
     let id: String
@@ -40,6 +47,9 @@ extension WorkoutPhase {
 struct IntervalCollection: Codable {
     var cycles: [Interval]
     var restBetweenPhases: WorkoutPhase
+    var duration: Int {
+        cycles.map { ($0.numberOfSets * $0.highIntensity.duration) + ($0.numberOfSets * $0.lowIntensity.duration)}.reduce(0, +) + (restBetweenPhases.duration * cycles.count)
+    }
 }
 
 extension IntervalCollection {
@@ -62,21 +72,15 @@ extension Interval {
     static let initial = Interval.init(highIntensity: .highItensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
 }
 
-
-// v rename to workout plan/blue print
 struct WorkoutBlueprint: Codable {
     var id: String = UUID().uuidString
     var name: String
     var warmup: WorkoutPhase
     var intervals: IntervalCollection
     var cooldown: WorkoutPhase
-    var highIntensity: WorkoutPhase
-    var lowIntensity: WorkoutPhase
     var duration: Int {
-        return
-        warmup.duration + cooldown.duration + highIntensity.duration + lowIntensity.duration
+        warmup.duration + cooldown.duration + intervals.duration
     }
-    
 }
 
 extension WorkoutBlueprint {
@@ -86,37 +90,12 @@ extension WorkoutBlueprint {
         , warmup: .warmUP
         , intervals: .initial
         , cooldown: .coolDown
-        , highIntensity: .highItensitity
-        , lowIntensity: .lowIntensitiy
     )
 }
+
 extension WorkoutBlueprint: Equatable {
     static func ==(lhs:WorkoutBlueprint,rhs:WorkoutBlueprint) -> Bool {
         return lhs.id == rhs.id
     }
 }
-//extension WorkoutBlueprint {
-//
-//    static var randomWorkout: WorkoutBlueprint {
-//        var names: [String] {
-//            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-//        }
-//        return WorkoutBlueprint.initial
-//
-//
-//    }
-//    static let randomWorkoutInRange: ((Int, Int), (Int, Int)) -> WorkoutBlueprint = { startRange, endRange in
-//        var names: [String] {
-//            return ["Push Ups", "Sit Ups", "Pull Ups", "planks", "sprints", "LSits", "plankPulls"]
-//        }
-//        return WorkoutBlueprint.initial
-//
-//
-//    }
-//
-//
-//
-//    //MOVE ALL OF THIS
-//    //FIRE BASE
-//    //
-//}
+

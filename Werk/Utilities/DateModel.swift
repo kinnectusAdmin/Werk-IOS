@@ -7,13 +7,6 @@
 
 import Foundation
 
-//extension Date {
-//    func dayStringFrom() -> String {
-//        let day = Calendar.current.dateComponents([.weekday], from: self).weekday!
-//        let dayString = ["S","M","T","W","T","F","S"][day - 1]
-//        return dayString
-//    }
-//}
 
 
 

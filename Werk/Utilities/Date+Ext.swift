@@ -55,15 +55,9 @@ extension Date {
     }
     
     static func weekOfDates(weekOfYear: Int) -> [Date] {
-        //what day is it
-        //what year
-        //what month is
-        // date component
-        // week of this year relative to today
+
         let date = Calendar.current.date(from: DateComponents(calendar: Calendar.current, weekOfYear: weekOfYear))!
-        // generate a date component with above information
-        //for each day of the week
-        //that includes the sunday of this week to the saturday of this week
+
         let days = (1...7).map { dayValue -> Date? in
             let component = DateComponents(calendar: Calendar.current,
                                            month: Calendar.current.dateComponents([.month], from:date).month,
@@ -78,15 +72,7 @@ extension Date {
     
     
     static func weekOfDates(today: Date) -> [Date] {
-        //what day is it
-        //what year
-        //what month is
-        // date component
-        // week of this year relative to today
-        
-        // generate a date component with above information
-        //for each day of the week
-        //that includes the sunday of this week to the saturday of this week
+       
         let days = (1...7).map { dayValue -> Date? in
             let component = DateComponents(calendar: Calendar.current,
                                            month: Calendar.current.dateComponents([.month], from: today).month,
