@@ -8,11 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct WarmUpPickerModel {
+struct IntensityPickerModel {
     
     @Binding var hours: Int
     @Binding var minutes: Int
     @Binding var seconds: Int
-    
-    
 }

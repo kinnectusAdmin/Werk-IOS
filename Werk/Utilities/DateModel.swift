@@ -9,6 +9,7 @@ import Foundation
 
 
 
+
 func dayStringFrom(date: Date) -> String {
     let day = Calendar.current.dateComponents([.weekday], from: date).weekday!
     let dayString = ["S","M","T","W","T","F","S"][day - 1]

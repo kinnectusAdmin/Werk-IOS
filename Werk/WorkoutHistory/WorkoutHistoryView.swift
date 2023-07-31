@@ -1,5 +1,5 @@
 //
-//  WorkoutHistoryView.swift
+//  WorkoutHistoryEdit.swift
 //  Werk
 //
 //  Created by Shaquil Campbell on 10/6/22.
@@ -11,14 +11,12 @@ import DataDetection
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    @ObservedObject var model = WorkoutHistoryModel()
     
     var body: some View {
-        
-        VStack{
-                Text("Workout History").font(.title)
-            
-            TabView(selection: $model.weekSelection){
+        VStack(spacing: 0){
+            //Graph and weekly workout stats
+            Text("Workout History").font(.title)
+            TabView(selection: $viewModel.weekSelection){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
@@ -30,8 +28,9 @@ struct WorkoutHistoryView: View {
                             Text("Details >").onTapGesture {
                                 //WORKOUTHISTORYDETAILSVIEW
                             }
-                        }.padding(10)
-                        Spacer()
+                        }
+                        .padding(10)
+                        
                         HStack(alignment: .bottom, spacing: 20) {
                             ForEach(viewModel.bars) { bar in
                                 VStack {
@@ -44,21 +43,21 @@ struct WorkoutHistoryView: View {
                                 }
                             }
                         }
-                        .frame(height:240, alignment: .bottom)
                         .padding(20)
-                        .cornerRadius(6)
                     }.tag(weekOfYear)
-                    
                 }
             }
+            .frame(maxHeight: 270)
             .tabViewStyle(.page)
         }
-        
     }
     
-    struct WorkoutHistoryView_Previews: PreviewProvider {
+    struct WorkoutHistoryEdit_Previews: PreviewProvider {
         static var previews: some View {
-            WorkoutHistoryView()
+            VStack(spacing: 0) {
+                WorkoutHistoryView()
+                Spacer()
+            }
         }
     }
 }

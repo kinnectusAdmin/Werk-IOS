@@ -1,30 +1,26 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 final class WorkoutHistoryViewModel: ObservableObject {
-    var model = WorkoutHistoryModel()
-    
-    
-    var bars: [Bar] {
-        workoutDateComponent.map { workouts -> Bar in
-            Bar(name: "",
-                day: dayStringFrom(date:workouts.first!.date),
-                value: workouts.map { $0.duration },
-                workouts: [])
-        }
-    }
-    
-    
-    var workoutDateComponent: [[WorkoutTemplate]] {
-        Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
-            let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
-            let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
-            let tuple = (month, day)
-            return tuple
-        }.map { tuple in
-            [WorkoutTemplate.randomWorkoutInRange(tuple, tuple)]
-        }
+    @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
+    @Published var bars: [Bar] = []
+    private let service: DataStorageServiceIdentity!
+    private var allWorkouts: [RecordedWorkout] = []
+    private var cancellables = Set<AnyCancellable>()
+    init(service: DataStorageServiceIdentity = DataStorageService()) {
+        self.service = service
+        self.allWorkouts = service.getRecordedWorkouts()
+        $weekSelection.map{ selectedWeek -> [Bar] in
+            Date.weekOfDates(weekOfYear: selectedWeek).map { date -> Bar in
+                let daysWorkouts = service.getRecordedWorkouts().filter{
+                    $0.date.isSameDay(date)
+                }
+                return Bar(day: dayStringFrom(date: date),
+                           value: daysWorkouts.map(\.duration))
+            }
+        }.assign(to: &$bars)
     }
     
     var maxDuration: CGFloat {
@@ -34,6 +30,7 @@ final class WorkoutHistoryViewModel: ObservableObject {
     func relativeDuration(duration: CGFloat) -> CGFloat {
         (duration / maxDuration) * 100
     }
+    
+    
+    
 }
-
-
