@@ -11,25 +11,26 @@ import Combine
 struct IntensityView: View {
 
     @ObservedObject var viewModel: IntensityViewModel
-  
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationView{
             Form {
                 HStack {
                     Text("Duration")
-                    Spacer()
-                    Button("\(viewModel.workoutPhase.hours):\(viewModel.workoutPhase.minutes):\(viewModel.workoutPhase.seconds)") {
-                        viewModel.isPickerPresented.toggle()
-                    }
+                     Spacer()
+                    //label for button to show duration picker
+                    Button("\(viewModel.convertedTime)")
+                    {    //action for button to show picker
+                         viewModel.isPickerPresented.toggle()
+                     }
                 }
                 ColorPicker("Color", selection: viewModel.$color)
             }.navigationTitle(viewModel.title)
         }
-        .sheet(isPresented: viewModel.$isPickerPresented) {
-            IntensityPickerView(hours: $viewModel.workoutPhase.hours,
-                                minutes: $viewModel.workoutPhase.minutes,
-                                seconds: $viewModel.workoutPhase.seconds)
-                                .presentationDetents([.medium])
+        .sheet(isPresented: isPickerPresentedBinding()) {
+            IntensityPickerView(hours: $viewModel.workoutPhase.hours, minutes: $viewModel.workoutPhase.minutes, seconds: $viewModel.workoutPhase.seconds)
+        
         }
         .onDisappear(perform: viewModel.didDisappear)
 

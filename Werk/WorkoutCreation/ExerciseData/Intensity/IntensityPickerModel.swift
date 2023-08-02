@@ -1,18 +1,18 @@
+////
+////  WarmUpPickerModel.swift
+////  Werk
+////
+////  Created by Shaquil Campbell on 3/7/23.
+////
 //
-//  WarmUpPickerModel.swift
-//  Werk
+//import Foundation
+//import SwiftUI
 //
-//  Created by Shaquil Campbell on 3/7/23.
-//
-
-import Foundation
-import SwiftUI
-
-struct IntensityPickerModel {
-    
-    @Binding var hours: Int
-    @Binding var minutes: Int
-    @Binding var seconds: Int
-    
-    
-}
+//struct IntensityPickerModel {
+//    
+//    @Binding var hours: Int
+//    @Binding var minutes: Int
+//    @Binding var seconds: Int
+//    
+//    
+//}

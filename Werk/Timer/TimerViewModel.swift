@@ -44,15 +44,15 @@ class TimerViewModel: ObservableObject {
     @Published var isScreenLocked:Bool = false
     
     
-    var convertedCurrentPhaseTime:String {
+    var convertedCurrentPhaseTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
     }
     
-    var convertedTotalDuration:String {
+    var convertedTotalDuration:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (totalPlannedDuration / 60), (totalPlannedDuration % 60))
     }
     
-    var convertedElapsedTime:String {
+    var convertedElapsedTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (elapsedTime / 60), (elapsedTime % 60))
     }
     @State var timer:Timer!
@@ -63,15 +63,15 @@ class TimerViewModel: ObservableObject {
     
     init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
         self.workout = workout
-        //        $workoutBlocks.map { blocks in
-        //            blocks.map { $0.timeElapsed }.reduce(0, +)
-        //        }.map { [weak self] sum -> Int in
-        //            guard let self = self else { return 0 }
-        //            return self.totalPlannedDuration - sum
-        //        }.assign(to: &$elapsedTime)
+                $workoutBlocks.map { blocks in
+                    blocks.map { $0.timeElapsed }.reduce(0, +)
+                }.map { [weak self] sum -> Int in
+                    guard let self = self else { return 0 }
+                    return self.totalPlannedDuration - sum
+                }.assign(to: &$elapsedTime)
         
-        //        totalPlannedDuration = workoutBlocks.map { durations in
-        //            durations.plannedDuration}.reduce(0, +)
+                totalPlannedDuration = workoutBlocks.map { durations in
+                    durations.plannedDuration}.reduce(0, +)
         
         totalPlannedDuration = workoutBlocks.map{ durations in
             durations.plannedDuration

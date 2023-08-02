@@ -21,7 +21,7 @@ struct IntervalView: View {
     
     
     var body: some View {
-        NavigationStack{
+        NavigationView{
             Form {
                 
                 Section {
@@ -40,18 +40,40 @@ struct IntervalView: View {
                 Section {
                     List {
                         ForEach(viewModel.phases) { phase in
-                            HStack {
+                            HStack{
                                 Text("\(phase.name)")
                                 Spacer()
-                                Text("\(phase.duration)")
+//                                Text("\(phase.duration)")
+                                Button("\(phase.minutes):\(phase.seconds)") {
+                                    viewModel.isPickerPresented.toggle()
+                                }
+                                
                             }
+                            //                            HStack {
+                            //                                Text("\(phase.name)")
+                            //                                Spacer()
+                            //                                Text("\(phase.duration)")
+                            //                            }
                         }.onMove(perform: viewModel.move)
                     }
                 }.environment(\.editMode, $viewModel.editMode)
             }
+        }.sheet(isPresented: $viewModel.isPickerPresented) {
+            IntervalPicker(hours: $viewModel.phases[0].hours, minutes: $viewModel.phases[0].minutes, seconds: $viewModel.phases[0].seconds)
         }
+
+    }
+    
+    func isPickerPresentedBinding() -> Binding<Bool> {
+        Binding(get: {
+            viewModel.isPickerPresented
+        }, set: { newValue in
+            viewModel.isPickerPresented = newValue
+        })
     }
 }
+
+
 
 struct IntervalView_Previews: PreviewProvider {
     static var previews: some View {

@@ -11,7 +11,6 @@ import AVFoundation
 struct IntensityPickerView: View {
     //    @Binding var show: Bool
 
-
     @Binding var hours: Int
     @Binding var minutes: Int
     @Binding var seconds: Int
