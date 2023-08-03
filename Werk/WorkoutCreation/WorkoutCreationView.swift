@@ -30,10 +30,14 @@ struct WorkoutCreationEditViewForm: View {
         ZStack {
             NavigationView {
                 Form {
-                    
+                    NavigationLink {
+                        Text("Hello world")
+                    } label: {
+                        Text("Touch me")
+                    }
+
                     Section {
                         HStack {
-                            
                             TextField("Timer Name",text: viewModel.workoutNameBinding)
                                 .keyboardType(.alphabet)
                             Picker("", selection: $viewModel.selectedColorIndex) {
@@ -53,22 +57,15 @@ struct WorkoutCreationEditViewForm: View {
                         }
                     }
                     
-                    
-                    
                     ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
                         Section {
-                            NavigationLink(destination: IntervalView()) {
+                            NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: cycle, didUpdateInterval: viewModel.didUpdateInterval))) {
                                 HStack {
                                     Text("Interval Cycle")
                                     Spacer()
                                     Text("\(cycle.numberOfSets) set")
                                 }
-    
                             }
-                            
-                            
-                            
-                            
                         }
                     }
                     

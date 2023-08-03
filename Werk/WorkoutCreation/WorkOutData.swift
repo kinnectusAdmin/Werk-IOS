@@ -32,7 +32,7 @@ struct WorkoutPhase: Identifiable, Hashable, Codable {
     var minutes: Int = 0
     var seconds: Int = 0
     var duration: Int {
-        hours + minutes + seconds
+        (hours * 3600) + (minutes * 60) + seconds
     }
 }
 

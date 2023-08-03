@@ -14,7 +14,16 @@ struct WerkApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TimerView()
+            ZStack {
+                VStack {
+                    WorkoutHistoryView()
+                    Spacer()
+                } 
+                VStack {
+                    Spacer()
+                    WorkOutListView(viewModel: .init())
+                }
+            }
         }
     }
 }

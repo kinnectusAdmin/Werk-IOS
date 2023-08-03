@@ -27,7 +27,10 @@ public func durationOfWorkout(duration: Double)->String {
     let minutesRemaining = Int(x) % oneHour
     let numberOfMinutes = minutesRemaining / 60
     let secondsRemaining = Int(x) % 60
-    return "\(numberOfHours):\(numberOfMinutes):\(secondsRemaining)"
+    let hoursRepresentation = numberOfHours > 9 ? "\(numberOfHours)" : "0\(numberOfHours)"
+    let minutesRepresentation = numberOfMinutes > 9 ? "\(numberOfMinutes)" : "0\(numberOfMinutes)"
+    let secondsRepresentation = secondsRemaining > 9 ? "\(secondsRemaining)" : "0\(secondsRemaining)"
+    return "\(hoursRepresentation):\(minutesRepresentation):\(secondsRepresentation)"
 }
 struct RecordedWorkout: Identifiable, Codable {
     var id: String = UUID().uuidString
