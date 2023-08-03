@@ -42,6 +42,7 @@
 		B6F9133D28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */; };
 		B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */; };
 		B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */; };
+		DBAB4BA92A7B2EB100BB804C /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListView.swift; sourceTree = "<group>"; };
 		B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListViewModel.swift; sourceTree = "<group>"; };
+		DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				7269548D2947B4F700B0DD5D /* Date+Ext.swift */,
 				72648341298F71660045A951 /* CGFloat_ext.swift */,
 				728DDE222A09E50D004B9ABC /* Services.swift */,
+				DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */,
 				724AED7E29F4369A004B6E3D /* MainView.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
+				DBAB4BA92A7B2EB100BB804C /* Int+Ext.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
 				72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */,

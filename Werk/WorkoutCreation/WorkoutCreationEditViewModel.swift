@@ -62,13 +62,19 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
 
 
 extension WorkoutCreationEditViewModel {
+    func didUpdateInterval(interval: Interval) {
+        intervals.cycles = intervals.cycles.map {
+            $0.id == interval.id ? interval : $0
+        }
+    }
+    
     func didUpdateWarmup(warmup: WorkoutPhase) {
         workout.warmup = warmup
     }
     
 
-    func didUpdateIntervals(intervals: WorkoutPhase) {
-        workout.intervals.restBetweenPhases = intervals
+    func didUpdateRestBetweenPhases(restPhase: WorkoutPhase) {
+        workout.intervals.restBetweenPhases = restPhase
     }
     
     
