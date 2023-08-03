@@ -14,6 +14,7 @@ struct IntervalPicker: View {
         VStack {
             Text(phase.name)
                 .font(Font.title)
+  
             HStack {
                 Text("Current Duration: ")
                     

@@ -41,8 +41,9 @@ struct IntervalView: View {
                                 }
                             }
                         }.onMove(perform: viewModel.move)
+                            .environment(\.editMode, $viewModel.editMode)
                     }
-                }.environment(\.editMode, $viewModel.editMode)
+                }
             }
         }
         .sheet(isPresented: $viewModel.isPickerPresented) {
