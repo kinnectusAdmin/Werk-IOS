@@ -72,8 +72,6 @@ extension Interval {
     static let initial = Interval.init(highIntensity: .highIntensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
 }
 
-
-// v rename to workout plan/blue print
 struct WorkoutBlueprint: Codable {
     var id: String = UUID().uuidString
     var name: String
@@ -83,7 +81,6 @@ struct WorkoutBlueprint: Codable {
     var duration: Int {
         warmup.duration + cooldown.duration + intervals.duration
     }
-    
 }
 
 extension WorkoutBlueprint {
@@ -95,6 +92,7 @@ extension WorkoutBlueprint {
         , cooldown: .coolDown
     )
 }
+
 extension WorkoutBlueprint: Equatable {
     static func ==(lhs:WorkoutBlueprint,rhs:WorkoutBlueprint) -> Bool {
         return lhs.id == rhs.id

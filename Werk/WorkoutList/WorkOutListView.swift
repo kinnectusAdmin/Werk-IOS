@@ -35,9 +35,9 @@ struct WorkOutListView: View {
             }
             .frame(maxHeight: 200)
             .padding(.leading, 12)
-            
-            //Add Button
+        
             VStack {
+                //button to add workout
                 Spacer()
                 Button {
                     showingSheet.toggle()

@@ -23,13 +23,8 @@ extension WorkoutListViewModel {
     func didSelectWorkout(workout:WorkoutBlueprint) {
       
     }
-    
-//    func didSelectAddWorkout()-> any View {
-//        return  WorkoutEditViewForm()
-//    }
-    
     func didSelectAddworkout()-> any View {
-        
+        //displayes workout inital workout creation page
        return NavigationLink(destination: WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())) {
                EmptyView()
            }

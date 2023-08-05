@@ -34,14 +34,14 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         $workout.map(\.intervals).assign(to: &$intervals)
     }
     
-    
     private func provideWorkoutName() -> String {
         workout.name
     }
+    
     private func updateWorkoutName(updatedName: String) {
         workout.name = updatedName
     }
-
+    
     func didSelectSave() {
         //expect some work to save this information
         service.saveWorkoutBlueprint(workoutBlueprint: workout)

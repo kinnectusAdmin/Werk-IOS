@@ -12,14 +12,13 @@ struct TimerView: View {
     @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial)
     @State private var showingSheet = false
     
-    //    let interval: Int = 0
-    
     var body: some View {
         
         ZStack{
             Color.purple.ignoresSafeArea()
             VStack {
                 HStack {
+                    //exit button, workout name, and edit button
                     // exit button
                     Button {
                         presentationMode.wrappedValue.dismiss()
@@ -31,15 +30,12 @@ struct TimerView: View {
                             .background(Color.black.opacity(0.0))
                             .clipShape(Circle())
                     }
-                    
-                    
                     Spacer()
                     // workout name
                     Text("Workout Timer")
                         .font(.title3)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-                    
                     
                     Spacer()
                     
@@ -53,20 +49,19 @@ struct TimerView: View {
                             .padding(.all, 5)
                             .background(Color.black.opacity(0.0))
                             .clipShape(Circle())
-                    
+                        
                     }.sheet(isPresented: $showingSheet) {
                         WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel(workout: viewModel.workout)
                         )
                     }
-
+                    
                 }
-
                 //time remaining in workout
                 Text("\(viewModel.convertedCurrentPhaseTime)")
                     .font(.system(size: 100.00, weight: .bold))
                     .foregroundColor(.white)
-           
                 HStack{
+                    // phase info and control settings
                     // Goes back to the previous phase in workout
                     Button {
                         viewModel.didPressPreviousPhase()
@@ -82,15 +77,11 @@ struct TimerView: View {
                     Spacer()
                     //displays current set
                     VStack{
-                        Text("\(viewModel.currentPhaseName)")
+                        Text(viewModel.displayedPhasename)
                             .multilineTextAlignment(.center)
-                        Text("\(viewModel.currentPhaseIndex+1)/\(viewModel.workoutBlocks.count) Set")
-                        
+                        Text(viewModel.displayedSetInfo)
                     }.foregroundColor(.white)
-                    
-                    
                     Spacer()
-                    
                     //goes to the next phase in workout
                     Button {
                         viewModel.didPressNextPhase()
@@ -104,28 +95,24 @@ struct TimerView: View {
                             .cornerRadius(10)
                     }
                 }
-                
-    
                 HStack{
+                    //time elapsed and remaining info
                     Spacer()
                     //shows the total amont of time that has elapsed during the workout
-                    Text("\(viewModel.convertedElapsedTime) \nElapsed")
+                    Text(viewModel.displayedElapsedTime)
                         .multilineTextAlignment(.center)
-                    
                     Spacer()
                     //shows the total duration of the workout
-                    Text("\(viewModel.convertedTotalDuration) \nRemaining")
+                    Text(viewModel.displayedTimeRemaining)
                         .multilineTextAlignment(.center)
-                    
                     Spacer()
                 }
                 .foregroundColor(.white)
                 Spacer()
-                
                 HStack{
-                    
-                    // blocks user screen interaction
+                    //lock button, start button/timer animation, reset button
                     Button {
+                        // blocks user screen interaction
                         viewModel.didPressLock()
                     } label: {
                         ZStack {
@@ -142,8 +129,6 @@ struct TimerView: View {
                                 .cornerRadius(10)
                         }
                     }
-                    //.enable bind to bool
-                    
                     ZStack {
                         // timer display circle
                         Circle()
@@ -155,28 +140,22 @@ struct TimerView: View {
                             .stroke(Color.white, lineWidth: 2.5)
                             .frame(width: 220, height: 220)
                             .rotationEffect(.degrees(-90))
-
-                            
-                        //  start/resume button
                         Button {
+                            //  start/resume button
                             viewModel.didPressStartorResume()
                         } label: {
                             ZStack {
                                 Circle()
-                                    .fill(Color.cyan)//Will remove after button code is set
-                                    .opacity(0.2)
+                                    .opacity(0.0)
                                     .frame(width: 100, height: 100)
                                 Text(viewModel.isTimerActive ? "Pause" : viewModel.elapsedTime > 0 ? "Resume" : "Start")
                                     .font(.headline)
                                     .foregroundColor(.white)
                             }
                         }
-                        
                     }
-                    
-                    
-                    //resets timer
                     Button {
+                        //resets timer
                         viewModel.didPressReset()
                     } label: {
                         ZStack {
@@ -194,13 +173,10 @@ struct TimerView: View {
                         }
                     }.disabled(viewModel.isScreenLocked)
                 }
-                
                 Spacer()
-                
-                
                 HStack{
+                    //Apple music controls
                     Button {
-                        
                     } label: {
                         Image(systemName: "backward.fill")
                             .resizable()
@@ -208,18 +184,14 @@ struct TimerView: View {
                     }
                     .padding()
                     .foregroundColor(.white)
-                     
                     Button {
-                        
                     } label: {
                         Image(systemName: "play.fill")
                             .resizable()
                             .frame(width: 20, height: 20)
                     }
                     .foregroundColor(.white)
-                    
                     Button {
-                        
                     } label: {
                         Image(systemName: "forward.fill")
                             .resizable()

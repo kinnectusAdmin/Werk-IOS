@@ -12,8 +12,6 @@ final class WorkoutHistoryViewModel: ObservableObject {
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         self.allWorkouts = service.getRecordedWorkouts()
-        
-        
         $weekSelection.map{ selectedWeek -> [Bar] in
             Date.weekOfDates(weekOfYear: selectedWeek).map { date -> Bar in
                 let daysWorkouts = service.getRecordedWorkouts().filter{
@@ -24,6 +22,7 @@ final class WorkoutHistoryViewModel: ObservableObject {
             }
         }.assign(to: &$bars)
     }
+    
     var maxDuration: CGFloat {
         bars.map { $0.totalDuration }.max() ?? 0
     }
