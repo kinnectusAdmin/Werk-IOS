@@ -15,12 +15,6 @@ struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: WorkoutCreationEditViewModel 
     
-    init(viewModel: WorkoutCreationEditViewModel) {
-
-        self.viewModel = viewModel
-    }
-    
-    
     let colors:[Color] =
     [
         Color.red, Color.blue, Color.green, Color.indigo, Color.orange
@@ -30,12 +24,6 @@ struct WorkoutCreationEditViewForm: View {
         ZStack {
             NavigationView {
                 Form {
-                    NavigationLink {
-                        Text("Hello world")
-                    } label: {
-                        Text("Touch me")
-                    }
-
                     Section {
                         HStack {
                             TextField("Timer Name",text: viewModel.workoutNameBinding)
@@ -59,11 +47,11 @@ struct WorkoutCreationEditViewForm: View {
                     
                     ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
                         Section {
-                            NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: cycle, didUpdateInterval: viewModel.didUpdateInterval))) {
+                            NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: viewModel.didUpdateIntervalBinding(interval: cycle)))) {
                                 HStack {
                                     Text("Interval Cycle")
                                     Spacer()
-                                    Text("\(cycle.numberOfSets) set")
+                                    Text(viewModel.numberOfSetsText(cycle))
                                 }
                             }
                         }

@@ -11,32 +11,29 @@ import Combine
 
 class IntervalViewModel: ObservableObject {
     private var cancellables =  Set<AnyCancellable>()
-    @Published var interval: Interval = .initial
+    var interval: Binding<Interval> = .constant(.initial)
     @Published var isPickerPresented: Bool = false
     var phases: [WorkoutPhase] = []
     @State var editMode: EditMode = .active
     private var selectedPhaseID: String = ""
+    
     var selectedPhaseBinding: Binding<WorkoutPhase> {
         Binding<WorkoutPhase>.init(get: getSelectedWorkoutPhase, set: setSelectedWorkoutPhase)
     }
+    
     var numberOfsetsBinding: Binding<Int> {
-        Binding<Int>.init {
-            return self.interval.numberOfSets
-        } set: { numberOfSets in
-            self.interval.numberOfSets = numberOfSets
-        }
+        interval.numberOfSets
     }
     
-    init(interval: Interval, didUpdateInterval: @escaping (Interval) -> Void) {
+    init(interval: Binding<Interval>) {
         self.interval = interval
-        self.phases = [interval.lowIntensity, interval.highIntensity]
-        
-        self.$interval.sink(receiveValue: didUpdateInterval).store(in: &cancellables)
+        self.phases = [self.interval.wrappedValue.lowIntensity, self.interval.wrappedValue.highIntensity]
     }
     
     private func getSelectedWorkoutPhase() -> WorkoutPhase {
         phases.filter { $0.id == selectedPhaseID }.first ?? .lowIntensitiy
     }
+    
     private func setSelectedWorkoutPhase(updatedPhase: WorkoutPhase, transaction: Transaction) {
         phases = phases.map {
             $0.id == updatedPhase.id ? updatedPhase : $0
@@ -45,11 +42,29 @@ class IntervalViewModel: ObservableObject {
 }
 
 extension IntervalViewModel {
+    
     func move(indicies: IndexSet, newOffset: Int) {
         phases.move(fromOffsets: indicies, toOffset: newOffset)
+        if phases.first?.id == interval.wrappedValue.lowIntensity.id {
+            interval.wrappedValue.order = .startsWithLowIntensity
+        } else {
+            interval.wrappedValue.order = .startsWithHighIntensity
+        }
     }
+    
     func didTogglePhaseDuration(_ phaseId: String) {
         selectedPhaseID = phaseId
         isPickerPresented = true
+    }
+}
+
+extension Binding {
+    func map<T>(fx: @escaping (Value) -> T, tx: @escaping (T) -> Void ) -> Binding<T> {
+        Binding<T>.init {
+            fx(self.wrappedValue)
+        } set: { t in
+            tx(t)
+        }
+
     }
 }

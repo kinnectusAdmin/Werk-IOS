@@ -32,9 +32,6 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
-//        $workout.map(\.highIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$highIntensityDuration)
-//        $workout.map(\.lowIntensity.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$lowIntensityDuration)
-        
     }
     
     
@@ -54,6 +51,11 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         workout.intervals.cycles.append(.initial)
         print("\(workout.intervals.cycles.count)")
     }
+    
+    func numberOfSetsText(_ interval: Interval) -> String {
+        let sets = interval.numberOfSets
+        return sets != 1 ? "\(sets) sets" : "\(sets) set"
+    }
 }
 
 
@@ -62,9 +64,15 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
 
 
 extension WorkoutCreationEditViewModel {
-    func didUpdateInterval(interval: Interval) {
-        intervals.cycles = intervals.cycles.map {
-            $0.id == interval.id ? interval : $0
+    func didUpdateIntervalBinding(interval: Interval) -> Binding<Interval> {
+        Binding<Interval>.init { [weak self] in
+            guard let self = self else { return interval }
+            return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
+        } set: { [weak self] updatedInterval in
+            guard let self = self else { return }
+            self.intervals.cycles = self.intervals.cycles.map {
+                $0.id == updatedInterval.id ? updatedInterval : $0
+            }
         }
     }
     
