@@ -16,7 +16,7 @@ import AVFoundation
 
 struct IntervalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel(interval: .initial, didUpdateInterval: {_ in})
+    @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel(interval: .constant(.initial))
     
     var body: some View {
         NavigationView{
@@ -24,7 +24,7 @@ struct IntervalView: View {
                 Section {
                     HStack(alignment: .bottom) {
                         Picker("Number of sets", selection: viewModel.numberOfsetsBinding) {
-                            ForEach(1 ..< 100) {
+                            ForEach(0 ..< 100) {
                                 Text("\($0)")
                             }
                         }.frame(maxHeight: .infinity, alignment: .bottom)
@@ -64,7 +64,7 @@ struct IntervalView: View {
 
 struct IntervalView_Previews: PreviewProvider {
     static var previews: some View {
-        IntervalView(viewModel: IntervalViewModel(interval: .initial, didUpdateInterval: {_ in }))
+        IntervalView(viewModel: IntervalViewModel(interval: .constant(.initial)))
     }
 }
 
