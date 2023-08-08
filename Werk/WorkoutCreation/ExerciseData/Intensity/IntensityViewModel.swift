@@ -12,9 +12,9 @@ import Combine
 class IntensityViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published private var currentIntensity: Intensity
-    @Published var workoutPhase: WorkoutPhase
+    @Binding var workoutPhase: WorkoutPhase
     @Published var isPickerPresented: Bool = false
-    @State var color: Color = .blue
+    
 
     
     var title: String {
@@ -30,6 +30,9 @@ class IntensityViewModel: ObservableObject {
             
         case .coolDown:
             return "Cool Down"
+            
+        case .restBetweenPhases:
+            return "Rest"
         }
     }
     
@@ -44,11 +47,11 @@ class IntensityViewModel: ObservableObject {
 //    }
     
     
-    private var updateFunction: (WorkoutPhase) -> Void
-    init(workoutPhase: WorkoutPhase, intensity: Intensity, updateFunction: @escaping (WorkoutPhase) -> Void) {
+//    private var updateFunction: (WorkoutPhase) -> Void
+    init(workoutPhase: Binding<WorkoutPhase>, intensity: Intensity) {
         self.currentIntensity = intensity
-        self.workoutPhase = workoutPhase
-        self.updateFunction = updateFunction
+        self._workoutPhase = workoutPhase
+         
     }
 }
 
@@ -57,11 +60,12 @@ enum Intensity {
     case lowIntensity
     case highIntensity
     case coolDown
+    case restBetweenPhases
 }
 extension IntensityViewModel {
     
     func didDisappear() {
-        updateFunction(workoutPhase)
+//        updateFunction(workoutPhase)
     }
 }
 

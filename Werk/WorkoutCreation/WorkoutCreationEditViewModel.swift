@@ -21,6 +21,8 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     @Published var intervals: IntervalCollection = .initial
     @Published var lowIntensityDuration: String = ""
     @Published var highIntensityDuration: String = ""
+    @Published var restBetweenPhasesDuration: String = ""
+    @Published var showRestBetweenCycles = false
     
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
@@ -32,6 +34,7 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
         $workout.map(\.intervals).assign(to: &$intervals)
+        $workout.map(\.intervals.restBetweenPhases.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$restBetweenPhasesDuration)
     }
     
     private func provideWorkoutName() -> String {
@@ -48,8 +51,8 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     }
     
     func didSelectAddNewCycle() {
-        workout.intervals.cycles.append(.initial)
-        print("\(workout.intervals.cycles.count)")
+        workout.intervals.cycles.append(Interval.initial())
+        
     }
     
     func numberOfSetsText(_ interval: Interval) -> String {
@@ -67,17 +70,21 @@ extension WorkoutCreationEditViewModel {
     func didUpdateIntervalBinding(interval: Interval) -> Binding<Interval> {
         Binding<Interval>.init { [weak self] in
             guard let self = self else { return interval }
-            return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
+            return self.workout.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
-            self.intervals.cycles = self.intervals.cycles.map {
+            self.workout.intervals.cycles = self.workout.intervals.cycles.map {
                 $0.id == updatedInterval.id ? updatedInterval : $0
             }
         }
     }
     
-    func didUpdateWarmup(warmup: WorkoutPhase) {
-        workout.warmup = warmup
+    func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
+        Binding<WorkoutPhase> {
+            self.workout.warmup
+        } set: { warmUp, _ in
+            self.workout.warmup = warmUp
+        }
     }
     
 
@@ -86,8 +93,22 @@ extension WorkoutCreationEditViewModel {
     }
     
     
-    func didUpdateCoolDown(coolDown: WorkoutPhase) {
-        workout.cooldown = coolDown
+    func didUpdateCoolDownBinding() -> Binding<WorkoutPhase> {
+        Binding<WorkoutPhase> {
+            self.workout.cooldown
+        } set: { coolDown, _ in
+            self.workout.cooldown = coolDown
+        }
     }
+    
+    func didUpdateRestBinding() -> Binding<WorkoutPhase> {
+        Binding<WorkoutPhase> {
+            self.workout.intervals.restBetweenPhases
+        } set: { rest, _ in
+            self.workout.intervals.restBetweenPhases = rest
+        }
+    }
+    
+    
 }
 

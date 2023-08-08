@@ -16,7 +16,7 @@ import AVFoundation
 
 struct IntervalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel(interval: .constant(.initial))
+    @ObservedObject var viewModel: IntervalViewModel = IntervalViewModel(interval: .constant(Interval.initial()))
     
     var body: some View {
         NavigationView{
@@ -61,10 +61,8 @@ struct IntervalView: View {
 }
 
 
-
 struct IntervalView_Previews: PreviewProvider {
     static var previews: some View {
-        IntervalView(viewModel: IntervalViewModel(interval: .constant(.initial)))
+        IntervalView(viewModel: IntervalViewModel(interval: .constant(Interval.initial())))
     }
 }
-

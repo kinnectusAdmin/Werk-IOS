@@ -41,7 +41,7 @@ extension WorkoutPhase  {
     static let warmUP = WorkoutPhase(id: UUID().uuidString, name: "Warm Up", color: 0 , sound: .dingding, hours: 0, minutes: 0, seconds: 0)
     static let lowIntensitiy = WorkoutPhase(id: UUID().uuidString, name: "Low Intentsity", color: 0 , sound: .ding, hours: 0, minutes: 0, seconds: 10)
     static let highIntensitity = WorkoutPhase(id: UUID().uuidString, name: "High Intensitiy", color: 0 , sound: .dingding, hours: 0, minutes: 0, seconds: 20)
-    static let rest = WorkoutPhase(id: UUID().uuidString, name: "Rest Between Cycles", color: 0, sound: .dingding, hours: 0, minutes: 0, seconds: 0)
+    static let restBetweenPhases = WorkoutPhase(id: UUID().uuidString, name: "Rest Between Cycles", color: 0, sound: .dingding, hours: 0, minutes: 0, seconds: 0)
 }
 
 struct IntervalCollection: Codable {
@@ -53,7 +53,7 @@ struct IntervalCollection: Codable {
 }
 
 extension IntervalCollection {
-    static let initial = IntervalCollection(cycles: [.initial], restBetweenPhases: .rest)
+    static let initial = IntervalCollection(cycles: [Interval.initial()], restBetweenPhases: .restBetweenPhases)
 }
 
 struct Interval: Identifiable, Codable {
@@ -69,7 +69,9 @@ struct Interval: Identifiable, Codable {
 }
 
 extension Interval {
-    static let initial = Interval.init(highIntensity: .highIntensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
+    static func initial() -> Interval {
+        Interval.init(highIntensity: .highIntensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
+    }
 }
 
 struct WorkoutBlueprint: Codable {

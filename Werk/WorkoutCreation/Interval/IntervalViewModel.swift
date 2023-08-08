@@ -11,7 +11,7 @@ import Combine
 
 class IntervalViewModel: ObservableObject {
     private var cancellables =  Set<AnyCancellable>()
-    var interval: Binding<Interval> = .constant(.initial)
+    var interval: Binding<Interval> = .constant(Interval.initial())
     @Published var isPickerPresented: Bool = false
     var phases: [WorkoutPhase] = []
     @State var editMode: EditMode = .active

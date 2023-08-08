@@ -11,87 +11,104 @@ import Foundation
 import SwiftUI
 
 
+
 struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: WorkoutCreationEditViewModel 
+    @ObservedObject var viewModel: WorkoutCreationEditViewModel
     
     let colors:[Color] =
     [
         Color.red, Color.blue, Color.green, Color.indigo, Color.orange
     ]
     var body: some View {
-        ZStack {
-            NavigationView {
-                Form {
-                    Section {
-                        HStack {
-                            //Text field to name workout and select its color to appear on graph
-                            TextField("Timer Name",text: viewModel.workoutNameBinding)
-                                .keyboardType(.alphabet)
-                            Picker("", selection: $viewModel.selectedColorIndex) {
-                                ForEach(0..<5) { index in
-                                    Text(colors[index].description)
-                                }
+        
+        NavigationView {
+            Form {
+                Section {
+                    HStack {
+                        //Text field to name workout and select its color to appear on graph
+                        TextField("Timer Name",text: viewModel.workoutNameBinding)
+                            .keyboardType(.alphabet)
+                        Picker("", selection: $viewModel.selectedColorIndex) {
+                            ForEach(0..<5) { index in
+                                Text(colors[index].description)
                             }
                         }
                     }
+                }
+                NavigationLink {
+                    //takes user to warm up intensity set up
+                    IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateWarmupBinding(), intensity: .warmup))
+                } label: {
+                    HStack {
+                        Text("Warm Up")
+                        Spacer()
+                        Text("\(viewModel.warmupDuration)")
+                    }
+                }
+                
+                ForEach(viewModel.workout.intervals.cycles, id: \.id) { cycle in
+                    Section {
+                        NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: viewModel.didUpdateIntervalBinding(interval: cycle)))) {
+                            HStack {
+                                Text("Interval Cycle")
+                                Spacer()
+                                Text(viewModel.numberOfSetsText(cycle))
+                            }
+                        }
+                    }
+                }
+                
+                Section {
+                    Button("Add Cycle") {
+                        viewModel.didSelectAddNewCycle()
+                        
+                        if viewModel.workout.intervals.cycles.count > 1 {
+                            viewModel.showRestBetweenCycles = true
+                        }
+                    }
+                }
+                
+                if viewModel.showRestBetweenCycles {
+                    Section {
+                        NavigationLink(destination: IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateRestBinding(), intensity: .restBetweenPhases))) {
+                            HStack {
+                                Text("Rest Between Cycles")
+                                Spacer()
+                                Text("\(viewModel.restBetweenPhasesDuration)")
+                            }
+                        }
+                    }
+                }
+                
+                
+                Section {
                     NavigationLink {
-                        //takes user to warm up intensity set up
-                        IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.warmup, intensity: .warmup, updateFunction: viewModel.didUpdateWarmup))
+                        
+                        IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateCoolDownBinding(), intensity: .coolDown))
                     } label: {
                         HStack {
-                            Text("Warm Up")
+                            Text("Cool Down")
                             Spacer()
-                            Text("\(viewModel.warmupDuration)")
+                            Text("\(viewModel.cooldownDuration)")
                         }
                     }
                     
-                    ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
-                        Section {
-                            NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: viewModel.didUpdateIntervalBinding(interval: cycle)))) {
-                                HStack {
-                                    Text("Interval Cycle")
-                                    Spacer()
-                                    Text(viewModel.numberOfSetsText(cycle))
-                                }
-                            }
-                        }
+                }
+            }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        viewModel.didSelectSave()
                     }
-
-                    Section {
-                        Button("Add Cycle") {
-                            
-                            print("Print!")
-                            viewModel.didSelectAddNewCycle()
-                        }
-                    } 
-                    Section {
-                        NavigationLink {
-                            
-                            IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.workout.cooldown, intensity: .coolDown, updateFunction: viewModel.didUpdateCoolDown))
-                        } label: {
-                            HStack {
-                                Text("Cool Down")
-                                Spacer()
-                                Text("\(viewModel.warmupDuration)")
-                            }
-                        }
-                        
-                    }
-                }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Save") {
-                            viewModel.didSelectSave()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel", role: .cancel) {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel", role: .cancel) {
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
         }
+        
     }
     
 }

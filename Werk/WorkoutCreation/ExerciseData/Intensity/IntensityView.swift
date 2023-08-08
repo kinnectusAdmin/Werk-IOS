@@ -25,7 +25,6 @@ struct IntensityView: View {
                          viewModel.isPickerPresented.toggle()
                      }
                 }
-                ColorPicker("Color", selection: viewModel.$color)
             }.navigationTitle(viewModel.title)
         }
         .sheet(isPresented: isPickerPresentedBinding()) {
@@ -47,7 +46,7 @@ struct IntensityView: View {
 
 struct IntensityView_Previews: PreviewProvider {
     static var previews: some View {
-        IntensityView(viewModel: IntensityViewModel(workoutPhase: .coolDown, intensity: .warmup, updateFunction: {_ in }))
+        IntensityView(viewModel: IntensityViewModel(workoutPhase: .constant(.warmUP), intensity: .warmup))
     }
 }
 
