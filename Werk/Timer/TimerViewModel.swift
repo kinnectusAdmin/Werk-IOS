@@ -96,24 +96,48 @@ class TimerViewModel: ObservableObject {
             
         }.reduce(0, +)
         
-        
         let cycleBlocks = workout.intervals.cycles.map { cycle in
             if cycle.order == .startsWithHighIntensity {
-                return (0...cycle.numberOfSets).map { cycleSet in
-                    if cycleSet % 2 != 0 {
-                        return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
-                    } else {
-                        return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                if workout.intervals.restBetweenPhases.duration > 0 {
+                   let phases = (0...cycle.numberOfSets).map { cycleSet in
+                        if cycleSet % 2 != 0 {
+                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                        } else {
+                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                        }
+                    }
+                    let rests = Array(repeating: [WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases)], count: phases.count - 1)
+                    return zip(phases, rests).map { $0 + $1 }.reduce([], +)
+                } else {
+                    return (0...cycle.numberOfSets).map { cycleSet in
+                        if cycleSet % 2 != 0 {
+                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                        } else {
+                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                        }
                     }
                 }
             } else {
-                return (0...cycle.numberOfSets).map { cycleSet in
-                    if cycleSet % 2 != 0 {
-                        return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
-                    } else {
-                        return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                if workout.intervals.restBetweenPhases.duration > 0 {
+                    let phases = (0...cycle.numberOfSets).map { cycleSet in
+                        if cycleSet % 2 != 0 {
+                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                        } else {
+                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                        }
+                    }
+                    let rests = Array(repeating: [WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases)], count: phases.count - 1)
+                    return zip(phases, rests).map { $0 + $1 }.reduce([], +)
+                } else {
+                    return (0...cycle.numberOfSets).map { cycleSet in
+                        if cycleSet % 2 != 0 {
+                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                        } else {
+                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                        }
                     }
                 }
+                
             }
         }.reduce([WorkoutBlock](), +)
         

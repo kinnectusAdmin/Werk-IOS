@@ -23,6 +23,7 @@ struct IntervalView: View {
             Form {
                 Section {
                     HStack(alignment: .bottom) {
+                        //Button that dispalys option to choose # of sets
                         Picker("Number of sets", selection: viewModel.numberOfsetsBinding) {
                             ForEach(0 ..< 100) {
                                 Text("\($0)")
@@ -51,13 +52,6 @@ struct IntervalView: View {
         }
     }
     
-    func isPickerPresentedBinding() -> Binding<Bool> {
-        Binding(get: {
-            viewModel.isPickerPresented
-        }, set: { newValue in
-            viewModel.isPickerPresented = newValue
-        })
-    }
 }
 
 

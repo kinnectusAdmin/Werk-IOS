@@ -13,15 +13,17 @@ class IntervalViewModel: ObservableObject {
     private var cancellables =  Set<AnyCancellable>()
     var interval: Binding<Interval> = .constant(Interval.initial())
     @Published var isPickerPresented: Bool = false
-    var phases: [WorkoutPhase] = []
-    @State var editMode: EditMode = .active
+    @Published var phases: [WorkoutPhase] = []
+    @Published var editMode: EditMode = .active
     private var selectedPhaseID: String = ""
     
     var selectedPhaseBinding: Binding<WorkoutPhase> {
+        //Binding to update selected workout phasse
         Binding<WorkoutPhase>.init(get: getSelectedWorkoutPhase, set: setSelectedWorkoutPhase)
     }
     
     var numberOfsetsBinding: Binding<Int> {
+        //Binding to update number of sets
         interval.numberOfSets
     }
     
@@ -39,10 +41,17 @@ class IntervalViewModel: ObservableObject {
             $0.id == updatedPhase.id ? updatedPhase : $0
         }
     }
+    
+    func isPickerPresentedBinding() -> Binding<Bool> {
+        Binding(get: {
+            self.isPickerPresented
+        }, set: { newValue in
+            self.isPickerPresented = newValue
+        })
+    }
 }
 
 extension IntervalViewModel {
-    
     func move(indicies: IndexSet, newOffset: Int) {
         phases.move(fromOffsets: indicies, toOffset: newOffset)
         if phases.first?.id == interval.wrappedValue.lowIntensity.id {

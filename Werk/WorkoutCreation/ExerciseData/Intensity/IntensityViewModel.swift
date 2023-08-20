@@ -37,15 +37,8 @@ class IntensityViewModel: ObservableObject {
     }
     
     var convertedTime:String { //shows String in 00:00 format
-        return String(format: "%02d:%02d", (workoutPhase.minutes),(workoutPhase.seconds))
+        return String(format: "%02d:%02d:%02d", (workoutPhase.hours),(workoutPhase.minutes),(workoutPhase.seconds))
     }
-//    var convertedMinutes:String { //shows String in 00:00 format
-//        return String(format: "%02d", (workoutPhase.minutes))
-//    }
-//    var convertedSeconds:String { //shows String in 00:00 format
-//        return String(format: "%02d", (workoutPhase.seconds))
-//    }
-    
     
 //    private var updateFunction: (WorkoutPhase) -> Void
     init(workoutPhase: Binding<WorkoutPhase>, intensity: Intensity) {
