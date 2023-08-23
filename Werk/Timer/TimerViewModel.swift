@@ -96,26 +96,28 @@ class TimerViewModel: ObservableObject {
             
         }.reduce(0, +)
         
-        let cycleBlocks = workout.intervals.cycles.map { cycle in
+        var cycleBlocks: [WorkoutBlock] = []
+
+        for cycle in workout.intervals.cycles {
             if cycle.order == .startsWithHighIntensity {
                 if workout.intervals.restBetweenPhases.duration > 0 {
-                   let phases = (0...cycle.numberOfSets).map { cycleSet in
+                    let phases = (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                         } else {
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         }
                     }
-                    let rests = Array(repeating: [WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases)], count: phases.count - 1)
-                    return zip(phases, rests).map { $0 + $1 }.reduce([], +)
+                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { $0 + [$1] })
                 } else {
-                    return (0...cycle.numberOfSets).map { cycleSet in
+                    cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                         } else {
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         }
-                    }
+                    })
                 }
             } else {
                 if workout.intervals.restBetweenPhases.duration > 0 {
@@ -126,24 +128,25 @@ class TimerViewModel: ObservableObject {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                         }
                     }
-                    let rests = Array(repeating: [WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases)], count: phases.count - 1)
-                    return zip(phases, rests).map { $0 + $1 }.reduce([], +)
+                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { $0 + [$1] })
                 } else {
-                    return (0...cycle.numberOfSets).map { cycleSet in
+                    cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         } else {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                         }
-                    }
+                    })
                 }
-                
             }
-        }.reduce([WorkoutBlock](), +)
-        
+        }
+
         let warmupBlock = WorkoutBlock(name: workout.warmup.name, timeElapsed: 0, plannedDuration: workout.warmup.duration, type: .warmup)
         let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
-        
+
+        workoutBlocks = [warmupBlock] + cycleBlocks + [cooldownBlock]
+
         //        workoutBlocks.append(warmupBlock)
         //        workoutBlocks.append(contentsOf: cycleBlocks)
         //        workoutBlocks.append(cooldownBlock)

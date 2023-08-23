@@ -15,7 +15,7 @@ enum Sound: Int, Codable {
 }
 
 
-struct WorkoutBlock {
+struct WorkoutBlock: Sequence, Codable {
     let name: String
     var timeElapsed: Int
     let plannedDuration: Int
