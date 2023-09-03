@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial)
+    @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial())
     @State private var showingSheet = false
     
     var body: some View {
@@ -219,6 +219,6 @@ struct TimerView: View {
 
 struct LowerTimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial))
+        TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial()))
     }
 }

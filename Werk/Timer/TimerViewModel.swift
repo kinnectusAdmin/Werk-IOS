@@ -10,16 +10,13 @@ import SwiftUI
 import Combine
 import AudioToolbox
 
+
 class TimerViewModel: ObservableObject {
     var soundModel = Audio()
     var workout: WorkoutBlueprint!
     @Published var circleProgress: CGFloat = 0.0
     @State var startDate = Date.now
-    @Published var workoutBlocks: [WorkoutBlock] =
-    [
-        WorkoutBlock(name: "Jump Rope", timeElapsed: 0, plannedDuration: 65, type: .warmup),
-        WorkoutBlock(name: "Push Ups", timeElapsed: 0, plannedDuration: 110, type: .lowIntensity)
-    ]
+    @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
     var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
@@ -109,7 +106,7 @@ class TimerViewModel: ObservableObject {
                         }
                     }
                     let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
-                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { $0 + [$1] })
+                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
                 } else {
                     cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
@@ -120,24 +117,26 @@ class TimerViewModel: ObservableObject {
                     })
                 }
             } else {
-                if workout.intervals.restBetweenPhases.duration > 0 {
-                    let phases = (0...cycle.numberOfSets).map { cycleSet in
-                        if cycleSet % 2 != 0 {
-                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
-                        } else {
-                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                if cycle.order == .startsWithLowIntensity {
+                    if workout.intervals.restBetweenPhases.duration > 0 {
+                        let phases = (0...cycle.numberOfSets).map { cycleSet in
+                            if cycleSet % 2 != 0 {
+                                return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                            } else {
+                                return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                            }
                         }
+                        let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                        cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
+                    } else {
+                        cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
+                            if cycleSet % 2 != 0 {
+                                return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                            } else {
+                                return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                            }
+                        })
                     }
-                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
-                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { $0 + [$1] })
-                } else {
-                    cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
-                        if cycleSet % 2 != 0 {
-                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
-                        } else {
-                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
-                        }
-                    })
                 }
             }
         }

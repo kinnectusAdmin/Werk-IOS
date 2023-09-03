@@ -9,15 +9,10 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        ZStack {
-            VStack {
-                WorkoutHistoryView()
-                Spacer()
-            }
-            VStack {
-                Spacer()
-                WorkOutListView(viewModel: WorkoutListViewModel())
-            }
+        VStack {
+            WorkoutHistoryView()
+                .padding(.bottom, 16) // Add some spacing between the views
+            WorkOutListView(viewModel: WorkoutListViewModel())
         }
     }
 }

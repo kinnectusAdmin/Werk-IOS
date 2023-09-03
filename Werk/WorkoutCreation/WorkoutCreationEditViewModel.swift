@@ -27,7 +27,7 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial, service: DataStorageServiceIdentity = DataStorageService()) {
+    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial(), service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         self.workout = workout
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
