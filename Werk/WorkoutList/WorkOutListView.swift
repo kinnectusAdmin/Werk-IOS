@@ -25,11 +25,14 @@ struct WorkOutListView: View {
                     Spacer().frame(height: 8)
                     List{
                         ForEach(viewModel.workOuts, id: \.id) { workOut in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Divider()
-                                Text(workOut.name)
-                                Text(durationOfWorkout(duration: Double(workOut.duration)))
-                                Divider()
+                            NavigationLink(destination: TimerView(viewModel: TimerViewModel(workout: workOut)))
+                            {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Divider()
+                                    Text(workOut.name)
+                                    Text(durationOfWorkout(duration: Double(workOut.duration)))
+                                    Divider()
+                                }.navigationBarBackButtonHidden(true)
                             }
                             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                 Button("Delete") {
@@ -40,7 +43,7 @@ struct WorkOutListView: View {
                     }
                 }
             }
-        
+            
             VStack {
                 //button to add workout
                 Spacer()

@@ -83,6 +83,7 @@ class DataStorageService: DataStorageServiceIdentity {
         getWorkoutBlueprintAsData().map {
             do {
                 let blueprint: WorkoutBlueprint = try JSONDecoder().decode(WorkoutBlueprint.self, from: $0)
+                getRecordedWorkoutsRemote()
                 return blueprint
             } catch {
                 return nil
@@ -115,6 +116,9 @@ func getWorkoutBlueprintAsData() -> [Data] {
 //        }
 //    }
 
+    
+    
+    
     func getWorkoutBlueprintsRemote(completion: @escaping ([WorkoutBlueprint]?, Error?) -> Void) { //FIREBASE
         let dataStore = Firestore.firestore().collection("workoutBlueprint")
 

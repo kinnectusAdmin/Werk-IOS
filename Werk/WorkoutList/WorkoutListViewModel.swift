@@ -26,13 +26,7 @@ class WorkoutListViewModel: ObservableObject {
 }
 
 extension WorkoutListViewModel {
-    func didSelectWorkout() -> any View  {
-        //when called this function should take a workoutBlueprint from the list in the workoutListView and navigate to the timer view that uses the selected workoutblueprint as a workoutBlock for the timer
-        //do i have to convert a workout blueprint into a workout block?
-        return NavigationLink(destination: TimerView(viewModel: TimerViewModel(workout: workOuts[4]))) {
-            Text("")
-        }
-    }
+//
     
     
     func didSelectAddworkout()-> any View {
