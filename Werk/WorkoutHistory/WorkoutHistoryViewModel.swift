@@ -7,11 +7,13 @@ final class WorkoutHistoryViewModel: ObservableObject {
     @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
     @Published var bars: [Bar] = []
     private let service: DataStorageServiceIdentity!
-    private var allWorkouts: [RecordedWorkout] = []
+    @Published var allWorkouts: [RecordedWorkout] = []
     private var cancellables = Set<AnyCancellable>()
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
-        self.allWorkouts = service.getRecordedWorkouts()
+        
+        service.observeRecordedWorkouts().assign(to: &$allWorkouts)
+        
         $weekSelection.map{ selectedWeek -> [Bar] in
             Date.weekOfDates(weekOfYear: selectedWeek).map { date -> Bar in
                 let daysWorkouts = service.getRecordedWorkouts().filter{
