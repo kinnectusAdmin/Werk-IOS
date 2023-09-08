@@ -11,6 +11,7 @@ import SwiftUI
 struct WorkOutListView: View {
     @ObservedObject var viewModel: WorkoutListViewModel
     @State var showingSheet = false
+    @State var selectedWorkout:WorkoutBlueprint? = nil
     
     var body: some View {
         ZStack {
@@ -25,40 +26,47 @@ struct WorkOutListView: View {
                     Spacer().frame(height: 8)
                     List{
                         ForEach(viewModel.workOuts, id: \.id) { workOut in
-                            NavigationLink(destination: TimerView(viewModel: TimerViewModel(workout: workOut)))
-                            {
+                            Button(action: {
+                                selectedWorkout = workOut
+                            }) {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Divider()
                                     Text(workOut.name)
                                     Text(durationOfWorkout(duration: Double(workOut.duration)))
-                                    Divider()
-                                }.navigationBarBackButtonHidden(true)
+                                }
                             }
+                            .padding(.bottom)
+                            
                             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                 Button("Delete") {
                                     viewModel.deleteWorkout(at: workOut)
+                                    
                                 }
                             }
                         }
                     }
+                    HStack {
+                        //button to add workout
+                        Spacer()
+                        Button() {
+                            showingSheet.toggle()
+                        } label: {
+                            ZStack{
+                                Circle().frame(width: 60, height: 60)
+                                Image(systemName: "plus").foregroundStyle(Color.white)
+                            }.padding(.bottom, 100)
+                        }.sheet(isPresented: $showingSheet) {
+                            WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())
+                        }
+                        Spacer()
+                    }.padding(.bottom, 30)
+                        .frame(maxHeight:0)
                 }
             }
-            
-            VStack {
-                //button to add workout
-                Spacer()
-                Button {
-                    showingSheet.toggle()
-                } label: {
-                    ZStack{
-                        Circle().frame(width: 60, height: 60)
-                        Image(systemName: "plus").foregroundStyle(Color.white)
-                    }
-                }.sheet(isPresented: $showingSheet) {
-                    WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())
-                }
-            }.padding(.bottom, 30)
         }.frame(maxHeight: .infinity)
+            .fullScreenCover(item: $selectedWorkout) { workout in
+                TimerView(viewModel: TimerViewModel(workout: workout))
+            }
+        
     }
 }
 

@@ -14,16 +14,11 @@ struct WerkApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                VStack {
-                    WorkoutHistoryView()
-                    Spacer()
-                } 
-                VStack {
-                    Spacer()
-                    WorkOutListView(viewModel: .init())
-                }
-            }
+            
+                WorkoutHistoryView()
+                    .padding(.bottom, 16) // Add some spacing between the views
+                WorkOutListView(viewModel: WorkoutListViewModel())
+            
         }
     }
 }

@@ -177,7 +177,7 @@ struct TimerView: View {
 
                 
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
