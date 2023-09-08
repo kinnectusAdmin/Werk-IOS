@@ -99,6 +99,7 @@ struct WorkoutCreationEditViewForm: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
                         viewModel.didSelectSave()
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -117,7 +118,7 @@ struct WorkoutCreationEditViewForm: View {
 struct WorkoutCreationViewForm_Previews: PreviewProvider {
     static var previews: some View{
         WorkoutCreationEditViewForm(
-            viewModel: WorkoutCreationEditViewModel(workout: WorkoutBlueprint.initial))
+            viewModel: WorkoutCreationEditViewModel(workout: WorkoutBlueprint.initial()))
     }
 }
 

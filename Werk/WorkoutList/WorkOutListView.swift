@@ -15,27 +15,35 @@ struct WorkOutListView: View {
     var body: some View {
         ZStack {
             //List
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Text("My Workouts").font(.title)
-                    Spacer()
-                }
-                Spacer().frame(height: 8)
-                ScrollView {
-                    ForEach(viewModel.workOuts, id: \.id) { workOut in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(workOut.name)
-                            Text(durationOfWorkout(duration: Double(workOut.duration)))
-                            Divider()
-                        }.onTapGesture {
-                            viewModel.didSelectWorkout(workout:workOut)
+            NavigationView{
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        Spacer()
+                        Text("My Workouts").font(.title)
+                        Spacer()
+                    }
+                    Spacer().frame(height: 8)
+                    List{
+                        ForEach(viewModel.workOuts, id: \.id) { workOut in
+                            NavigationLink(destination: TimerView(viewModel: TimerViewModel(workout: workOut)))
+                            {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Divider()
+                                    Text(workOut.name)
+                                    Text(durationOfWorkout(duration: Double(workOut.duration)))
+                                    Divider()
+                                }.navigationBarBackButtonHidden(true)
+                            }
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button("Delete") {
+                                    viewModel.deleteWorkout(at: workOut)
+                                }
+                            }
                         }
                     }
                 }
             }
-            .frame(maxHeight: 200)
-            .padding(.leading, 12)
-        
+            
             VStack {
                 //button to add workout
                 Spacer()
@@ -49,9 +57,8 @@ struct WorkOutListView: View {
                 }.sheet(isPresented: $showingSheet) {
                     WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())
                 }
-            }
-        }
-        
+            }.padding(.bottom, 30)
+        }.frame(maxHeight: .infinity)
     }
 }
 

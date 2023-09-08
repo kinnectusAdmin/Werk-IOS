@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial)
+    @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial())
     @State private var showingSheet = false
     
     var body: some View {
@@ -26,7 +26,7 @@ struct TimerView: View {
                         Image(systemName: "xmark")
                             .font(.system(size: 25))
                             .foregroundColor(.white)
-                            .padding(.all, 5)
+                            .padding(.all, 25)
                             .background(Color.black.opacity(0.0))
                             .clipShape(Circle())
                     }
@@ -46,7 +46,7 @@ struct TimerView: View {
                         Image(systemName: "pencil.circle")
                             .font(.system(size: 25))
                             .foregroundColor(.white)
-                            .padding(.all, 5)
+                            .padding(.all, 25)
                             .background(Color.black.opacity(0.0))
                             .clipShape(Circle())
                         
@@ -174,43 +174,7 @@ struct TimerView: View {
                     }.disabled(viewModel.isScreenLocked)
                 }
                 Spacer()
-                HStack{
-                    //Apple music controls
-                    Button {
-                    } label: {
-                        Image(systemName: "backward.fill")
-                            .resizable()
-                            .frame(width: 30, height: 20)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    Button {
-                    } label: {
-                        Image(systemName: "play.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                    .foregroundColor(.white)
-                    Button {
-                    } label: {
-                        Image(systemName: "forward.fill")
-                            .resizable()
-                            .frame(width: 30, height: 20)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "music.note.list")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    
-                }
+
                 
             }
         }
@@ -219,6 +183,6 @@ struct TimerView: View {
 
 struct LowerTimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial))
+        TimerView(viewModel: TimerViewModel(workout: WorkoutBlueprint.initial()))
     }
 }

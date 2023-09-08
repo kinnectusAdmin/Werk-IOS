@@ -14,13 +14,42 @@ enum Sound: Int, Codable {
     case dingding = 1304
 }
 
-
-struct WorkoutBlock: Sequence, Codable {
-    let name: String
-    var timeElapsed: Int
-    let plannedDuration: Int
-    let type: Intensity
+struct WorkoutBlueprint: Codable, Identifiable {
+    var id: String = UUID().uuidString
+    var name: String
+    var warmup: WorkoutPhase
+    var intervals: IntervalCollection
+    var cooldown: WorkoutPhase
+    var duration: Int {
+        warmup.duration + cooldown.duration + intervals.duration
+    }
 }
+
+extension WorkoutBlueprint {
+    static func initial() -> WorkoutBlueprint {
+        WorkoutBlueprint(
+           id: UUID().uuidString
+           ,name: ""
+           , warmup: .warmUP
+           , intervals: .initial
+           , cooldown: .coolDown
+       )
+    }
+}
+
+extension WorkoutBlueprint: Equatable {
+    static func ==(lhs:WorkoutBlueprint,rhs:WorkoutBlueprint) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+struct WorkoutBlock: Codable {
+    var name: String
+    var timeElapsed: Int
+    var plannedDuration: Int
+    var type: Intensity
+}
+
 
 
 struct WorkoutPhase: Identifiable, Hashable, Codable {
@@ -74,30 +103,5 @@ extension Interval {
     }
 }
 
-struct WorkoutBlueprint: Codable {
-    var id: String = UUID().uuidString
-    var name: String
-    var warmup: WorkoutPhase
-    var intervals: IntervalCollection
-    var cooldown: WorkoutPhase
-    var duration: Int {
-        warmup.duration + cooldown.duration + intervals.duration
-    }
-}
 
-extension WorkoutBlueprint {
-    static var initial = WorkoutBlueprint(
-        id: ""
-        ,name: ""
-        , warmup: .warmUP
-        , intervals: .initial
-        , cooldown: .coolDown
-    )
-}
-
-extension WorkoutBlueprint: Equatable {
-    static func ==(lhs:WorkoutBlueprint,rhs:WorkoutBlueprint) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
 
