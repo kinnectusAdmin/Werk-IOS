@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class IntervalViewModel: ObservableObject {
+class IntervalViewModel: ObservableObject, Identifiable {
     private var cancellables =  Set<AnyCancellable>()
     var interval: Binding<Interval> = .constant(Interval.initial())
     @Published var isPickerPresented: Bool = false
