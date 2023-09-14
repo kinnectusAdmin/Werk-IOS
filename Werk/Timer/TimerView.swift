@@ -15,7 +15,7 @@ struct TimerView: View {
     var body: some View {
         
         ZStack{
-            Color.purple.ignoresSafeArea()
+            viewModel.changeBackGroundColor(phase: viewModel.currentPhaseType)
             VStack {
                 HStack {
                     //exit button, workout name, and edit button

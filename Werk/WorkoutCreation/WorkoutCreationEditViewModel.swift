@@ -73,16 +73,17 @@ extension WorkoutCreationEditViewModel {
         Binding<Interval>.init { [weak self] in
             guard let self = self else { return interval }
             print("Did update interval")
-            return self.workout.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
+            return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
-            self.workout.intervals.cycles = self.workout.intervals.cycles.map {
-                $0.id == updatedInterval.id ? updatedInterval : $0
+            self.intervals.cycles = self.intervals.cycles.map {
+                $0.id == interval.id ? updatedInterval : $0
             }
         }
         
     }
     
+
     
     func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
