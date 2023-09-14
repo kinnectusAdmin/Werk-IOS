@@ -17,9 +17,7 @@ protocol DataStorageServiceIdentity {
     func getWorkoutBlueprintsRemote()
     func saveRecordedWorkout(recordedWorkout: RecordedWorkout)
     func getRecordedWorkouts() -> [RecordedWorkout]
-    
     func getRecordedWorkoutsRemote()
-    
     func observeWorkoutBlueprints() -> AnyPublisher<[WorkoutBlueprint], Never>
     func observeRecordedWorkouts() -> AnyPublisher<[RecordedWorkout], Never>
     func deleteWorkoutBlueprint(at workoutBlueprint: WorkoutBlueprint)

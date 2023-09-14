@@ -67,9 +67,12 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
 
 
 extension WorkoutCreationEditViewModel {
+    
     func didUpdateIntervalBinding(interval: Interval) -> Binding<Interval> {
+        
         Binding<Interval>.init { [weak self] in
             guard let self = self else { return interval }
+            print("Did update interval")
             return self.workout.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
@@ -77,7 +80,9 @@ extension WorkoutCreationEditViewModel {
                 $0.id == updatedInterval.id ? updatedInterval : $0
             }
         }
+        
     }
+    
     
     func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
@@ -87,7 +92,6 @@ extension WorkoutCreationEditViewModel {
         }
     }
     
-
     func didUpdateRestBetweenPhases(restPhase: WorkoutPhase) {
         workout.intervals.restBetweenPhases = restPhase
     }
