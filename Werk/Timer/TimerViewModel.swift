@@ -278,6 +278,21 @@ class TimerViewModel: ObservableObject {
         dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
     }
     
+     func changeBackGroundColor(phase: Intensity) -> some View {
+        switch phase {
+        case .warmup:
+            return Color.orange.ignoresSafeArea()
+        case .lowIntensity:
+            return Color.blue.ignoresSafeArea()
+        case .highIntensity:
+            return Color.red.ignoresSafeArea()
+        case .restBetweenPhases:
+            return Color.green.ignoresSafeArea()
+        case .coolDown:
+            return Color.cyan.ignoresSafeArea()
+        }
+    }
+    
 }
 
 
