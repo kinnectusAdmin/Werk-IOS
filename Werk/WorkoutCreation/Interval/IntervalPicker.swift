@@ -44,6 +44,6 @@ struct IntervalPicker: View {
 
 struct IntervalPicker_Previews: PreviewProvider {
     static var previews: some View {
-        IntervalPicker(phase: .constant(.lowIntensitiy))
+        IntervalPicker(phase: .constant(.lowIntensity))
     }
 }

@@ -48,7 +48,7 @@ class IntensityViewModel: ObservableObject {
     }
 }
 
-enum Intensity: Codable {
+enum Intensity: Codable, CaseIterable {
     case warmup
     case lowIntensity
     case highIntensity

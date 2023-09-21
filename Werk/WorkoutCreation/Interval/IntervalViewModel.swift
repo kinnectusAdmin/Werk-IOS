@@ -33,12 +33,18 @@ class IntervalViewModel: ObservableObject, Identifiable {
     }
     
     private func getSelectedWorkoutPhase() -> WorkoutPhase {
-        phases.filter { $0.id == selectedPhaseID }.first ?? .lowIntensitiy
+        phases.filter { $0.id == selectedPhaseID }.first ?? .lowIntensity
     }
     
     private func setSelectedWorkoutPhase(updatedPhase: WorkoutPhase, transaction: Transaction) {
         phases = phases.map {
             $0.id == updatedPhase.id ? updatedPhase : $0
+        }
+        if updatedPhase.id == interval.highIntensity.id{
+            interval.wrappedValue.highIntensity = phases.filter { $0.id == updatedPhase.id }.first!
+        }
+        if updatedPhase.id == interval.lowIntensity.id {
+            interval.wrappedValue.lowIntensity = phases.filter { $0.id == updatedPhase.id}.first!
         }
     }
     

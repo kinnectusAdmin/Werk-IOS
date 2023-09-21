@@ -18,7 +18,7 @@ class TimerViewModel: ObservableObject {
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
-    var currentPhaseType: Intensity = .warmup
+    @Published var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
     var currentPhaseName: String {
@@ -56,7 +56,7 @@ class TimerViewModel: ObservableObject {
     var displayedTimeRemaining:String {
         "\(convertedTotalDuration) \nRemaining"
     }
-        
+    
     
     
     var convertedCurrentPhaseTime:String { //shows String in 00:00 format
@@ -78,34 +78,42 @@ class TimerViewModel: ObservableObject {
     
     init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
         self.workout = workout
-                $workoutBlocks.map { blocks in
-                    blocks.map { $0.timeElapsed }.reduce(0, +)
-                }.map { [weak self] sum -> Int in
-                    guard let self = self else { return 0 }
-                    return self.totalPlannedDuration - sum
-                }.assign(to: &$elapsedTime)
+        $workoutBlocks.map { blocks in
+            blocks.map { $0.timeElapsed }.reduce(0, +)
+        }.map { [weak self] sum -> Int in
+            guard let self = self else { return 0 }
+            return self.totalPlannedDuration - sum
+        }.assign(to: &$elapsedTime)
         
-                totalPlannedDuration = workoutBlocks.map { durations in
-                    durations.plannedDuration}.reduce(0, +)
+        totalPlannedDuration = workoutBlocks.map { durations in
+            durations.plannedDuration}.reduce(0, +)
         
         totalPlannedDuration = workoutBlocks.map{ durations in
             durations.plannedDuration
             
         }.reduce(0, +)
         
+        
+        
         var cycleBlocks: [WorkoutBlock] = []
-
+        
         for cycle in workout.intervals.cycles {
             if cycle.order == .startsWithHighIntensity {
                 if workout.intervals.restBetweenPhases.duration > 0 {
                     let phases = (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
+                            //the problem lies here ! TIMER DOES NOT INCLUDE HIGH INTENSITY PHASE WHEN THERE IS MORE THEN 1 SET
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
-                        } else {
+                        } else {  //  if these v ^ are reverssed the the low intensity phase is not included
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         }
                     }
                     let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                                
+//                    phases.filter{$0.plannedDuration != 0}.compactMap{$0}.count - 1
+                    
+
+                    //DOES NOT EXCULDE PHASES BETWEEN REST IF PHASE HAS NO DURATION
                     cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
                 } else {
                     cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
@@ -140,12 +148,12 @@ class TimerViewModel: ObservableObject {
                 }
             }
         }
-
+        
         let warmupBlock = WorkoutBlock(name: workout.warmup.name, timeElapsed: 0, plannedDuration: workout.warmup.duration, type: .warmup)
         let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
-
+        
         workoutBlocks = [warmupBlock] + cycleBlocks + [cooldownBlock]
-
+        
         //        workoutBlocks.append(warmupBlock)
         //        workoutBlocks.append(contentsOf: cycleBlocks)
         //        workoutBlocks.append(cooldownBlock)
@@ -179,14 +187,14 @@ class TimerViewModel: ObservableObject {
     func didPressNextPhase() {
         //   for index in currentPhaseIndex
         currentPhaseIndex += 1
-
+        
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
             saveTimedWorkout()
             return  // this should save the workout to the workout history and exit the timer
         }
         timerElapsedTime = 0
-
+        
         calculateElapsedTime()
         //        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
     }
@@ -278,23 +286,35 @@ class TimerViewModel: ObservableObject {
         dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
     }
     
-     func changeBackGroundColor(phase: Intensity) -> some View {
-        switch phase {
-        case .warmup:
-            return Color.orange.ignoresSafeArea()
-        case .lowIntensity:
-            return Color.blue.ignoresSafeArea()
-        case .highIntensity:
-            return Color.red.ignoresSafeArea()
-        case .restBetweenPhases:
-            return Color.green.ignoresSafeArea()
-        case .coolDown:
-            return Color.cyan.ignoresSafeArea()
+    func changeBackgroundColor(phaseName: String) -> Color {
+        switch phaseName {
+        case "Warm Up":
+            return Color.orange
+        case "Low Intensity":
+            return Color.blue
+        case "High Intensity":
+            return Color.red
+        case "Cool Down":
+            return Color.cyan
+        case "Rest":
+            return Color.green
+        default:
+            return Color.gray // Default color for unknown phases
         }
     }
     
+    
+//    func changeBackGroundColor(intensityColor: Intensity) -> Color {
+//
+//        switch currentPhaseType {
+//        case .warmup: return Color.orange
+//        case .lowIntensity: return Color.blue
+//        case .highIntensity: return Color.red
+//        case .coolDown: return Color.cyan
+//        case .restBetweenPhases: return Color.green
+//        }
+//    }
 }
-
 
 
 
