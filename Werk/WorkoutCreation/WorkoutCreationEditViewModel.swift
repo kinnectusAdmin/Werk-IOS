@@ -51,7 +51,7 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     }
     
     func didSelectAddNewCycle() {
-        workout.intervals.cycles.append(Interval.initial())
+        workout.intervals._cycles.append(Interval.initial())
         
     }
     
@@ -76,11 +76,10 @@ extension WorkoutCreationEditViewModel {
             return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
-            self.intervals.cycles = self.intervals.cycles.map {
+            self.workout.intervals._cycles = self.workout.intervals._cycles.map {
                 $0.id == interval.id ? updatedInterval : $0
             }
         }
-        
     }
     
 
@@ -91,10 +90,15 @@ extension WorkoutCreationEditViewModel {
         } set: { warmUp, _ in
             self.workout.warmup = warmUp
         }
+        
     }
     
-    func didUpdateRestBetweenPhases(restPhase: WorkoutPhase) {
-        workout.intervals.restBetweenPhases = restPhase
+    func didUpdateRestBetweenPhases(restPhase: WorkoutPhase) -> Binding<WorkoutPhase> {
+        Binding<WorkoutPhase> {
+            self.intervals.restBetweenPhases
+        } set: { rest, _ in
+            self.intervals.restBetweenPhases = rest
+        }
     }
     
     

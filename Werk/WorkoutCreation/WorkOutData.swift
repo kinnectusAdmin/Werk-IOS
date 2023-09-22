@@ -9,10 +9,6 @@ import Foundation
 import SwiftUI
 
 
-enum Sound: Int, Codable {
-    case ding = 1309
-    case dingding = 1304
-}
 
 struct WorkoutBlueprint: Codable, Identifiable {
     var id: String = UUID().uuidString
@@ -55,8 +51,6 @@ struct WorkoutBlock: Codable {
 struct WorkoutPhase: Identifiable, Hashable, Codable {
     let id: String
     var name: String
-    var color: Int
-    var sound: Sound
     var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
@@ -66,15 +60,24 @@ struct WorkoutPhase: Identifiable, Hashable, Codable {
 }
 
 extension WorkoutPhase  {
-    static var coolDown = WorkoutPhase.init(id: UUID().uuidString, name: "Cool Down",  color: 0, sound: .ding,  hours: 0, minutes: 0, seconds: 0)
-    static let warmUP = WorkoutPhase(id: UUID().uuidString, name: "Warm Up", color: 0 , sound: .dingding, hours: 0, minutes: 0, seconds: 0)
-    static let lowIntensitiy = WorkoutPhase(id: UUID().uuidString, name: "Low Intentsity", color: 0 , sound: .ding, hours: 0, minutes: 0, seconds: 0)
-    static let highIntensitity = WorkoutPhase(id: UUID().uuidString, name: "High Intensitiy", color: 0 , sound: .dingding, hours: 0, minutes: 0, seconds: 0)
-    static let restBetweenPhases = WorkoutPhase(id: UUID().uuidString, name: "Rest Between Cycles", color: 0, sound: .dingding, hours: 0, minutes: 0, seconds: 0)
+    static let coolDown = WorkoutPhase.init(id: UUID().uuidString, name: "Cool Down",  hours: 0, minutes: 0, seconds: 0)
+    static let warmUP = WorkoutPhase(id: UUID().uuidString, name: "Warm Up", hours: 0, minutes: 0, seconds: 0)
+    static let lowIntensity = WorkoutPhase(id: UUID().uuidString, name: "Low Intensity", hours: 0, minutes: 0, seconds: 0)
+    static let highIntensity = WorkoutPhase(id: UUID().uuidString, name: "High Intensity", hours: 0, minutes: 0, seconds: 0)
+    static let restBetweenPhases = WorkoutPhase(id: UUID().uuidString, name: "Rest", hours: 0, minutes: 0, seconds: 0)
 }
 
 struct IntervalCollection: Codable {
-    var cycles: [Interval]
+    var _cycles: [Interval]
+    var cycles: [Interval] {
+        if restBetweenPhases.duration > 0 {
+            return _cycles.map { cycle in
+                Interval(id: cycle.id, highIntensity: cycle.highIntensity, lowIntensity: cycle.lowIntensity, restPhase: restBetweenPhases, numberOfSets: cycle.numberOfSets, order: cycle.order)
+            }
+        } else {
+            return _cycles
+        }
+    }
     var restBetweenPhases: WorkoutPhase
     var duration: Int {
         cycles.map { ($0.numberOfSets * $0.highIntensity.duration) + ($0.numberOfSets * $0.lowIntensity.duration)}.reduce(0, +) + (restBetweenPhases.duration * cycles.count)
@@ -82,7 +85,7 @@ struct IntervalCollection: Codable {
 }
 
 extension IntervalCollection {
-    static let initial = IntervalCollection(cycles: [Interval.initial()], restBetweenPhases: .restBetweenPhases)
+    static let initial = IntervalCollection(_cycles: [Interval.initial()], restBetweenPhases: .restBetweenPhases)
 }
 
 struct Interval: Identifiable, Codable {
@@ -93,13 +96,14 @@ struct Interval: Identifiable, Codable {
     var id: String = UUID().uuidString
     var highIntensity: WorkoutPhase
     var lowIntensity: WorkoutPhase
+    var restPhase: WorkoutPhase?
     var numberOfSets: Int
     var order: Order
 }
 
 extension Interval {
     static func initial() -> Interval {
-        Interval.init(highIntensity: .highIntensitity, lowIntensity: .lowIntensitiy, numberOfSets: 1, order: .startsWithHighIntensity)
+        Interval.init(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 1, order: .startsWithHighIntensity)
     }
 }
 

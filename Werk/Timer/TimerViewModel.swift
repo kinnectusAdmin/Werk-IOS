@@ -18,7 +18,7 @@ class TimerViewModel: ObservableObject {
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
-    var currentPhaseType: Intensity = .warmup
+    @Published var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
     var currentPhaseName: String {
@@ -31,33 +31,31 @@ class TimerViewModel: ObservableObject {
     }
     @Published var elapsedTime:Int = 0
     @Published var totalPlannedDuration: Int = 0
-    var timeRemaining: Int {
+    var timeRemaining: Int {  //Time remining in workout
         totalPlannedDuration - elapsedTime
     }
-    var selectedPhase: WorkoutBlock {
+    var selectedPhase: WorkoutBlock { //Current phase of workout
         workoutBlocks[currentPhaseIndex]
     }
     @Published var isTimerActive:Bool = false
     @Published var isScreenLocked:Bool = false
     
-    var displayedPhasename:String {
+    var displayedPhasename:String { //Current phase name
         "\(currentPhaseName)"
         
     }
     
-    var displayedSetInfo:String {
+    var displayedSetInfo:String {  //Number of sets in workout
         "\(currentPhaseIndex+1)/\(workoutBlocks.count) Set"
     }
     
-    var displayedElapsedTime:String {
+    var displayedElapsedTime:String { //Time elpased during workout
         "\(convertedElapsedTime) \nElapsed"
     }
     
-    var displayedTimeRemaining:String {
+    var displayedTimeRemaining:String { //Time remaining in workout
         "\(convertedTotalDuration) \nRemaining"
     }
-        
-    
     
     var convertedCurrentPhaseTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
@@ -74,40 +72,37 @@ class TimerViewModel: ObservableObject {
     
     private var timerSubscription: AnyCancellable?
     
-    
-    
     init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
         self.workout = workout
-                $workoutBlocks.map { blocks in
-                    blocks.map { $0.timeElapsed }.reduce(0, +)
-                }.map { [weak self] sum -> Int in
-                    guard let self = self else { return 0 }
-                    return self.totalPlannedDuration - sum
-                }.assign(to: &$elapsedTime)
-        
-                totalPlannedDuration = workoutBlocks.map { durations in
-                    durations.plannedDuration}.reduce(0, +)
-        
-        totalPlannedDuration = workoutBlocks.map{ durations in
-            durations.plannedDuration
-            
-        }.reduce(0, +)
-        
+        $workoutBlocks.map { blocks in
+            blocks.map { $0.timeElapsed }.reduce(0, +)
+        }.map { [weak self] sum -> Int in
+            guard let self = self else { return 0 }
+            return self.totalPlannedDuration - sum
+        }.assign(to: &$elapsedTime)
         var cycleBlocks: [WorkoutBlock] = []
-
+        
         for cycle in workout.intervals.cycles {
             if cycle.order == .startsWithHighIntensity {
-                if workout.intervals.restBetweenPhases.duration > 0 {
-                    let phases = (0...cycle.numberOfSets).map { cycleSet in
-                        if cycleSet % 2 != 0 {
-                            return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
-                        } else {
-                            return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
-                        }
-                    }
-                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
-                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
-                } else {
+//                if workout.intervals.restBetweenPhases.duration > 0 {
+//                    // ^-- issue may actually be here issue is present when the restBtwn Phases has a duration greater than 0
+//                    let phases = (0...cycle.numberOfSets).flatMap { cycleSet in
+//                        if cycleSet % 2 != 0 {
+//                            return [  // <-- should this reutrn an array of workoutblocks???
+//                                WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity),
+//                                WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+//                            ]
+//                        } else {
+//                            return [
+//                                WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity),
+//                                WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+//                            ]
+//
+//                        }
+//                    }
+//                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+//                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
+//                } else {
                     cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
@@ -115,20 +110,29 @@ class TimerViewModel: ObservableObject {
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         }
                     })
+                if let rest = cycle.restPhase {
+                    cycleBlocks.append(WorkoutBlock(name: rest.name, timeElapsed: 0, plannedDuration: rest.duration, type: .restBetweenPhases))
                 }
+//                }
             } else {
                 if cycle.order == .startsWithLowIntensity {
-                    if workout.intervals.restBetweenPhases.duration > 0 {
-                        let phases = (0...cycle.numberOfSets).map { cycleSet in
-                            if cycleSet % 2 != 0 {
-                                return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
-                            } else {
-                                return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
-                            }
-                        }
-                        let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
-                        cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
-                    } else {
+//                    if workout.intervals.restBetweenPhases.duration > 0 {
+//                        let phases = (0...cycle.numberOfSets).flatMap { cycleSet in
+//                            if cycleSet % 2 != 0 {
+//                                return [
+//                                    WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity),
+//                                    WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+//                                ]
+//                            } else {
+//                                return [  // <-- should this reutrn an array of workoutblocks???
+//                                    WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity),
+//                                    WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+//                                ]
+//                            }
+//                        }
+//                        let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+//                        cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
+//                    } else {
                         cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                             if cycleSet % 2 != 0 {
                                 return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
@@ -136,62 +140,55 @@ class TimerViewModel: ObservableObject {
                                 return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                             }
                         })
+                    if let rest = cycle.restPhase {
+                        cycleBlocks.append(WorkoutBlock(name: rest.name, timeElapsed: 0, plannedDuration: rest.duration, type: .restBetweenPhases))
                     }
+//                    }
                 }
             }
         }
-
+        
         let warmupBlock = WorkoutBlock(name: workout.warmup.name, timeElapsed: 0, plannedDuration: workout.warmup.duration, type: .warmup)
         let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
-
         workoutBlocks = [warmupBlock] + cycleBlocks + [cooldownBlock]
-
-        //        workoutBlocks.append(warmupBlock)
-        //        workoutBlocks.append(contentsOf: cycleBlocks)
-        //        workoutBlocks.append(cooldownBlock)
-        
         $elapsedTime.map { [weak self] time -> CGFloat in
-            guard let self = self else { return 0 }
+            guard let self = self else { return 0.0 }
             let totalTime = self.totalPlannedDuration
             let percentTimeElapsed = time.toCGFloat/totalTime.toCGFloat
+            print("\(totalTime)")
+            print("\(percentTimeElapsed)")
             return 1 - percentTimeElapsed
         }.assign(to: &$circleProgress)
-        
-        
         maxPhaseIndex = workoutBlocks.count - 1
         
-        
-        
-    }
-    
+        totalPlannedDuration = workoutBlocks.map { durations in
+            durations.plannedDuration
+            
+        }.reduce(0, +)
+    }  // ^-- issue is present here
     
     func didPressExit(){
-        
         //opens a menu that ask the user if they
     }
     
     func didPressEdit(){
-        
         //when the edit button is pressed this should bring up the saved workoutCreationView for this saved workout
     }
     
-    
     func didPressNextPhase() {
-        //   for index in currentPhaseIndex
+        //switches to the previous intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
         currentPhaseIndex += 1
-
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
             saveTimedWorkout()
             return  // this should save the workout to the workout history and exit the timer
         }
         timerElapsedTime = 0
-
         calculateElapsedTime()
-        //        switches to the next intensity phase but also adds the duration of the "swithced from" phase to the total time elapsed and subtracts it from the time remanning
     }
     
     func didPressPreviousPhase() {
+        //switches to the previous intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
         currentPhaseIndex -= 1
         if currentPhaseIndex <= 0 {
             currentPhaseIndex = 0
@@ -200,13 +197,12 @@ class TimerViewModel: ObservableObject {
         }
         timerElapsedTime = 0
         calculateElapsedTime()
-        //switches to the previous intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
     }
     
     
     func didPressLock() {
-        isScreenLocked = !isScreenLocked
         //toggles user touch input should disable other buttons not lock entire screen
+        isScreenLocked = !isScreenLocked
     }
     
     
@@ -217,7 +213,7 @@ class TimerViewModel: ObservableObject {
             createTimer()
             return
         }
-        ///pause
+        // pause
         if  isTimerActive {
             isTimerActive = false
             return
@@ -227,13 +223,11 @@ class TimerViewModel: ObservableObject {
             isTimerActive = true
             return
         }
-        
-        
-        // if my timer is active create a timer to
     }
     
     
     private func createTimer() {
+        // Creates a timer using the workout durtions as values
         timerSubscription = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
@@ -255,12 +249,14 @@ class TimerViewModel: ObservableObject {
     
     
     func didPressReset() {
+        //Fuction that starts the timer
         isTimerActive = false
         timerElapsedTime = 0
         calculateElapsedTime()
     }
     
     func calculateElapsedTime() {
+        //Calculates the time that has elapsed during the current workout
         let phaseDurations = workoutBlocks.map{ durations in
             durations.plannedDuration
         }
@@ -274,29 +270,28 @@ class TimerViewModel: ObservableObject {
     }
     
     private func saveTimedWorkout() {
+        //saves the full duraiton of the workout that is completed
         let dataStorageService = DataStorageService()
         dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
     }
     
-     func changeBackGroundColor(phase: Intensity) -> some View {
-        switch phase {
-        case .warmup:
-            return Color.orange.ignoresSafeArea()
-        case .lowIntensity:
-            return Color.blue.ignoresSafeArea()
-        case .highIntensity:
-            return Color.red.ignoresSafeArea()
-        case .restBetweenPhases:
-            return Color.green.ignoresSafeArea()
-        case .coolDown:
-            return Color.cyan.ignoresSafeArea()
+    func changeBackgroundColor(phaseName: String) -> Color {
+        switch phaseName {
+        case "Warm Up":
+            return Color.orange // Timer color for Warm Up phase
+        case "Low Intensity":
+            return Color.blue // Timer color for Low Intensity phase
+        case "High Intensity":
+            return Color.red // Timer color for High Intensity phase
+        case "Cool Down":
+            return Color.cyan // Timer color for Cool Down phase
+        case "Rest":
+            return Color.green // Timer color for Rest phase
+        default:
+            return Color.gray // Default color for unknown phases
         }
     }
-    
 }
-
-
-
 
 extension Int {
     var toCGFloat: CGFloat {
