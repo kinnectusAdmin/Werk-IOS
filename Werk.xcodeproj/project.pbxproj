@@ -32,6 +32,9 @@
 		72C4C14729B817900050C45C /* IntensityPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C14629B817900050C45C /* IntensityPickerModel.swift */; };
 		72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C33D2A1FBED0004FC60D /* TimerView.swift */; };
 		72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C3422A2964B4004FC60D /* TimerViewModel.swift */; };
+		72F2A8D92ABD439E002FED43 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8D82ABD439E002FED43 /* LoginView.swift */; };
+		72F2A8DC2ABD4560002FED43 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8DB2ABD4560002FED43 /* InputView.swift */; };
+		72F2A8DE2ABD49BA002FED43 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
 		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
@@ -87,6 +90,9 @@
 		72C4C14629B817900050C45C /* IntensityPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityPickerModel.swift; sourceTree = "<group>"; };
 		72D8C33D2A1FBED0004FC60D /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		72D8C3422A2964B4004FC60D /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		72F2A8D82ABD439E002FED43 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		72F2A8DB2ABD4560002FED43 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +227,72 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		72F2A8CE2ABD4256002FED43 /* UserAuth */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8D42ABD4319002FED43 /* Model */,
+				72F2A8D32ABD4309002FED43 /* Core */,
+				72F2A8D12ABD42E2002FED43 /* App */,
+				72F2A8D22ABD42F8002FED43 /* Components */,
+			);
+			path = UserAuth;
+			sourceTree = "<group>";
+		};
+		72F2A8D12ABD42E2002FED43 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		72F2A8D22ABD42F8002FED43 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8DB2ABD4560002FED43 /* InputView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		72F2A8D32ABD4309002FED43 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8D62ABD4343002FED43 /* Authentication */,
+				72F2A8D72ABD4349002FED43 /* Profile */,
+				72F2A8D52ABD4337002FED43 /* Root */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		72F2A8D42ABD4319002FED43 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		72F2A8D52ABD4337002FED43 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		72F2A8D62ABD4343002FED43 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8D82ABD439E002FED43 /* LoginView.swift */,
+				72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		72F2A8D72ABD4349002FED43 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		B635CB2928ED1329007E69B8 /* WorkoutList */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +328,7 @@
 			children = (
 				722BCA2928FCBC1900163E04 /* Werk.entitlements */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
+				72F2A8CE2ABD4256002FED43 /* UserAuth */,
 				724AED7829F4359E004B6E3D /* Edit */,
 				B635CB2928ED1329007E69B8 /* WorkoutList */,
 				72BD5B5628F7CD19000C1AAA /* WorkoutHistory */,
@@ -434,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */,
+				72F2A8D92ABD439E002FED43 /* LoginView.swift in Sources */,
 				724AED7329F204D1004B6E3D /* AppDelegate.swift in Sources */,
 				72648340298F70A20045A951 /* WorkOutData.swift in Sources */,
 				7264834A298F9BE30045A951 /* IntensityViewModel.swift in Sources */,
@@ -459,6 +533,8 @@
 				724376322A648CB500CE606C /* IntervalView.swift in Sources */,
 				728DDE232A09E50D004B9ABC /* Services.swift in Sources */,
 				726483312954140B0045A951 /* IntensityView.swift in Sources */,
+				72F2A8DE2ABD49BA002FED43 /* RegistrationView.swift in Sources */,
+				72F2A8DC2ABD4560002FED43 /* InputView.swift in Sources */,
 				72C4C0FE29A5A2A20050C45C /* SoundModel.swift in Sources */,
 				726954872942CD0400B0DD5D /* WorkoutCreationView.swift in Sources */,
 			);
