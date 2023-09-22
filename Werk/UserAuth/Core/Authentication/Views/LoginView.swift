@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var logInVM: LoginViewModel
     var body: some View {
         NavigationStack {
             VStack{
@@ -25,15 +26,19 @@ struct LoginView: View {
                         .autocapitalization(.none)
                     
                     InputView(text: $password, title: "Password", placeholder: "Enter your password",
-                              isSecureField: true)
+                              isSecureField: false)
                         .autocapitalization(.none)
                 }
+               
                 .padding(.horizontal)
                 .padding(.top, 12)
                 
                 //sign in
                 Button {
-                    print("Log User In")
+                    Task{
+                        //must be wrapped in TASK becuase this is using "async await"
+                        try await logInVM.signIn(withEmail: email, password: password)
+                    }
                 } label: {
                     HStack{
                         Text("SIGN IN")
@@ -46,28 +51,33 @@ struct LoginView: View {
                 .background(Color.teal)
                 .cornerRadius(10)
                 .padding(.top, 24)
+                
                 Spacer()
-                //sign up
+                //sign up navigates to RegistrationView
                 NavigationLink {
                     RegistrationView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3){
                         Text("Don't Have An Account?")
+                            .foregroundColor(.teal)
                         Text("Sign Up")
                             .fontWeight(.bold)
                     }
                     .font(.system(size:14))
                 }
-
-               
             }
+            .background(Color("ViewModel"))
         }
+        
+        
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(LoginViewModel())
+        
+        
     }
 }

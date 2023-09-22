@@ -13,6 +13,9 @@ struct RegistrationView: View {
     @State private var password = ""
     @State private var confrimPassword = ""
     @Environment(\.dismiss) var dimiss
+    @EnvironmentObject var logInVM: LoginViewModel
+    // enviormentObjects only get initalized ONCE
+    // use envoirmentObjects to avoid creating multiple instances of the viewModel
     
     
     var body: some View {
@@ -39,7 +42,13 @@ struct RegistrationView: View {
             .padding(.top, 12)
             
             Button {
-                print("Log User Up")
+                Task{
+                    try await logInVM.createUser(
+                        withEmail:email,
+                        password: password,
+                        fullName: fullName
+                    )
+                }
             } label: {
                 HStack{
                     Text("SIGN UP")
@@ -65,14 +74,12 @@ struct RegistrationView: View {
                 }
                 .font(.system(size:14))
             }
-
-
         }
     }
 }
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView()
+        RegistrationView().environmentObject(LoginViewModel())
     }
 }
