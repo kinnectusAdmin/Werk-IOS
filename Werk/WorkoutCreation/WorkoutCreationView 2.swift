@@ -27,7 +27,7 @@ struct WorkoutCreationEditViewForm: View {
                 Section {
                     HStack {
                         //Text field to name workout and select its color to appear on graph
-                        TextField("Workout Name",text: viewModel.workoutNameBinding)
+                        TextField("Timer Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
                         Picker("", selection: $viewModel.selectedColorIndex) {
                             ForEach(0..<5) { index in

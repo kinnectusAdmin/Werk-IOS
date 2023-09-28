@@ -9,10 +9,20 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        VStack {
-            WorkoutHistoryView()
-                .padding(.bottom, 16) // Add some spacing between the views
-            WorkOutListView(viewModel: WorkoutListViewModel())
+        NavigationView{
+            VStack {
+                WorkoutHistoryView()
+                    .padding(.bottom, 16) // Add some spacing between the views
+                WorkOutListView(viewModel: WorkoutListViewModel())
+            }.toolbar{
+                ToolbarItem {
+                    NavigationLink {
+                        ProfileView()
+                    } label: {
+                        Image(systemName: "person.circle")
+                    }
+                }
+            }
         }
     }
 }

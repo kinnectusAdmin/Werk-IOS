@@ -33,7 +33,6 @@ public func durationOfWorkout(duration: Double)->String {
     return "\(hoursRepresentation):\(minutesRepresentation):\(secondsRepresentation)"
 }
 struct RecordedWorkout: Identifiable, Codable {
-    var userId: String 
     var id: String = UUID().uuidString
     let name: String
     var duration: Double

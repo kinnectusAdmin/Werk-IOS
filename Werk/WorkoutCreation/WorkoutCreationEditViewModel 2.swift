@@ -47,13 +47,11 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     
     func didSelectSave() {
         //expect some work to save this information
-        guard let user = service.getLocalCurrentUser() else { return }
-        workout.userId = user.id
         service.saveWorkoutBlueprint(workoutBlueprint: workout)
     }
     
     func didSelectAddNewCycle() {
-        workout.intervals._cycles.append(Interval.initial())
+        workout.intervals.cycles.append(Interval.initial())
         
     }
     
@@ -78,7 +76,7 @@ extension WorkoutCreationEditViewModel {
             return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
-            self.workout.intervals._cycles = self.workout.intervals._cycles.map {
+            self.workout.intervals.cycles = self.workout.intervals.cycles.map {
                 $0.id == interval.id ? updatedInterval : $0
             }
         }

@@ -12,7 +12,6 @@ import AudioToolbox
 
 
 class TimerViewModel: ObservableObject {
-    private var services: DataStorageServiceIdentity
     var soundModel = Audio()
     var workout: WorkoutBlueprint!
     @Published var circleProgress: CGFloat = 0.0
@@ -22,15 +21,6 @@ class TimerViewModel: ObservableObject {
     @Published var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
-    var isTimerFinished: Binding<Bool> {
-        .init {
-            self.elapsedTime > 0 && (self.elapsedTime == self.totalPlannedDuration)
-        } set: { _ in
-            
-        }
-
-    }
-    
     var currentPhaseName: String {
         selectedPhase.name
     }
@@ -83,7 +73,6 @@ class TimerViewModel: ObservableObject {
     private var timerSubscription: AnyCancellable?
     
     init(workout: WorkoutBlueprint, service: DataStorageServiceIdentity = DataStorageService()) {
-        self.services = service
         self.workout = workout
         $workoutBlocks.map { blocks in
             blocks.map { $0.timeElapsed }.reduce(0, +)
@@ -91,11 +80,36 @@ class TimerViewModel: ObservableObject {
             guard let self = self else { return 0 }
             return self.totalPlannedDuration - sum
         }.assign(to: &$elapsedTime)
+        totalPlannedDuration = workoutBlocks.map { durations in
+            durations.plannedDuration}.reduce(0, +)
+        totalPlannedDuration = workoutBlocks.map{ durations in
+            durations.plannedDuration
+        }.reduce(0, +)
+        
         var cycleBlocks: [WorkoutBlock] = []
         
         for cycle in workout.intervals.cycles {
             if cycle.order == .startsWithHighIntensity {
-
+                if workout.intervals.restBetweenPhases.duration > 0 {
+                    // ^-- issue may actually be here issue is present when the restBtwn Phases has a duration greater than 0
+                    let phases = (0...cycle.numberOfSets).flatMap { cycleSet in
+                        if cycleSet % 2 != 0 {
+                            return [  // <-- should this reutrn an array of workoutblocks???
+                                WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity),
+                                WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                            ]
+                        } else {  //  if these v ^ are reverssed the the low intensity phase is not included
+                            return [
+                                WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity),
+                                WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                            ]
+                            
+                        }
+                    }
+                    let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                    //DOES NOT EXCULDE PHASES BETWEEN REST IF PHASE HAS NO DURATION
+                    cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
+                } else {
                     cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                         if cycleSet % 2 != 0 {
                             return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
@@ -103,12 +117,26 @@ class TimerViewModel: ObservableObject {
                             return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
                         }
                     })
-                if let rest = cycle.restPhase {
-                    cycleBlocks.append(WorkoutBlock(name: rest.name, timeElapsed: 0, plannedDuration: rest.duration, type: .restBetweenPhases))
                 }
-//                }
             } else {
                 if cycle.order == .startsWithLowIntensity {
+                    if workout.intervals.restBetweenPhases.duration > 0 {
+                        let phases = (0...cycle.numberOfSets).flatMap { cycleSet in
+                            if cycleSet % 2 != 0 {
+                                return [
+                                    WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity),
+                                    WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
+                                ]
+                            } else {
+                                return [  // <-- should this reutrn an array of workoutblocks???
+                                    WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity),
+                                    WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
+                                ]
+                            }
+                        }
+                        let rests = Array(repeating: WorkoutBlock(name: "rest", timeElapsed: 0, plannedDuration: workout.intervals.restBetweenPhases.duration, type: .restBetweenPhases), count: phases.count - 1)
+                        cycleBlocks.append(contentsOf: zip(phases, rests).flatMap { [$0] + [$1] })
+                    } else {
                         cycleBlocks.append(contentsOf: (0...cycle.numberOfSets).map { cycleSet in
                             if cycleSet % 2 != 0 {
                                 return WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity)
@@ -116,8 +144,6 @@ class TimerViewModel: ObservableObject {
                                 return WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity)
                             }
                         })
-                    if let rest = cycle.restPhase {
-                        cycleBlocks.append(WorkoutBlock(name: rest.name, timeElapsed: 0, plannedDuration: rest.duration, type: .restBetweenPhases))
                     }
                 }
             }
@@ -127,20 +153,14 @@ class TimerViewModel: ObservableObject {
         let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
         workoutBlocks = [warmupBlock] + cycleBlocks + [cooldownBlock]
         $elapsedTime.map { [weak self] time -> CGFloat in
-            guard let self = self else { return 0.0 }
+            guard let self = self else { return 0 }
             let totalTime = self.totalPlannedDuration
             let percentTimeElapsed = time.toCGFloat/totalTime.toCGFloat
-            print("\(totalTime)")
-            print("\(percentTimeElapsed)")
             return 1 - percentTimeElapsed
         }.assign(to: &$circleProgress)
         maxPhaseIndex = workoutBlocks.count - 1
         
-        totalPlannedDuration = workoutBlocks.map { durations in
-            durations.plannedDuration
-            
-        }.reduce(0, +)
-    }  // ^-- issue is present here
+    }
     
     func didPressExit(){
         //opens a menu that ask the user if they
@@ -199,14 +219,6 @@ class TimerViewModel: ObservableObject {
             return
         }
     }
-    
-    func didSelectSavedWorkout() {
-        guard let user = services.getLocalCurrentUser() else { return }
-
-        services.saveRecordedWorkout(recordedWorkout: RecordedWorkout(userId: user.id, name: workout.name, duration: Double(workout.duration), date: Date()))
-        
-    }
-    
     
     
     private func createTimer() {
