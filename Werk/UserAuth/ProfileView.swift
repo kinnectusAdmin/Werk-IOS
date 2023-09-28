@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject var logInVM: LoginViewModel
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     var body: some View {
-        if let user = logInVM.currentUser {
+        if let user = authenticationViewModel.currentUser {
             List{
                 Section {
                     HStack {
@@ -47,7 +47,7 @@ struct ProfileView: View {
                 
                 Section("Account") {
                     Button {
-                        logInVM.signOut()
+                        authenticationViewModel.signOut()
                     } label: {
                         SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)
                     }
@@ -65,6 +65,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView().environmentObject(LoginViewModel())
+        ProfileView().environmentObject(AuthenticationViewModel())
     }
 }

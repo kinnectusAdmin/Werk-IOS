@@ -12,14 +12,13 @@ import Firebase
 struct WerkApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var logInVM = LoginViewModel()
+    @StateObject var authenticationViewModel = AuthenticationViewModel()
     
 
     var body: some Scene {
         WindowGroup {
             GroupedViews()
-                .environmentObject(logInVM)
-                .environment(\.colorScheme, .dark)
+                .environmentObject(authenticationViewModel)
 //                WorkoutHistoryView()
 //                    .padding(.bottom, 16) // Add some spacing between the views
 //                WorkOutListView(viewModel: WorkoutListViewModel())

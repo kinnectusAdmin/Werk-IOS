@@ -20,11 +20,11 @@ struct InputView: View {
                 .fontWeight(.semibold)
                 .font(.footnote)
             
-            if isSecureField {
+            if isSecureField == true {
                 SecureField(placeholder, text: $text)
                     .font(.system(size:14))
             } else {
-                SecureField(placeholder, text: $text)
+                TextField(placeholder, text: $text)
                     .font(.system(size:14))
             }
             
@@ -35,6 +35,6 @@ struct InputView: View {
 
 struct InputView_Previews: PreviewProvider {
     static var previews: some View {
-        InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com", isSecureField: false)
+        InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
     }
 }

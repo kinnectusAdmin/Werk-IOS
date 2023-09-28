@@ -20,14 +20,12 @@ struct WorkoutHistoryView: View {
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
-                            VStack(alignment: .leading) {
+                            HStack {
                                 Text("Week \(weekOfYear)").font(.title2).bold()
+                                Spacer()
                                 Text(weekRangeOfYear(week:weekOfYear).2)
                             }
-                            Spacer()
-                            Text("Details >").onTapGesture {
-                                //WORKOUTHISTORYDETAILSVIEW
-                            }
+                            
                         }
                         .padding(10)
                         

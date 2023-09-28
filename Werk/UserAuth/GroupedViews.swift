@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct GroupedViews: View {
-    @EnvironmentObject var logInVM: LoginViewModel
+    @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
     
     var body: some View {
         Group {
-            if logInVM.userSession != nil {
-                ProfileView()
+            if authenticationViewModel.userSession != nil {
+                MainView()
             } else {
-                LoginView()
+                LogInView().environmentObject(authenticationViewModel)
             }
         }
     }
@@ -23,6 +23,6 @@ struct GroupedViews: View {
 
 struct GroupedViews_Previews: PreviewProvider {
     static var previews: some View {
-        GroupedViews().environmentObject(LoginViewModel())
+        GroupedViews().environmentObject(AuthenticationViewModel())
     }
 }

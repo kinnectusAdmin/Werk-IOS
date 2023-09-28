@@ -12,6 +12,7 @@ struct TimerView: View {
     @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial())
     @State private var showingSheet = false
     
+    
     var body: some View {
         
         ZStack{
@@ -178,6 +179,9 @@ struct TimerView: View {
             }
         }.navigationBarBackButtonHidden(true)
             .background(viewModel.changeBackgroundColor(phaseName: viewModel.currentPhaseName))
+            .alert("Would You Like To Save This Workout", isPresented: viewModel.isTimerFinished) {
+                Button("Save", action: viewModel.didSelectSavedWorkout)
+            }
            
     }
 }

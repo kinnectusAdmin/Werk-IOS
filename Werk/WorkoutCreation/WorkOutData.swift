@@ -11,6 +11,7 @@ import SwiftUI
 
 
 struct WorkoutBlueprint: Codable, Identifiable {
+    var userId: String
     var id: String = UUID().uuidString
     var name: String
     var warmup: WorkoutPhase
@@ -24,7 +25,8 @@ struct WorkoutBlueprint: Codable, Identifiable {
 extension WorkoutBlueprint {
     static func initial() -> WorkoutBlueprint {
         WorkoutBlueprint(
-           id: UUID().uuidString
+            userId: ""
+           ,id: UUID().uuidString
            ,name: ""
            , warmup: .warmUP
            , intervals: .initial

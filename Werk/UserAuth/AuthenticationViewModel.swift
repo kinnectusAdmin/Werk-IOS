@@ -9,8 +9,13 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
+protocol AuthenticationFormPotocol {
+    var formIsValid: Bool {get}
+}
+
 @MainActor
-class LoginViewModel: ObservableObject {
+class AuthenticationViewModel: ObservableObject {
+
     @Published var userSession: FirebaseAuth.User? //Firebase user object
     @Published var currentUser: UserModel? //Model for user data
 
@@ -22,12 +27,24 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    func signIn(withEmail email: String, password: String) async throws {
-        print("Sign In")
+    private func signIn(withEmail email: String, password: String) async throws {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = result.user
+            await fetchUser()
+        } catch {
+            print("FAILED TO LOG IN \(error.localizedDescription)")
+        }
+    }
+    
+    func didSelectSignIn(withEmail email: String, password: String) {
+        Task { //must be wrapped in TASK becuase this is using "async await"
+            try await signIn(withEmail: email, password: password)
+        }
     }
     
     func createUser(withEmail email: String, password: String, fullName: String) async throws {
-        do{
+        do{ //split this
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             //allows await for the result instead of using completion blocks
             // ayncrounus code in a syncronus way
@@ -41,10 +58,17 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    func didCreateUser(withEmail email: String, password: String, fullName: String) {
+        Task{
+            try await createUser(withEmail: email, password: password, fullName: fullName)
+        }
+    }
+    
     func signOut(){
-        do {try Auth.auth().signOut()
+        do {try Auth.auth().signOut() //signs user out on back end
             self.userSession = nil // clears user session
             self.currentUser = nil // clears curent user so there is no data persistance upon new user log in
+            UserDefaults.standard.removeObject(forKey: DataKey.userId.rawValue)
             
         } catch {
             print("FAILED TO LOG OUT \(error.localizedDescription)")
@@ -59,6 +83,11 @@ class LoginViewModel: ObservableObject {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let snapShot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
         self.currentUser = try? snapShot.data(as: UserModel.self)
+        do {
+            UserDefaults.standard.userData = try JSONEncoder().encode(self.currentUser!)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
