@@ -255,7 +255,7 @@ class TimerViewModel: ObservableObject {
     private func saveTimedWorkout() {
         //saves the full duraiton of the workout that is completed
         let dataStorageService = DataStorageService()
-        dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
+        dataStorageService.saveWorkoutBlueprintRemote(workoutBlueprint: self.workout)
     }
     
     func changeBackgroundColor(phaseName: String) -> Color {

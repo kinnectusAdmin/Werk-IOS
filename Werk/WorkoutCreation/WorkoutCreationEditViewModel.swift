@@ -49,7 +49,7 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         //expect some work to save this information
         guard let user = service.getLocalCurrentUser() else { return }
         workout.userId = user.id
-        service.saveWorkoutBlueprint(workoutBlueprint: workout)
+        service.saveWorkoutBlueprintRemote(workoutBlueprint: workout)
     }
     
     func didSelectAddNewCycle() {

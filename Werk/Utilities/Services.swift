@@ -35,7 +35,7 @@ class DataStorageService: DataStorageServiceIdentity {
     
     
     func saveWorkoutBlueprint(workoutBlueprint: WorkoutBlueprint) { //LOCAL STORAGE
-        saveWorkoutBlueprintRemote(workoutBlueprint: workoutBlueprint)
+        
         //SAVES WORKOUT BLUEPRINT
         do {
             let currentSavedBlueprints = getWorkoutBlueprints()
@@ -63,14 +63,15 @@ class DataStorageService: DataStorageServiceIdentity {
         }
     }
     
-    func saveWorkoutBlueprintRemote(workoutBlueprint: WorkoutBlueprint) { //LOCAL STORAGE
+    func saveWorkoutBlueprintRemote(workoutBlueprint: WorkoutBlueprint) { //REMOTE STORAGE
         let dataStore = Firestore.firestore().collection(DataKey.workoutBlueprint.rawValue)
         //whenever I want to create an instance of a data base use fireStore.Firetore().collection
-        let query = dataStore.addDocument(data: DataStorageService.convertBlueprintToDictionary(blueprint: workoutBlueprint)) { error in
+        let query = dataStore.addDocument(data: DataStorageService.convertBlueprintToDictionary(blueprint: workoutBlueprint)) { [weak self] error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 print("Did save blueprint")
+                self?.saveWorkoutBlueprint(workoutBlueprint: workoutBlueprint)
             }
         }
         //stores my workout
@@ -98,15 +99,22 @@ class DataStorageService: DataStorageServiceIdentity {
             } else {
                 if let queryCall = queryCall {
                     let remoteWorkoutBlueprints = queryCall.documents.compactMap { w -> WorkoutBlueprint? in
-                        guard let userId = w["userId"] as? String,
-                            let name = w["name"] as?  String,
-                              let warmup = w["warmup"] as? WorkoutPhase,
-                              let intervals = w["intervals"] as? IntervalCollection,
-                              let cooldown = w["cooldown"] as? WorkoutPhase else {
-                            return nil
-                        }
+                        guard let userId = w["userId"] as? String else { return nil}
+                        let name = w["name"] as?  String ?? ""
+                        let warmup = w["warmup"] as? WorkoutPhase ?? WorkoutPhase.warmUP
+                        let intervals = w["intervals"] as? IntervalCollection ?? IntervalCollection.initial
+                        let cooldown = w["cooldown"] as? WorkoutPhase ?? WorkoutPhase.coolDown
                         return WorkoutBlueprint(userId: userId, name: name, warmup: warmup, intervals: intervals, cooldown: cooldown)
                     }
+                    let blueprintData: [Data] = remoteWorkoutBlueprints.map { blueprint -> Data? in
+                        do {
+                            return try JSONEncoder().encode(blueprint)
+                        } catch {
+                            return nil
+                        }
+                    }.compactMap { $0}
+                    
+                    UserDefaults.standard.workoutBlueprints = blueprintData
                 }
             }
         }
@@ -185,7 +193,11 @@ class DataStorageService: DataStorageServiceIdentity {
     func observeWorkoutBlueprints() -> AnyPublisher<[WorkoutBlueprint], Never> {
         UserDefaults.standard.publisher(for: \.workoutBlueprints).map { dataList in
             dataList.map {
-                try? JSONDecoder().decode(WorkoutBlueprint.self, from: $0)
+                do {
+                    return try JSONDecoder().decode(WorkoutBlueprint.self, from: $0)
+                } catch {
+                    return nil
+                }
             }.compactMap { $0 }
         }.eraseToAnyPublisher()
     }
@@ -225,27 +237,27 @@ class DataStorageService: DataStorageServiceIdentity {
     func getRecordedWorkoutsRemote() {
         guard let user = getLocalCurrentUser() else { return }
         let dataStore = Firestore.firestore().collection("recordedWorkouts").whereField("userId", isEqualTo: user.id)
-            dataStore.getDocuments { [weak self] queryCall, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    if let queryCall = queryCall {
-                        let remoteWorkoutData:[Data] = queryCall.documents.compactMap { document in
-                            Self.convertDictionaryToRecordedWorkout(dictionary: document.data())
-                        }.map { recordeWorkout in
-                            do {
-                                return try JSONEncoder().encode(recordeWorkout)
-                            } catch {
-                                return nil
-                            }
-                        }.compactMap{
-                            $0
+        dataStore.getDocuments { [weak self] queryCall, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let queryCall = queryCall {
+                    let remoteWorkoutData:[Data] = queryCall.documents.compactMap { document in
+                        Self.convertDictionaryToRecordedWorkout(dictionary: document.data())
+                    }.map { recordeWorkout in
+                        do {
+                            return try JSONEncoder().encode(recordeWorkout)
+                        } catch {
+                            return nil
                         }
-                        
-                        UserDefaults.standard.recordedWorkouts = remoteWorkoutData
+                    }.compactMap{
+                        $0
                     }
+                    
+                    UserDefaults.standard.recordedWorkouts = remoteWorkoutData
                 }
             }
+        }
     }
     
     
@@ -330,12 +342,49 @@ extension DataStorageService {
     }
     
     static func convertIntervalCollectionToDictionary(interval: IntervalCollection)-> [String: Any] {
-        [:]
+        [
+            "_cycles": interval._cycles.map { convertIntervalToDictionary(interval: $0) },
+            "restBetweenPhases": convertPhasesToDictionary(phase: interval.restBetweenPhases)
+        ]
     }
     
-    static func convertPhasesToDictionary(phase: WorkoutPhase) -> [String:Any] {
-        [:]
+    static func convertDictionaryToIntervaCollectionl(dictionary: [String:Any])-> IntervalCollection {
+        guard let _cycles = dictionary["_cycles"] as? [Interval],
+              let restBetweenPhases = dictionary["restBetweenPhases"] as? WorkoutPhase else{
+            return IntervalCollection(_cycles: [], restBetweenPhases: .restBetweenPhases)
+        }
+        return IntervalCollection(_cycles: _cycles, restBetweenPhases: restBetweenPhases)
     }
+    static func convertIntervalToDictionary(interval: Interval) -> [String : Any] {
+        [ "id": interval.id,
+          "highIntensity": convertPhasesToDictionary(phase: interval.highIntensity),
+          "lowIntensity": convertPhasesToDictionary(phase: interval.lowIntensity),
+          "numberOfSets": interval.numberOfSets,
+          "order": interval.order.rawValue,
+          "restPhase": interval.restPhase == nil ? nil : convertPhasesToDictionary(phase: interval.restPhase!)
+        ]
+    }
+    static func convertPhasesToDictionary(phase: WorkoutPhase) -> [String: Any] {
+        [
+            "id": phase.id,
+            "name": phase.name,
+            "hours": phase.hours,
+            "minutes": phase.minutes,
+            "seconds": phase.seconds
+        ]
+    }
+    
+    static func convertDictionaryToWorkPhase(dictionary: [String:Any]) -> WorkoutPhase {
+        guard let id = dictionary["id"] as? String,
+              let name = dictionary["name"] as? String,
+              let hours = dictionary["hours"] as? Int,
+              let minutes = dictionary["minutes"] as? Int,
+              let seconds = dictionary["seconds"] as? Int else {
+            return WorkoutPhase(id: "", name: "")
+        }
+        return WorkoutPhase(id: id, name: name, hours: hours, minutes: minutes, seconds: seconds)
+    }
+    
     
     static func convertRecordedWorkoutToDictionary(recordedWorkout: RecordedWorkout)-> [String: Any] { //converts recordedWorkout into dictionary to save data to firebase
         [

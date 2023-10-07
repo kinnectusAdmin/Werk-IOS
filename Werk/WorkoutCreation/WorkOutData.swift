@@ -91,7 +91,7 @@ extension IntervalCollection {
 }
 
 struct Interval: Identifiable, Codable {
-    enum Order: Codable {
+    enum Order: String, Codable {
         case startsWithHighIntensity
         case startsWithLowIntensity
     }
