@@ -23,6 +23,10 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     @Published var highIntensityDuration: String = ""
     @Published var restBetweenPhasesDuration: String = ""
     @Published var showRestBetweenCycles = false
+    @Published var colors:[Color] =
+    [
+        Color.red, Color.blue, Color.green, Color.indigo, Color.orange, Color.yellow, Color.mint, Color.cyan, Color.purple, Color.teal, Color.pink, Color.gray
+    ]
     
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")

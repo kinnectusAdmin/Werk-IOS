@@ -15,11 +15,7 @@ import SwiftUI
 struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: WorkoutCreationEditViewModel
-    
-    let colors:[Color] =
-    [
-        Color.red, Color.blue, Color.green, Color.indigo, Color.orange
-    ]
+  
     var body: some View {
         
         NavigationView {
@@ -30,8 +26,8 @@ struct WorkoutCreationEditViewForm: View {
                         TextField("Workout Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
                         Picker("", selection: $viewModel.selectedColorIndex) {
-                            ForEach(0..<5) { index in
-                                Text(colors[index].description)
+                            ForEach(0..<12) { index in
+                                Text(viewModel.colors[index].description)
                             }
                         }
                     }

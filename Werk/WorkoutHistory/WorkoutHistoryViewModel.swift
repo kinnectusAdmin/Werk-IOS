@@ -3,6 +3,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+
 final class WorkoutHistoryViewModel: ObservableObject {
     @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
     @Published var bars: [Bar] = []
@@ -11,9 +12,7 @@ final class WorkoutHistoryViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
-        
         service.observeRecordedWorkouts().assign(to: &$allWorkouts)
-        
         $weekSelection.map{ selectedWeek -> [Bar] in
             Date.weekOfDates(weekOfYear: selectedWeek).map { date -> Bar in
                 let daysWorkouts = service.getRecordedWorkouts().filter{
@@ -30,9 +29,9 @@ final class WorkoutHistoryViewModel: ObservableObject {
     }
     
     func relativeDuration(duration: CGFloat) -> CGFloat {
-        (duration / maxDuration) * 100
+        let height = (duration / maxDuration) * 100
+        print("maxDuration: ", maxDuration)
+        print("height: ", height)
+        return height
     }
-    
-    
-    
 }

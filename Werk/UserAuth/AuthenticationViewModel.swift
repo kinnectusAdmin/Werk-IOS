@@ -81,6 +81,14 @@ class AuthenticationViewModel: ObservableObject {
         print("Delete Account")
     }
     
+    func getWorkoutBlueprint() {
+        DataStorageService().getWorkoutBlueprintsRemote()
+    }
+    
+    func getRecordedWorkouts() {
+        DataStorageService().getRecordedWorkoutsRemote()
+    }
+    
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {
             return
@@ -90,7 +98,8 @@ class AuthenticationViewModel: ObservableObject {
             self.currentUser = try? snapShot.data(as: UserModel.self)
             let user = try JSONEncoder().encode(self.currentUser!)
             UserDefaults.standard.userData = user
-                
+            getRecordedWorkouts()
+                getWorkoutBlueprint()
         } catch {
             print(error.localizedDescription)
         }

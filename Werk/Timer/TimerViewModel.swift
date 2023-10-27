@@ -52,7 +52,6 @@ class TimerViewModel: ObservableObject {
     
     var displayedPhasename:String { //Current phase name
         "\(currentPhaseName)"
-        
     }
     
     var displayedSetInfo:String {  //Number of sets in workout
@@ -202,7 +201,7 @@ class TimerViewModel: ObservableObject {
     
     func didSelectSavedWorkout() {
         guard let user = services.getLocalCurrentUser() else { return }
-
+        services.saveRecordedWorkoutRemote(recordedWorkout: RecordedWorkout(userId: user.id, name: workout.name, duration: Double(workout.duration), date: Date()))
         services.saveRecordedWorkout(recordedWorkout: RecordedWorkout(userId: user.id, name: workout.name, duration: Double(workout.duration), date: Date()))
         
     }
