@@ -16,10 +16,10 @@ final class WorkoutHistoryViewModel: ObservableObject {
         $weekSelection.map{ selectedWeek -> [Bar] in
             Date.weekOfDates(weekOfYear: selectedWeek).map { date -> Bar in
                 let daysWorkouts = service.getRecordedWorkouts().filter{
-                    $0.date.isSameDay(date)
+                    $0.date.isSameDay(date) 
                 }
                 return Bar(day: dayStringFrom(date: date),
-                           value: daysWorkouts.map(\.duration))
+                           value: daysWorkouts.map(\.duration)) 
             }
         }.assign(to: &$bars)
     }

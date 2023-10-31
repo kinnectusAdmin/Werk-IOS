@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct Bar: Identifiable {
+    @ObservedObject var viewModel = WorkoutHistoryViewModel()
     
     let id = UUID().uuidString
     var day: String
@@ -24,3 +25,8 @@ struct Bar: Identifiable {
     }
 
 }
+//\ var value: [Double] {
+//    viewModel.allWorkouts.map { workoutDuartion in
+//        workoutDuartion.duration
+//    }
+//}

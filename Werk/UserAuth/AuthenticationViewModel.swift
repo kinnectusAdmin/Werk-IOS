@@ -98,8 +98,8 @@ class AuthenticationViewModel: ObservableObject {
             self.currentUser = try? snapShot.data(as: UserModel.self)
             let user = try JSONEncoder().encode(self.currentUser!)
             UserDefaults.standard.userData = user
+            getWorkoutBlueprint()
             getRecordedWorkouts()
-                getWorkoutBlueprint()
         } catch {
             print(error.localizedDescription)
         }
