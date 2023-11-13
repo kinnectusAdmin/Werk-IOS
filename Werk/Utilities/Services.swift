@@ -17,7 +17,7 @@ protocol DataStorageServiceIdentity {
     func getWorkoutBlueprintsRemote()
     func saveRecordedWorkout(recordedWorkout: RecordedWorkout)
     func saveRecordedWorkoutRemote(recordedWorkout: RecordedWorkout)
-    func getRecordedWorkouts() -> [RecordedWorkout]
+//    func getRecordedWorkouts() -> [RecordedWorkout]
     func getRecordedWorkoutsRemote()
     func observeWorkoutBlueprints() -> AnyPublisher<[WorkoutBlueprint], Never>
     func observeRecordedWorkouts() -> AnyPublisher<[RecordedWorkout], Never>
@@ -131,7 +131,7 @@ class DataStorageService: DataStorageServiceIdentity {
     
     func saveRecordedWorkout(recordedWorkout: RecordedWorkout) { //LOCAL STORAGE
         do {
-            let currentSavedWorkouts = getRecordedWorkouts()
+            let currentSavedWorkouts = [RecordedWorkout]()//getRecordedWorkouts()
             let shouldReplaceWorkout = currentSavedWorkouts.contains(where: { $0.id == recordedWorkout.id})
             if shouldReplaceWorkout {
                 //replace workout
@@ -146,7 +146,7 @@ class DataStorageService: DataStorageServiceIdentity {
                 UserDefaults.standard.set(newWorkoutData, forKey: DataKey.recordedWorkouts.rawValue)
             } else {
                 let newWorkoutData = try JSONEncoder().encode(recordedWorkout)
-                let allWorkoutData = getRecordedWorkoutsAsData().appending(newWorkoutData)
+                let allWorkoutData = UserDefaults.standard.recordedWorkouts.appending(newWorkoutData)
                 UserDefaults.standard.set(allWorkoutData, forKey: DataKey.recordedWorkouts.rawValue)
             }
         } catch {
@@ -181,17 +181,17 @@ class DataStorageService: DataStorageServiceIdentity {
 //        }.compactMap{$0}
 //    }
     
-    func getRecordedWorkouts() -> [RecordedWorkout] { //LOCAL STORAGE
-        getRecordedWorkoutsAsData().map {
-            do {
-                let workout: RecordedWorkout = try JSONDecoder().decode(RecordedWorkout.self, from: $0)
-                print("recoredWorkoutRetreived")
-                return workout
-            } catch {
-                return nil
-            }
-        }.compactMap { $0 }
-    }
+//    func getRecordedWorkouts() -> [RecordedWorkout] { //LOCAL STORAGE
+//        UserDefaults.standard.recordedWorkouts.map {
+//            do {
+//                let workout: RecordedWorkout = try JSONDecoder().decode(RecordedWorkout.self, from: $0)
+//                print("recoredWorkoutRetreived")
+//                return workout
+//            } catch {
+//                return nil
+//            }
+//        }.compactMap { $0 }
+//    }
     
     
     func getRecordedWorkoutsRemote() {
@@ -213,7 +213,7 @@ class DataStorageService: DataStorageServiceIdentity {
                     }.compactMap{
                         $0
                     }
-                UserDefaults.standard.recordedWorkouts = remoteWorkoutData
+//                UserDefaults.standard.recordedWorkouts = remoteWorkoutData
                 }
             }
         }
@@ -278,11 +278,6 @@ class DataStorageService: DataStorageServiceIdentity {
 
     func getWorkoutBlueprintAsData() -> [Data] {
         UserDefaults.standard.workoutBlueprints
-    }
-    
-    
-    func getRecordedWorkoutsAsData() -> [Data] {
-        UserDefaults.standard.recordedWorkouts
     }
     
     func getLocalCurrentUser() -> UserModel?{

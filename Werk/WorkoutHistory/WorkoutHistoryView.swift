@@ -16,7 +16,7 @@ struct WorkoutHistoryView: View {
         VStack(spacing: 0){
             //Graph and weekly workout stats
             Text("Workout History").font(.title)
-            TabView(selection: $viewModel.weekSelection){
+            TabView(selection: viewModel.weekSelectionBinding){
                 ForEach((0..<53)) { weekOfYear in
                     VStack {
                         HStack {
