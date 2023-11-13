@@ -131,7 +131,7 @@ class DataStorageService: DataStorageServiceIdentity {
     
     func saveRecordedWorkout(recordedWorkout: RecordedWorkout) { //LOCAL STORAGE
         do {
-            let currentSavedWorkouts = [RecordedWorkout]()//getRecordedWorkouts()
+            let currentSavedWorkouts = getRecordedWorkouts()
             let shouldReplaceWorkout = currentSavedWorkouts.contains(where: { $0.id == recordedWorkout.id})
             if shouldReplaceWorkout {
                 //replace workout
@@ -160,11 +160,13 @@ class DataStorageService: DataStorageServiceIdentity {
         
         let document = dataStore.document()
         copy.id = document.documentID
-        document.setData(DataStorageService.convertRecordedWorkoutToDictionary(recordedWorkout: copy)) { error in
+        document.setData(DataStorageService.convertRecordedWorkoutToDictionary(recordedWorkout: copy)) { [weak self] error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 print("Did save recorded workout")
+                print("should save/update locally")
+                self?.saveRecordedWorkout(recordedWorkout: copy)
             }
         }
     }
@@ -181,17 +183,17 @@ class DataStorageService: DataStorageServiceIdentity {
 //        }.compactMap{$0}
 //    }
     
-//    func getRecordedWorkouts() -> [RecordedWorkout] { //LOCAL STORAGE
-//        UserDefaults.standard.recordedWorkouts.map {
-//            do {
-//                let workout: RecordedWorkout = try JSONDecoder().decode(RecordedWorkout.self, from: $0)
-//                print("recoredWorkoutRetreived")
-//                return workout
-//            } catch {
-//                return nil
-//            }
-//        }.compactMap { $0 }
-//    }
+    func getRecordedWorkouts() -> [RecordedWorkout] { //LOCAL STORAGE
+        UserDefaults.standard.recordedWorkouts.map {
+            do {
+                let workout: RecordedWorkout = try JSONDecoder().decode(RecordedWorkout.self, from: $0)
+                print("recoredWorkoutRetreived")
+                return workout
+            } catch {
+                return nil
+            }
+        }.compactMap { $0 }
+    }
     
     
     func getRecordedWorkoutsRemote() {

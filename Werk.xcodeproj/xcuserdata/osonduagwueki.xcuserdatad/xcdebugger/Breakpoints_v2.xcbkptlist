@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F1103724-C36E-49BE-8291-FABAD11A5504"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Werk/Timer/TimerViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "createTimer()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A7807B0B-5807-4DBF-B249-4E52B27152A0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -32,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "197"
             endingLineNumber = "197"
-            landmarkName = "createTimer()"
+            landmarkName = "didPressStartorResume()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -48,23 +32,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
             endingLineNumber = "196"
-            landmarkName = "createTimer()"
+            landmarkName = "didPressStartorResume()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CF28F921-DD16-4DFD-92F9-5B7C4E37F4EB"
+            uuid = "F7BDFF1C-D006-4662-85C8-9E3085E40B3C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Werk/Timer/TimerViewModel.swift"
+            filePath = "Werk/Utilities/Services.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "createTimer()"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "observeRecordedWorkouts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

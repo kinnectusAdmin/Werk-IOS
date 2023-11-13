@@ -8,9 +8,7 @@ import Foundation
 import SwiftUI
 
 
-struct Bar: Identifiable {
-    @ObservedObject var viewModel = WorkoutHistoryViewModel()
-    
+struct Bar: Identifiable {    
     let id = UUID().uuidString
     var day: String
     var value: [Double]

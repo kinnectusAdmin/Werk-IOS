@@ -55,7 +55,9 @@ extension Date {
     }
     
     static func weekOfDates(weekOfYear: Int) -> [Date] {
-        let date = Calendar.current.date(from: DateComponents(calendar: Calendar.current, weekOfYear: weekOfYear))!
+        print(weekOfYear)
+        let components = DateComponents(calendar: Calendar.current, weekOfYear: weekOfYear)
+        guard let date = Calendar.current.date(from: components) else { return []}
 
         let days = (1...7).map { dayValue -> Date? in
             let component = DateComponents(calendar: Calendar.current,
