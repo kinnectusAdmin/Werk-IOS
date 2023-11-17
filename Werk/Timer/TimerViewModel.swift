@@ -154,7 +154,7 @@ class TimerViewModel: ObservableObject {
         currentPhaseIndex += 1
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
-            saveTimedWorkout()
+//            saveTimedWorkout()
             return  // this should save the workout to the workout history and exit the timer
         }
         timerElapsedTime = 0
