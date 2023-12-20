@@ -15,7 +15,7 @@ import SwiftUI
 struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: WorkoutCreationEditViewModel
-  
+    
     var body: some View {
         
         NavigationView {
@@ -91,23 +91,24 @@ struct WorkoutCreationEditViewForm: View {
                     }
                     
                 }
-            }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        viewModel.didSelectSave()
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel", role: .cancel) {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
             }
+                        .toolbar {   //this placement type bolds the item and places it on the top right of the screen
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Save") {
+                                    viewModel.didSelectSave()
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Cancel", role: .cancel) {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }
         }
         
     }
-    
+
 }
 
 

@@ -51,8 +51,10 @@ struct TimerView: View {
                             .clipShape(Circle())
                         
                     }.sheet(isPresented: $showingSheet) {
-                        WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel(workout: viewModel.workout)
-                        )
+                        let editViewModel = WorkoutCreationEditViewModel(workout: viewModel.workout) { updatedWorkout in
+                            self.viewModel.updateWorkout(with: updatedWorkout)
+                        }
+                        WorkoutCreationEditViewForm(viewModel: editViewModel)
                     }
                     
                 }

@@ -186,7 +186,6 @@
 				72648345298F73570045A951 /* UIColor_ext.swift */,
 				7269548F2947C02400B0DD5D /* ExerciseData */,
 				7264833F298F70A20045A951 /* WorkOutData.swift */,
-				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
 			);
 			path = WorkoutCreation;
 			sourceTree = "<group>";
@@ -258,6 +257,7 @@
 		72D8C33F2A1FD7A5004FC60D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
 				72D8C3422A2964B4004FC60D /* TimerViewModel.swift */,
 			);
 			path = Timer;

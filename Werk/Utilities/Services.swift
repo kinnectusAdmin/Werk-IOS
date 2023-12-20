@@ -17,12 +17,12 @@ protocol DataStorageServiceIdentity {
     func getWorkoutBlueprintsRemote()
     func saveRecordedWorkout(recordedWorkout: RecordedWorkout)
     func saveRecordedWorkoutRemote(recordedWorkout: RecordedWorkout)
-//    func getRecordedWorkouts() -> [RecordedWorkout]
     func getRecordedWorkoutsRemote()
     func observeWorkoutBlueprints() -> AnyPublisher<[WorkoutBlueprint], Never>
     func observeRecordedWorkouts() -> AnyPublisher<[RecordedWorkout], Never>
     func deleteWorkoutBlueprint(at workoutBlueprint: WorkoutBlueprint)
     func getLocalCurrentUser() -> UserModel?
+    func fetchUpdatedWorkout(id: String) -> WorkoutBlueprint?
     
 }
 
@@ -64,27 +64,27 @@ class DataStorageService: DataStorageServiceIdentity {
         }
     }
     
-    func saveWorkoutBlueprintRemote(workoutBlueprint: WorkoutBlueprint) { //REMOTE STORAGE
+
+    
+    func saveWorkoutBlueprintRemote(workoutBlueprint: WorkoutBlueprint) {
         var copy = workoutBlueprint
-        let dataStore = Firestore.firestore().collection(DataKey.workoutBlueprint.rawValue)
+        if copy.id.isEmpty { copy.id = UUID().uuidString }
+        let document = Firestore.firestore().collection(DataKey.workoutBlueprint.rawValue).document(copy.id)
         //whenever I want to create an instance of a data base use fireStore.Firetore().collection
-        
-        let documents = dataStore.document()
-        copy.id = documents.documentID
-        documents.setData(DataStorageService.convertBlueprintToDictionary(blueprint: copy)) { [weak self] error in
+       
+        document.setData(DataStorageService.convertBlueprintToDictionary(blueprint: copy)) { [weak self] error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 print("Did save workout")
-                
                 self?.saveWorkoutBlueprint(workoutBlueprint: copy)
             }
         }
-        //stores my workout
     }
     
+
     func getWorkoutBlueprints() -> [WorkoutBlueprint] { //RETREIVES WORKOUT BLUEPRINT
-        getWorkoutBlueprintAsData().map {
+        UserDefaults.standard.workoutBlueprints.map {
             do {
                 let blueprint: WorkoutBlueprint = try JSONDecoder().decode(WorkoutBlueprint.self, from: $0)
                 return blueprint
@@ -172,16 +172,6 @@ class DataStorageService: DataStorageServiceIdentity {
     }
     
     
-//    func getWorkoutBlueprints() -> [WorkoutBlueprint] { //RETREIVES WORKOUT BLUEPRINT
-//        getWorkoutBlueprintAsData().map {
-//            do {
-//                let blueprint: WorkoutBlueprint = try JSONDecoder().decode(WorkoutBlueprint.self, from: $0)
-//                return blueprint
-//            } catch {
-//                return nil
-//            }
-//        }.compactMap{$0}
-//    }
     
     func getRecordedWorkouts() -> [RecordedWorkout] { //LOCAL STORAGE
         UserDefaults.standard.recordedWorkouts.map {
@@ -286,6 +276,12 @@ class DataStorageService: DataStorageServiceIdentity {
         let data = UserDefaults.standard.userData
         return try? JSONDecoder().decode(UserModel.self, from: data)
     }
+    
+    
+    func fetchUpdatedWorkout(id: String) -> WorkoutBlueprint? {
+          let workouts = getWorkoutBlueprints()
+          return workouts.first { $0.id == id }
+      }
     
     
 }
