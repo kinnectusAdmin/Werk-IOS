@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		720866302B8AF8C700357F56 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7208662F2B8AF8C700357F56 /* Charts.framework */; };
+		720866382B8DAFB300357F56 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720866372B8DAFB300357F56 /* BarView.swift */; };
 		7243762C2A64834700CE606C /* IntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7243762B2A64834700CE606C /* IntervalViewModel.swift */; };
 		7243762F2A6487AC00CE606C /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7243762E2A6487AC00CE606C /* IntervalPicker.swift */; };
 		724376322A648CB500CE606C /* IntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724376312A648CB500CE606C /* IntervalView.swift */; };
@@ -74,6 +76,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7208662F2B8AF8C700357F56 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = System/Library/Frameworks/Charts.framework; sourceTree = SDKROOT; };
+		720866372B8DAFB300357F56 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		722BCA2928FCBC1900163E04 /* Werk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Werk.entitlements; sourceTree = "<group>"; };
 		7243762B2A64834700CE606C /* IntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalViewModel.swift; sourceTree = "<group>"; };
 		7243762E2A6487AC00CE606C /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				724AED6F29F2042B004B6E3D /* FirebaseAuth in Frameworks */,
+				720866302B8AF8C700357F56 /* Charts.framework in Frameworks */,
 				724AED7129F2042B004B6E3D /* FirebaseFirestore in Frameworks */,
 				72F2A8EE2ABD6086002FED43 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -221,6 +226,7 @@
 				B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */,
 				B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */,
 				72C4C13F29B80DC50050C45C /* Bar.swift */,
+				720866372B8DAFB300357F56 /* BarView.swift */,
 			);
 			path = WorkoutHistory;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 		72F2A8EC2ABD6085002FED43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7208662F2B8AF8C700357F56 /* Charts.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -516,6 +523,7 @@
 				72648346298F73570045A951 /* UIColor_ext.swift in Sources */,
 				7243762F2A6487AC00CE606C /* IntervalPicker.swift in Sources */,
 				B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */,
+				720866382B8DAFB300357F56 /* BarView.swift in Sources */,
 				7243762C2A64834700CE606C /* IntervalViewModel.swift in Sources */,
 				7264834E299069220045A951 /* IntensityPickerView.swift in Sources */,
 				726954942947C2FD00B0DD5D /* DateModel.swift in Sources */,

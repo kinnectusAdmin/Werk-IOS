@@ -6,13 +6,28 @@
 //
 
 import SwiftUI
+import Charts
 
-struct BarChartView: View {
+struct WorkoutBarChartView: View {
+    @ObservedObject var viewModel = WorkoutBarChartViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            BarChartView(
+                data: viewModel.workoutData,
+                title: "Workout Duration",
+                legend: "Days of the Week",
+                labels: viewModel.daysOfWeek
+            )
+            .frame(height: 300)
+            .padding()
+        }
     }
 }
 
-#Preview {
-    BarChartView()
-}
+struct WorkoutBarChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        BarChartView(data: [12.1,12.3], title: "", legend: "", labels: ["",""])
+        
+    }
+    }

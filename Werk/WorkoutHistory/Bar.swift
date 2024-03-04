@@ -8,13 +8,13 @@ import Foundation
 import SwiftUI
 
 
-struct Bar: Identifiable {    
+struct Bar: Identifiable {
     let id = UUID().uuidString
     var day: String
     var value: [Double]
     var color: [Color] {
         value.map { _  -> Color in
-            let color = UIColor.random
+            let color = UIColor.blue
             return Color(uiColor: color)
         }
     }
@@ -23,7 +23,7 @@ struct Bar: Identifiable {
     }
 
 }
-//\ var value: [Double] {
+//var value: [Double] {
 //    viewModel.allWorkouts.map { workoutDuartion in
 //        workoutDuartion.duration
 //    }

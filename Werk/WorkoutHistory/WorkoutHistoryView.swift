@@ -33,11 +33,11 @@ struct WorkoutHistoryView: View {
                             ForEach(viewModel.bars) { bar in
                                 VStack {
                                     Rectangle()
-                                        .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))
+                                        .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))  //shouldn't have any issues with the bars not populating 
                                         .frame(width: 35, height: viewModel.relativeDuration(duration: bar.totalDuration),
                                                alignment: .bottom)
                                         .cornerRadius(90)
-                                    Text(bar.day)
+                                    Text(bar.day) 
                                 }
                             }
                         }

@@ -176,17 +176,21 @@ struct TimerView: View {
                     }.disabled(viewModel.isScreenLocked)
                 }
                 Spacer()
-
-                
             }
         }.navigationBarBackButtonHidden(true)
             .background(viewModel.changeBackgroundColor(phaseName: viewModel.currentPhaseName))
-            .alert("Would You Like To Save This Workout", isPresented: viewModel.isTimerFinished) {
-                Button("Save", action: viewModel.didSelectSavedWorkout)
+            .alert(isPresented: viewModel.isTimerFinished){
+                Alert(title: Text("Great Job !"), message: Text("Would You Like To Save This Workout?"),
+                      dismissButton: .cancel(Text("Save"), action: viewModel.didSelectSavedWorkout)
+                )
+            }.onTapGesture {
+                self.presentationMode.wrappedValue.dismiss()
+                print("Gesture tapped")
             }
-           
     }
+    
 }
+
 
 struct LowerTimerView_Previews: PreviewProvider {
     static var previews: some View {

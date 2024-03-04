@@ -166,6 +166,10 @@ class DataStorageService: DataStorageServiceIdentity {
             } else {
                 print("Did save recorded workout")
                 print("should save/update locally")
+                print("USERID: \(copy.userId)")
+                print("TODAYS DATE: \(copy.date)")
+                print("WORKOUT NAME: \(copy.name)")
+                print("TOTAL DURATION: \(copy.duration)")
                 self?.saveRecordedWorkout(recordedWorkout: copy)
             }
         }
@@ -195,7 +199,7 @@ class DataStorageService: DataStorageServiceIdentity {
             } else {
                 if let queryCall = queryCall {
                     let remoteWorkoutData:[Data] = queryCall.documents.compactMap { document in
-                        Self.convertDictionaryToRecordedWorkout(dictionary: document.data())
+                        Self.convertDictionaryToRecordedWorkout(dictionary: document.data())  //Should this be 'convertRecordedWorkoutToDictionary" ?
                     }.map { recordedWorkout in
                         do {
                             return try JSONEncoder().encode(recordedWorkout)
@@ -210,6 +214,9 @@ class DataStorageService: DataStorageServiceIdentity {
             }
         }
     }
+    
+
+    
     
     func observeRecordedWorkouts() -> AnyPublisher<[RecordedWorkout], Never> {
         UserDefaults.standard.publisher(for: \.recordedWorkouts).map { dataList in
@@ -415,12 +422,13 @@ extension DataStorageService {
     
     static func convertDictionaryToRecordedWorkout(dictionary: [String: Any]) -> RecordedWorkout {
         guard let userId = dictionary["userId"] as? String,
+              let id = dictionary["workoutId"] as? String,
               let name = dictionary["name"] as? String,
               let duration = dictionary["duration"] as? Double,
               let date = dictionary["date"] as? Date else {
-            return RecordedWorkout(userId: "",name: "", duration: 0, date: Date())
+            return RecordedWorkout(userId: "",id:"" ,name: "", duration: 0, date: Date())
         }
-        return RecordedWorkout(userId: userId, name: name, duration: duration, date: date)
+        return RecordedWorkout(userId: userId,id: id, name: name, duration: duration, date: date)
     }
     
 //    static func convertDictionaryToWorkoutBluePrint(dictionary: [String: Any]) -> WorkoutBlueprint {
