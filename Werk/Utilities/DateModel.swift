@@ -17,7 +17,7 @@ func dayStringFrom(date: Date) -> String {
 }
 func showCurrentWeekNumber(startDate: Date) -> Int {
     var calendar = Calendar.current
-    calendar.firstWeekday =  1 // Monday
+    calendar.firstWeekday =  0 // Monday
     calendar.locale = Locale.current
     
     

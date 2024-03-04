@@ -209,7 +209,7 @@ class DataStorageService: DataStorageServiceIdentity {
                     }.compactMap{
                         $0
                     }
-//                UserDefaults.standard.recordedWorkouts = remoteWorkoutData
+                UserDefaults.standard.recordedWorkouts = remoteWorkoutData
                 }
             }
         }
@@ -424,11 +424,11 @@ extension DataStorageService {
         guard let userId = dictionary["userId"] as? String,
               let id = dictionary["workoutId"] as? String,
               let name = dictionary["name"] as? String,
-              let duration = dictionary["duration"] as? Double,
-              let date = dictionary["date"] as? Date else {
+              let duration = dictionary["duration"] as? Int,
+              let timestamp = dictionary["date"] as? Timestamp else {
             return RecordedWorkout(userId: "",id:"" ,name: "", duration: 0, date: Date())
         }
-        return RecordedWorkout(userId: userId,id: id, name: name, duration: duration, date: date)
+        return RecordedWorkout(userId: userId,id: id, name: name, duration: Double(duration), date: Date(timeIntervalSince1970: Double(timestamp.seconds) ) )
     }
     
 //    static func convertDictionaryToWorkoutBluePrint(dictionary: [String: Any]) -> WorkoutBlueprint {

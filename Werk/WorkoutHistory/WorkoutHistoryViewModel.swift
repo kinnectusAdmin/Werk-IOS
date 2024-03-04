@@ -15,19 +15,34 @@ final class WorkoutHistoryViewModel: ObservableObject {
     init(service: DataStorageServiceIdentity = DataStorageService()) {
         self.service = service
         service.getRecordedWorkoutsRemote()
-        service.observeRecordedWorkouts().assign(to: &$allWorkouts)  //1. ) the issue is with the observe recorded workouts observeRecordedWorkouts fetches the workout as AnyPublisher
-        $weekSelection.map{ [weak self] selectedWeek -> [Bar] in
-            guard let self = self else { return [] }
-            let weekOfDates = Date.weekOfDates(weekOfYear: selectedWeek)
-            return weekOfDates.map { date -> Bar in  // 2.) could be here
-                let daysWorkouts = self.allWorkouts.filter{
-                    $0.date.isSameDay(date)
-                }
-                return Bar(day: dayStringFrom(date: date),
-                           value: daysWorkouts.map(\.duration))  //or here
+        service.observeRecordedWorkouts().assign(to: &$allWorkouts) 
+        
+                $weekSelection.map{ [weak self] selectedWeek -> [Bar] in
+                    guard let self = self else { return [] }
+                    let weekOfDates = Date.datesForWeek(weekOfYear: selectedWeek)
+                    return weekOfDates.map { date -> Bar in  // 2.) could be here
+                        let daysWorkouts = self.allWorkouts.filter{
+                            $0.date.isSameDay(date)
+                        }
+                        return Bar(day: dayStringFrom(date: date),
+                                   value: daysWorkouts.map(\.duration))  //or here
+        
+                    }
+                }.assign(to: &$bars)
+//        func makeBars() -> [Bar] {
+//            let weekOfDates = Date.weekOfDates(weekOfYear: showCurrentWeekNumber(startDate: Date()))
+//            return weekOfDates.map { date -> Bar in  // 2.) could be here
+//                let daysWorkouts = self.allWorkouts.filter{
+//                    $0.date.isSameDay(date)
+//                }
+//                return Bar(day: dayStringFrom(date: date),
+//                           value: daysWorkouts.map(\.duration))  //or here
+//
+//            }
+//        }
+//        self.bars = makeBars()
+        print(self.bars)
 
-            }
-        }.assign(to: &$bars)
     }
     
     var maxDuration: CGFloat {
