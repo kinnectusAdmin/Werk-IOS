@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct BarView: View {
-    var body: some View {
-        var barModel: Bar
-        
-    }
-}
-
-#Preview {
-    BarView()
-}
+//struct BarView: View {
+//    var body: some View {
+//        var barModel: Bar
+//        
+//    }
+//}
+//
+//#Preview {
+//    BarView()
+//}

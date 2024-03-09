@@ -50,30 +50,10 @@
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
 		B6F9132428EA4C0700D9DB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F9132328EA4C0700D9DB2C /* Assets.xcassets */; };
 		B6F9132728EA4C0700D9DB2C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F9132628EA4C0700D9DB2C /* Preview Assets.xcassets */; };
-		B6F9133128EA4C0800D9DB2C /* WerkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133028EA4C0800D9DB2C /* WerkTests.swift */; };
-		B6F9133B28EA4C0800D9DB2C /* WerkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */; };
-		B6F9133D28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */; };
 		B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */; };
 		B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */; };
 		DBAB4BA92A7B2EB100BB804C /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B6F9132D28EA4C0800D9DB2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6F9131428EA4C0200D9DB2C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B6F9131B28EA4C0200D9DB2C;
-			remoteInfo = Werk;
-		};
-		B6F9133728EA4C0800D9DB2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6F9131428EA4C0200D9DB2C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B6F9131B28EA4C0200D9DB2C;
-			remoteInfo = Werk;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7208662F2B8AF8C700357F56 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = System/Library/Frameworks/Charts.framework; sourceTree = SDKROOT; };
@@ -118,11 +98,6 @@
 		B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkApp.swift; sourceTree = "<group>"; };
 		B6F9132328EA4C0700D9DB2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6F9132628EA4C0700D9DB2C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B6F9132C28EA4C0800D9DB2C /* WerkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WerkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6F9133028EA4C0800D9DB2C /* WerkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkTests.swift; sourceTree = "<group>"; };
-		B6F9133628EA4C0800D9DB2C /* WerkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WerkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITests.swift; sourceTree = "<group>"; };
-		B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListView.swift; sourceTree = "<group>"; };
 		B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListViewModel.swift; sourceTree = "<group>"; };
 		DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
@@ -140,20 +115,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B6F9132928EA4C0800D9DB2C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B6F9133328EA4C0800D9DB2C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -166,13 +127,6 @@
 			);
 			name = Interval;
 			path = ../Interval;
-			sourceTree = "<group>";
-		};
-		724AED5A29D5F1C8004B6E3D /* UI Elements */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "UI Elements";
 			sourceTree = "<group>";
 		};
 		724AED7829F4359E004B6E3D /* Edit */ = {
@@ -304,8 +258,6 @@
 			children = (
 				724AED6B29F2038C004B6E3D /* GoogleService-Info.plist */,
 				B6F9131E28EA4C0200D9DB2C /* Werk */,
-				B6F9132F28EA4C0800D9DB2C /* WerkTests */,
-				B6F9133928EA4C0800D9DB2C /* WerkUITests */,
 				B6F9131D28EA4C0200D9DB2C /* Products */,
 				72F2A8EC2ABD6085002FED43 /* Frameworks */,
 			);
@@ -315,8 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				B6F9131C28EA4C0200D9DB2C /* Werk.app */,
-				B6F9132C28EA4C0800D9DB2C /* WerkTests.xctest */,
-				B6F9133628EA4C0800D9DB2C /* WerkUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -333,7 +283,6 @@
 				726954852942CCA100B0DD5D /* WorkoutCreation */,
 				72D8C33F2A1FD7A5004FC60D /* Timer */,
 				7269548A2947B17900B0DD5D /* Utilities */,
-				724AED5A29D5F1C8004B6E3D /* UI Elements */,
 				B6F9132328EA4C0700D9DB2C /* Assets.xcassets */,
 				B6F9132528EA4C0700D9DB2C /* Preview Content */,
 				724AED7229F204D1004B6E3D /* AppDelegate.swift */,
@@ -347,23 +296,6 @@
 				B6F9132628EA4C0700D9DB2C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		B6F9132F28EA4C0800D9DB2C /* WerkTests */ = {
-			isa = PBXGroup;
-			children = (
-				B6F9133028EA4C0800D9DB2C /* WerkTests.swift */,
-			);
-			path = WerkTests;
-			sourceTree = "<group>";
-		};
-		B6F9133928EA4C0800D9DB2C /* WerkUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */,
-				B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */,
-			);
-			path = WerkUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,42 +323,6 @@
 			productReference = B6F9131C28EA4C0200D9DB2C /* Werk.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B6F9132B28EA4C0800D9DB2C /* WerkTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B6F9134328EA4C0800D9DB2C /* Build configuration list for PBXNativeTarget "WerkTests" */;
-			buildPhases = (
-				B6F9132828EA4C0800D9DB2C /* Sources */,
-				B6F9132928EA4C0800D9DB2C /* Frameworks */,
-				B6F9132A28EA4C0800D9DB2C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B6F9132E28EA4C0800D9DB2C /* PBXTargetDependency */,
-			);
-			name = WerkTests;
-			productName = WerkTests;
-			productReference = B6F9132C28EA4C0800D9DB2C /* WerkTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B6F9133528EA4C0800D9DB2C /* WerkUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B6F9134628EA4C0800D9DB2C /* Build configuration list for PBXNativeTarget "WerkUITests" */;
-			buildPhases = (
-				B6F9133228EA4C0800D9DB2C /* Sources */,
-				B6F9133328EA4C0800D9DB2C /* Frameworks */,
-				B6F9133428EA4C0800D9DB2C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B6F9133828EA4C0800D9DB2C /* PBXTargetDependency */,
-			);
-			name = WerkUITests;
-			productName = WerkUITests;
-			productReference = B6F9133628EA4C0800D9DB2C /* WerkUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -439,14 +335,6 @@
 				TargetAttributes = {
 					B6F9131B28EA4C0200D9DB2C = {
 						CreatedOnToolsVersion = 14.0;
-					};
-					B6F9132B28EA4C0800D9DB2C = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
-					};
-					B6F9133528EA4C0800D9DB2C = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
 					};
 				};
 			};
@@ -467,8 +355,6 @@
 			projectRoot = "";
 			targets = (
 				B6F9131B28EA4C0200D9DB2C /* Werk */,
-				B6F9132B28EA4C0800D9DB2C /* WerkTests */,
-				B6F9133528EA4C0800D9DB2C /* WerkUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -481,20 +367,6 @@
 				B6F9132728EA4C0700D9DB2C /* Preview Assets.xcassets in Resources */,
 				B6F9132428EA4C0700D9DB2C /* Assets.xcassets in Resources */,
 				724AED6C29F2038C004B6E3D /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B6F9132A28EA4C0800D9DB2C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B6F9133428EA4C0800D9DB2C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,37 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B6F9132828EA4C0800D9DB2C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B6F9133128EA4C0800D9DB2C /* WerkTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B6F9133228EA4C0800D9DB2C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B6F9133B28EA4C0800D9DB2C /* WerkUITests.swift in Sources */,
-				B6F9133D28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B6F9132E28EA4C0800D9DB2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B6F9131B28EA4C0200D9DB2C /* Werk */;
-			targetProxy = B6F9132D28EA4C0800D9DB2C /* PBXContainerItemProxy */;
-		};
-		B6F9133828EA4C0800D9DB2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B6F9131B28EA4C0200D9DB2C /* Werk */;
-			targetProxy = B6F9133728EA4C0800D9DB2C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B6F9133E28EA4C0800D9DB2C /* Debug */ = {
@@ -754,78 +596,6 @@
 			};
 			name = Release;
 		};
-		B6F9134428EA4C0800D9DB2C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
-			};
-			name = Debug;
-		};
-		B6F9134528EA4C0800D9DB2C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
-			};
-			name = Release;
-		};
-		B6F9134728EA4C0800D9DB2C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
-			};
-			name = Debug;
-		};
-		B6F9134828EA4C0800D9DB2C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -843,24 +613,6 @@
 			buildConfigurations = (
 				B6F9134128EA4C0800D9DB2C /* Debug */,
 				B6F9134228EA4C0800D9DB2C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B6F9134328EA4C0800D9DB2C /* Build configuration list for PBXNativeTarget "WerkTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B6F9134428EA4C0800D9DB2C /* Debug */,
-				B6F9134528EA4C0800D9DB2C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B6F9134628EA4C0800D9DB2C /* Build configuration list for PBXNativeTarget "WerkUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B6F9134728EA4C0800D9DB2C /* Debug */,
-				B6F9134828EA4C0800D9DB2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

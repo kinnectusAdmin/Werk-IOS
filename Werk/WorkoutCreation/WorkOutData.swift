@@ -41,7 +41,7 @@ extension WorkoutBlueprint: Equatable {
     }
 }
 
-struct WorkoutBlock: Codable {
+struct WorkoutBlock: Codable, Equatable {
     var name: String
     var timeElapsed: Int
     var plannedDuration: Int

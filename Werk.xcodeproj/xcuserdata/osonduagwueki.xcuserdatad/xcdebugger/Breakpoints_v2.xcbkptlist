@@ -14,8 +14,8 @@
             filePath = "Werk/Timer/TimerViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "didPressStartorResume()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,25 +30,9 @@
             filePath = "Werk/Timer/TimerViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "didPressStartorResume()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F7BDFF1C-D006-4662-85C8-9E3085E40B3C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Werk/Utilities/Services.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "observeRecordedWorkouts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

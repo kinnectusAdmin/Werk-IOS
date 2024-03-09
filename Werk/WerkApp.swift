@@ -19,10 +19,9 @@ struct WerkApp: App {
         WindowGroup {
             GroupedViews()
                 .environmentObject(authenticationViewModel)
-//                WorkoutHistoryView()
-//                    .padding(.bottom, 16) // Add some spacing between the views
-//                WorkOutListView(viewModel: WorkoutListViewModel())
-            
+                WorkoutHistoryView()
+                    .padding(.bottom, 16) // Add some spacing between the views
+                WorkOutListView(viewModel: WorkoutListViewModel())
         }
     }
 }

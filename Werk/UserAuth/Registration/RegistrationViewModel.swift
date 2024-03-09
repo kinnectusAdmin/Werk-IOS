@@ -12,8 +12,6 @@ class RegistrationViewModel: ObservableObject {
     @Published var fullName = ""
     @Published var password = ""               // put State vars in a RegistrationViewModel class make it obserable
     @Published var confrimPassword = ""
-    
-    
 }
 
 extension RegistrationViewModel: AuthenticationFormPotocol {

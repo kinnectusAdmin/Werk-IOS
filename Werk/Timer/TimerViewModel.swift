@@ -14,13 +14,12 @@ import AudioToolbox
 class TimerViewModel: ObservableObject {
     private var services: DataStorageServiceIdentity
     var soundModel = Audio()
-     var workout: WorkoutBlueprint!
+    var workout: WorkoutBlueprint!
     @Published var circleProgress: CGFloat = 0.0
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
     @Published var currentPhaseType: Intensity = .warmup
-    @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
     var isTimerFinished: Binding<Bool> {
         .init {
@@ -34,8 +33,7 @@ class TimerViewModel: ObservableObject {
     var currentPhaseName: String {
         selectedPhase.name
     }
-    @Published var setIndicator:String = ""
-    private var timerElapsedTime: Int = 0
+    var timerElapsedTime: Int = 0
     var currentPhaseTime:Int {
         selectedPhase.plannedDuration - timerElapsedTime
     }
@@ -234,8 +232,7 @@ class TimerViewModel: ObservableObject {
             totalPlannedDuration = workoutBlocks.map { $0.plannedDuration }.reduce(0, +)
             currentPhaseIndex = 0
         didPressReset()
-        }
-    
+    }
     
     private func createTimer() {
         // Creates a timer using the workout durtions as values
