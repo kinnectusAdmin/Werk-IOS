@@ -19,6 +19,7 @@ class TimerViewModel: ObservableObject {
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
+    #warning("Current phase type isnt being updated from anywhere along with the the changing current phase")
     @Published var currentPhaseType: Intensity = .warmup
     @Published var maxPhaseIndex = 0
     var isTimerFinished: Binding<Bool> {
@@ -149,7 +150,7 @@ class TimerViewModel: ObservableObject {
     }
     
     func didPressNextPhase() {
-        //switches to the previous intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
+        //switches to the next intensity phase but also resets the timer, time elaspsed and remaning time to the beginning of that phase
         currentPhaseIndex += 1
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
@@ -263,17 +264,8 @@ class TimerViewModel: ObservableObject {
         calculateElapsedTime()
     }
     
+    //Calculates the time that has elapsed during the current workout
     func calculateElapsedTime() {
-        //Calculates the time that has elapsed during the current workout
-        let phaseDurations = workoutBlocks.map{ durations in
-            durations.plannedDuration
-        }
-        var totalDurations = 0
-        for index in (0...currentPhaseIndex){
-            let completedPhaseDuration = phaseDurations[index]
-            totalDurations += completedPhaseDuration
-            
-        }
         elapsedTime = workoutBlocks[0..<currentPhaseIndex].map { $0.plannedDuration }.reduce(0, +)
     }
     
