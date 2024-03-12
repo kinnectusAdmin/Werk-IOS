@@ -87,7 +87,7 @@ struct IntervalCollection: Codable {
 }
 
 extension IntervalCollection {
-    static let initial = IntervalCollection(_cycles: [Interval.initial()], restBetweenPhases: .restBetweenPhases)
+    static let initial = IntervalCollection(_cycles: [Interval.initial()], restBetweenPhases: .restBetweenPhases) //cause of interval not saving properly?
 }
 
 struct Interval: Identifiable, Codable {

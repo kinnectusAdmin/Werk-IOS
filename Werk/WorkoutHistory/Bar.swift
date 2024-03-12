@@ -14,7 +14,7 @@ struct Bar: Identifiable {
     var value: [Double]
     var color: [Color] {
         value.map { _  -> Color in
-            let color = UIColor.blue
+            let color = UIColor.random
             return Color(uiColor: color)
         }
     }

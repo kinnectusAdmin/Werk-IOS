@@ -19,7 +19,6 @@ class TimerViewModel: ObservableObject {
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
-    @Published var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
     var isTimerFinished: Binding<Bool> {
@@ -41,9 +40,10 @@ class TimerViewModel: ObservableObject {
     }
     @Published var elapsedTime:Int = 0
     @Published var totalPlannedDuration: Int = 0
-    var timeRemaining: Int {  //Time remining in workout
+     var timeRemaining: Int {  //Time remining in workout
         totalPlannedDuration - elapsedTime
     }
+    
     var selectedPhase: WorkoutBlock { //Current phase of workout
         workoutBlocks[currentPhaseIndex]
     }
@@ -250,6 +250,7 @@ class TimerViewModel: ObservableObject {
                 } else if self.currentPhaseTime != 0 && self.isTimerActive {
                     self.timerElapsedTime += 1
                     self.elapsedTime += 1
+                    print("Tick: elapsedTime = \(self.elapsedTime), timeRemaining = \(self.timeRemaining), totalPlannedDuration = \(self.totalPlannedDuration)")
                 }
                 if self.elapsedTime == self.totalPlannedDuration {
                     self.isTimerActive = false
@@ -279,6 +280,9 @@ class TimerViewModel: ObservableObject {
         }
         elapsedTime = workoutBlocks[0..<currentPhaseIndex].map { $0.plannedDuration }.reduce(0, +)
     }
+    
+    
+    
     
     private func saveTimedWorkout() {
         //saves the full duraiton of the workout that is completed

@@ -11,10 +11,10 @@ import Combine
 
 class IntervalViewModel: ObservableObject, Identifiable {
     private var cancellables =  Set<AnyCancellable>()
-    var interval: Binding<Interval> = .constant(Interval.initial())
+    var interval: Binding<Interval>
     @Published var isPickerPresented: Bool = false
     @Published var phases: [WorkoutPhase] = []
-    @Published var editMode: EditMode = .active
+//    @Published var editMode: EditMode = .active
     private var selectedPhaseID: String = ""
     
     var selectedPhaseBinding: Binding<WorkoutPhase> {
@@ -62,10 +62,16 @@ extension IntervalViewModel {
         phases.move(fromOffsets: indicies, toOffset: newOffset)
         if phases.first?.id == interval.wrappedValue.lowIntensity.id {
             interval.wrappedValue.order = .startsWithLowIntensity
+            print("\(interval.order)")
         } else {
             interval.wrappedValue.order = .startsWithHighIntensity
+            print("\(interval.order)")
         }
     }
+    
+ 
+    
+    
     
     func didTogglePhaseDuration(_ phaseId: String) {
         selectedPhaseID = phaseId

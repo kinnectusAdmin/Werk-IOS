@@ -263,8 +263,8 @@
 		72D8C33F2A1FD7A5004FC60D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
 				72D8C3422A2964B4004FC60D /* TimerViewModel.swift */,
+				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -442,11 +442,9 @@
 					};
 					B6F9132B28EA4C0800D9DB2C = {
 						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
 					};
 					B6F9133528EA4C0800D9DB2C = {
 						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
 					};
 				};
 			};
@@ -768,7 +766,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
 			};
 			name = Debug;
 		};
@@ -786,7 +783,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
 			};
 			name = Release;
 		};
@@ -804,7 +800,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
 			};
 			name = Debug;
 		};
@@ -822,7 +817,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
 			};
 			name = Release;
 		};

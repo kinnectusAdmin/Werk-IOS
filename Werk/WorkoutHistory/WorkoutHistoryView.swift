@@ -46,7 +46,7 @@ struct WorkoutHistoryView: View {
                 }
             }
             .frame(maxHeight: 270)
-            .tabViewStyle(.page)
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
     }
 }

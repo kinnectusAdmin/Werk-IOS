@@ -11,6 +11,7 @@ struct TimerView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel:TimerViewModel = TimerViewModel(workout: WorkoutBlueprint.initial())
     @State private var showingSheet = false
+    @State private var key = UUID()
     
     
     var body: some View {
@@ -87,6 +88,7 @@ struct TimerView: View {
                     //goes to the next phase in workout
                     Button {
                         viewModel.didPressNextPhase()
+                        viewModel.didPressStartorResume()
                     } label: {
                         Image(systemName: "greaterthan")
                             .resizable()
@@ -177,15 +179,17 @@ struct TimerView: View {
                 }
                 Spacer()
             }
+
+            
         }.navigationBarBackButtonHidden(true)
             .background(viewModel.changeBackgroundColor(phaseName: viewModel.currentPhaseName))
             .alert(isPresented: viewModel.isTimerFinished){
                 Alert(title: Text("Great Job !"), message: Text("Would You Like To Save This Workout?"),
                       dismissButton: .cancel(Text("Save"), action: viewModel.didSelectSavedWorkout)
                 )
-            }.onTapGesture {
-                self.presentationMode.wrappedValue.dismiss()
-                print("Gesture tapped")
+//            }.onTapGesture {
+//                self.presentationMode.wrappedValue.dismiss()
+//                print("Gesture tapped")
             }
     }
     

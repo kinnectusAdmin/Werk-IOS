@@ -10,8 +10,6 @@ import SwiftUI
 import Combine
 import Firebase
 
-
-
 class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     
     @Published var selectedColorIndex: Int = 0
@@ -60,7 +58,6 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         onWorkoutUpdate?(workout)
     }
         
-        
         func didSelectAddNewCycle() {
             workout.intervals._cycles.append(Interval.initial())
             
@@ -72,10 +69,6 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         }
     }
     
-
-
-
-
 
 extension WorkoutCreationEditViewModel {
     
@@ -92,8 +85,6 @@ extension WorkoutCreationEditViewModel {
             }
         }
     }
-    
-
     
     func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
@@ -112,7 +103,6 @@ extension WorkoutCreationEditViewModel {
         }
     }
     
-    
     func didUpdateCoolDownBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
             self.workout.cooldown
@@ -128,7 +118,5 @@ extension WorkoutCreationEditViewModel {
             self.workout.intervals.restBetweenPhases = rest
         }
     }
-    
-    
 }
 

@@ -373,8 +373,10 @@ extension DataStorageService {
     }
     
     static func convertDictionaryToIntervaCollectionl(dictionary: [String:Any])-> IntervalCollection {
-        guard let _cycles = dictionary["_cycles"] as? [Interval],
-              let restBetweenPhases = dictionary["restBetweenPhases"] as? WorkoutPhase else{
+        guard let cyclesDict = dictionary["_cycles"] as? [[String: Any]],
+              let _cycles = cyclesDict.map { convertDictionaryToInterval(dictionary: $0) } as? [Interval],
+        let restDict = dictionary["restBetweenPhases"] as? [String: Any],
+        let restBetweenPhases = convertDictionaryToWorkPhase(dictionary: restDict) as? WorkoutPhase   else{    // Interval not being coming from these 3 functions <v^
             return IntervalCollection(_cycles: [], restBetweenPhases: .restBetweenPhases)
         }
         return IntervalCollection(_cycles: _cycles, restBetweenPhases: restBetweenPhases)
@@ -382,12 +384,48 @@ extension DataStorageService {
     static func convertIntervalToDictionary(interval: Interval) -> [String : Any] {
         [ "id": interval.id,
           "highIntensity": convertPhasesToDictionary(phase: interval.highIntensity),
-          "lowIntensity": convertPhasesToDictionary(phase: interval.lowIntensity),
+          "lowIntensity": convertPhasesToDictionary(phase: interval.lowIntensity),      
+          "restPhase": interval.restPhase == nil ? nil : convertPhasesToDictionary(phase: interval.restPhase!),
           "numberOfSets": interval.numberOfSets,
-          "order": interval.order.rawValue,
-          "restPhase": interval.restPhase == nil ? nil : convertPhasesToDictionary(phase: interval.restPhase!)
+          "order": interval.order.rawValue
         ]
     }
+    
+    static func convertDictionaryToInterval(dictionary: [String:Any]) -> Interval {
+        guard let id = dictionary["id"] as? String,
+              let highIntensity = dictionary["highIntensity"] as? [String: Any],
+              let lowIntensity = dictionary["lowIntensity"] as? [String: Any],
+              let restPhase = dictionary["restPhase"] as? [String: Any],
+              let numberOfSets = dictionary["numberOfSets"] as? Int,
+              let order = dictionary["order"] as? String else {
+            return Interval(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 0, order: .startsWithLowIntensity)
+        }
+        return Interval(id: id, highIntensity: .highIntensity, lowIntensity: .lowIntensity, restPhase: .restBetweenPhases, numberOfSets: numberOfSets, order: Interval.Order(rawValue: order) ?? .startsWithLowIntensity)
+    }
+    
+//    static func convertDictionaryToInterval(dictionary: [String: Any]) -> Interval {
+//        guard let id = dictionary["id"] as? String,
+//              let highIntensity = dictionary["highIntensity"] as? [String: Any],
+//              let lowIntensity = dictionary["lowIntensity"] as? [String: Any],
+//              let numberOfSets = dictionary["numberOfSets"] as? Int,
+//              let orderStr = dictionary["order"] as? String,
+//              let order = Interval.Order(rawValue: orderStr) else {
+//            return Interval(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 0, order: .startsWithLowIntensity)
+//        }
+//        
+//        let highIntensity = convertDictionaryToWorkPhase(dictionary: highIntensity)
+//        let lowIntensity = convertDictionaryToWorkPhase(dictionary: lowIntensity)
+//        var restPhase: WorkoutPhase? = nil
+//        
+//        if let restPhase = dictionary["restPhase"] as? [String: Any] {
+//            restPhase = convertDictionaryToWorkPhase(dictionary: restPhase)
+//        }
+//        
+//        return Interval(id: id, highIntensity: highIntensity, lowIntensity: lowIntensity, restPhase: restPhase, numberOfSets: numberOfSets, order: order)
+//    }
+    
+    
+    
     static func convertPhasesToDictionary(phase: WorkoutPhase) -> [String: Any] {
         [
             "id": phase.id,
