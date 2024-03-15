@@ -10,11 +10,11 @@ import SwiftUI
 import Combine
 import AudioToolbox
 
-
 class TimerViewModel: ObservableObject {
     private var services: DataStorageServiceIdentity
     var soundModel = Audio()
      var workout: WorkoutBlueprint!
+    @State var timer:Timer!
     @Published var circleProgress: CGFloat = 0.0
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
@@ -33,15 +33,22 @@ class TimerViewModel: ObservableObject {
     var currentPhaseName: String {
         selectedPhase.name
     }
+    
     @Published var setIndicator:String = ""
     private var timerElapsedTime: Int = 0
     var currentPhaseTime:Int {
         selectedPhase.plannedDuration - timerElapsedTime
     }
+    
     @Published var elapsedTime:Int = 0
     @Published var totalPlannedDuration: Int = 0
-     var timeRemaining: Int {  //Time remining in workout
-        totalPlannedDuration - elapsedTime
+    var timeRemainingInCurrentPhase: Int {
+        max(selectedPhase.plannedDuration - timerElapsedTime, 0)
+    }
+    
+    var timeRemaining: Int {
+        let remainingDurationsAfterCurrentPhase = workoutBlocks[currentPhaseIndex...].dropFirst().map { $0.plannedDuration }.reduce(0, +)
+        return timeRemainingInCurrentPhase + remainingDurationsAfterCurrentPhase
     }
     
     var selectedPhase: WorkoutBlock { //Current phase of workout
@@ -63,8 +70,9 @@ class TimerViewModel: ObservableObject {
     }
     
     var displayedTimeRemaining:String { //Time remaining in workout
-        "\(convertedTotalDuration) \nRemaining"
+        "\(convertedTimeRemaining) \nRemaining"
     }
+
     
     var convertedCurrentPhaseTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
@@ -77,7 +85,10 @@ class TimerViewModel: ObservableObject {
     var convertedElapsedTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (elapsedTime / 60), (elapsedTime % 60))
     }
-    @State var timer:Timer!
+    
+    var convertedTimeRemaining: String {//shows String in 00:00 format
+        return String(format: "%02d:%02d", (timeRemaining / 60), (timeRemaining % 60))
+    }
     
     private var timerSubscription: AnyCancellable?
     
@@ -266,6 +277,7 @@ class TimerViewModel: ObservableObject {
         timerElapsedTime = 0
         calculateElapsedTime()
     }
+
     
     func calculateElapsedTime() {
         //Calculates the time that has elapsed during the current workout

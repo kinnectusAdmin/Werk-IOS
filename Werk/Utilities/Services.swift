@@ -381,6 +381,7 @@ extension DataStorageService {
         }
         return IntervalCollection(_cycles: _cycles, restBetweenPhases: restBetweenPhases)
     }
+    
     static func convertIntervalToDictionary(interval: Interval) -> [String : Any] {
         [ "id": interval.id,
           "highIntensity": convertPhasesToDictionary(phase: interval.highIntensity),
@@ -392,38 +393,22 @@ extension DataStorageService {
     }
     
     static func convertDictionaryToInterval(dictionary: [String:Any]) -> Interval {
-        guard let id = dictionary["id"] as? String,
-              let highIntensity = dictionary["highIntensity"] as? [String: Any],
-              let lowIntensity = dictionary["lowIntensity"] as? [String: Any],
-              let restPhase = dictionary["restPhase"] as? [String: Any],
-              let numberOfSets = dictionary["numberOfSets"] as? Int,
-              let order = dictionary["order"] as? String else {
-            return Interval(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 0, order: .startsWithLowIntensity)
-        }
-        return Interval(id: id, highIntensity: .highIntensity, lowIntensity: .lowIntensity, restPhase: .restBetweenPhases, numberOfSets: numberOfSets, order: Interval.Order(rawValue: order) ?? .startsWithLowIntensity)
-    }
-    
-//    static func convertDictionaryToInterval(dictionary: [String: Any]) -> Interval {
-//        guard let id = dictionary["id"] as? String,
-//              let highIntensity = dictionary["highIntensity"] as? [String: Any],
-//              let lowIntensity = dictionary["lowIntensity"] as? [String: Any],
-//              let numberOfSets = dictionary["numberOfSets"] as? Int,
-//              let orderStr = dictionary["order"] as? String,
-//              let order = Interval.Order(rawValue: orderStr) else {
-//            return Interval(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 0, order: .startsWithLowIntensity)
-//        }
-//        
-//        let highIntensity = convertDictionaryToWorkPhase(dictionary: highIntensity)
-//        let lowIntensity = convertDictionaryToWorkPhase(dictionary: lowIntensity)
-//        var restPhase: WorkoutPhase? = nil
-//        
-//        if let restPhase = dictionary["restPhase"] as? [String: Any] {
-//            restPhase = convertDictionaryToWorkPhase(dictionary: restPhase)
-//        }
-//        
-//        return Interval(id: id, highIntensity: highIntensity, lowIntensity: lowIntensity, restPhase: restPhase, numberOfSets: numberOfSets, order: order)
-//    }
-    
+           guard let id = dictionary["id"] as? String,
+                 let highIntensityDict = dictionary["highIntensity"] as? [String: Any],
+                 let lowIntensityDict = dictionary["lowIntensity"] as? [String: Any],
+                 let highIntensity = convertDictionaryToWorkPhase(dictionary: highIntensityDict) as? WorkoutPhase,
+                 let lowIntensity = convertDictionaryToWorkPhase(dictionary: lowIntensityDict) as? WorkoutPhase,
+                 let numberOfSets = dictionary["numberOfSets"] as? Int,
+                 let order = dictionary["order"] as? String else {
+               return Interval(highIntensity: .highIntensity, lowIntensity: .lowIntensity, numberOfSets: 0, order: .startsWithLowIntensity)
+           }
+           if let restPhaseDict = dictionary["restPhase"] as? [String: Any], let restBetweenPhases = convertDictionaryToWorkPhase(dictionary: restPhaseDict) as? WorkoutPhase {
+               return Interval(id: id, highIntensity: highIntensity, lowIntensity: lowIntensity, restPhase: restBetweenPhases, numberOfSets: numberOfSets, order: Interval.Order(rawValue: order) ?? .startsWithLowIntensity)
+           } else {
+               return Interval(id: id, highIntensity: highIntensity, lowIntensity: lowIntensity, restPhase: nil, numberOfSets: numberOfSets, order: Interval.Order(rawValue: order) ?? .startsWithLowIntensity)
+           }
+       }
+ 
     
     
     static func convertPhasesToDictionary(phase: WorkoutPhase) -> [String: Any] {
@@ -468,16 +453,4 @@ extension DataStorageService {
         }
         return RecordedWorkout(userId: userId,id: id, name: name, duration: Double(duration), date: Date(timeIntervalSince1970: Double(timestamp.seconds) ) )
     }
-    
-//    static func convertDictionaryToWorkoutBluePrint(dictionary: [String: Any]) -> WorkoutBlueprint {
-//        guard let userId = dictionary["userId"] as? String,
-//              let name = dictionary["name"] as?  String,
-//              let warmup = dictionary["warmup"] as? WorkoutPhase,
-//              let intervals = dictionary["intervals"] as? IntervalCollection,
-//              let cooldown = dictionary["cooldown"] as? WorkoutPhase else {
-//            
-//            return WorkoutBlueprint(userId: "", name: "", warmup: WorkoutPhase.warmUP, intervals: IntervalCollection.initial, cooldown: WorkoutPhase.coolDown)
-//        }
-//        return WorkoutBlueprint(userId: userId, name: name, warmup: warmup, intervals: intervals, cooldown: cooldown)
-//    }
 }
