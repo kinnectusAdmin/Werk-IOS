@@ -7,26 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		726483312954140B0045A951 /* WarmUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726483302954140B0045A951 /* WarmUpDetails.swift */; };
-		7264833729542AAC0045A951 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833629542AAC0045A951 /* DurationPicker.swift */; };
-		7264833A29552C970045A951 /* IntervalDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833929552C970045A951 /* IntervalDetails.swift */; };
-		7264833C29765A130045A951 /* IntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833B29765A130045A951 /* IntervalViewModel.swift */; };
-		7264833E298C8CF50045A951 /* WorkoutCreation+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833D298C8CF50045A951 /* WorkoutCreation+Models.swift */; };
+		720866302B8AF8C700357F56 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7208662F2B8AF8C700357F56 /* Charts.framework */; };
+		720866382B8DAFB300357F56 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720866372B8DAFB300357F56 /* BarView.swift */; };
+		7243762C2A64834700CE606C /* IntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7243762B2A64834700CE606C /* IntervalViewModel.swift */; };
+		7243762F2A6487AC00CE606C /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7243762E2A6487AC00CE606C /* IntervalPicker.swift */; };
+		724376322A648CB500CE606C /* IntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724376312A648CB500CE606C /* IntervalView.swift */; };
+		724AED6C29F2038C004B6E3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 724AED6B29F2038C004B6E3D /* GoogleService-Info.plist */; };
+		724AED6F29F2042B004B6E3D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 724AED6E29F2042B004B6E3D /* FirebaseAuth */; };
+		724AED7129F2042B004B6E3D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 724AED7029F2042B004B6E3D /* FirebaseFirestore */; };
+		724AED7329F204D1004B6E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7229F204D1004B6E3D /* AppDelegate.swift */; };
+		724AED7E29F4369A004B6E3D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AED7D29F4369A004B6E3D /* MainView.swift */; };
+		726483312954140B0045A951 /* IntensityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726483302954140B0045A951 /* IntensityView.swift */; };
 		72648340298F70A20045A951 /* WorkOutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264833F298F70A20045A951 /* WorkOutData.swift */; };
 		72648342298F71660045A951 /* CGFloat_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648341298F71660045A951 /* CGFloat_ext.swift */; };
-		72648344298F72BF0045A951 /* GraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648343298F72BF0045A951 /* GraphModel.swift */; };
 		72648346298F73570045A951 /* UIColor_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648345298F73570045A951 /* UIColor_ext.swift */; };
-		72648348298F772A0045A951 /* LowIntensitiyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648347298F772A0045A951 /* LowIntensitiyView.swift */; };
-		7264834A298F9BE30045A951 /* WarmUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648349298F9BE30045A951 /* WarmUpViewModel.swift */; };
-		7264834E299069220045A951 /* WarmUpPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264834D299069220045A951 /* WarmUpPickerView.swift */; };
+		7264834A298F9BE30045A951 /* IntensityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72648349298F9BE30045A951 /* IntensityViewModel.swift */; };
+		7264834E299069220045A951 /* IntensityPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7264834D299069220045A951 /* IntensityPickerView.swift */; };
 		726954872942CD0400B0DD5D /* WorkoutCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954862942CD0400B0DD5D /* WorkoutCreationView.swift */; };
-		726954892942CD4800B0DD5D /* WorkoutCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */; };
+		726954892942CD4800B0DD5D /* WorkoutCreationEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954882942CD4800B0DD5D /* WorkoutCreationEditViewModel.swift */; };
 		7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269548D2947B4F700B0DD5D /* Date+Ext.swift */; };
 		726954912947C0BB00B0DD5D /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954902947C0BB00B0DD5D /* WorkoutModel.swift */; };
 		726954942947C2FD00B0DD5D /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726954932947C2FD00B0DD5D /* DateModel.swift */; };
-		7269549629494E2000B0DD5D /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269549529494E2000B0DD5D /* TimerModel.swift */; };
+		728DDE232A09E50D004B9ABC /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728DDE222A09E50D004B9ABC /* Services.swift */; };
 		72C4C0FE29A5A2A20050C45C /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C0FD29A5A2A20050C45C /* SoundModel.swift */; };
-		72C4C10329B173A50050C45C /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C10229B173A50050C45C /* SwiftUIView.swift */; };
+		72C4C14029B80DC50050C45C /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C13F29B80DC50050C45C /* Bar.swift */; };
+		72C4C14729B817900050C45C /* IntensityPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4C14629B817900050C45C /* IntensityPickerModel.swift */; };
+		72C7A4FD2AC3B8CC00174441 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A4FC2AC3B8CC00174441 /* RegistrationViewModel.swift */; };
+		72C7A4FF2AC3BD2A00174441 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7A4FE2AC3BD2A00174441 /* LogInViewModel.swift */; };
+		72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C33D2A1FBED0004FC60D /* TimerView.swift */; };
+		72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C3422A2964B4004FC60D /* TimerViewModel.swift */; };
+		72F2A8D92ABD439E002FED43 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8D82ABD439E002FED43 /* LogInView.swift */; };
+		72F2A8DC2ABD4560002FED43 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8DB2ABD4560002FED43 /* InputView.swift */; };
+		72F2A8DE2ABD49BA002FED43 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */; };
+		72F2A8E12ABD4E70002FED43 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8E02ABD4E70002FED43 /* ProfileView.swift */; };
+		72F2A8E32ABD4F79002FED43 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8E22ABD4F79002FED43 /* SettingsRowView.swift */; };
+		72F2A8E52ABD50BF002FED43 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8E42ABD50BF002FED43 /* UserModel.swift */; };
+		72F2A8E92ABD5452002FED43 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8E82ABD5452002FED43 /* AuthenticationViewModel.swift */; };
+		72F2A8EB2ABD5893002FED43 /* GroupedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F2A8EA2ABD5893002FED43 /* GroupedViews.swift */; };
+		72F2A8EE2ABD6086002FED43 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 72F2A8ED2ABD6086002FED43 /* FirebaseFirestoreSwift */; };
 		B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */; };
 		B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */; };
 		B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */; };
@@ -36,7 +54,8 @@
 		B6F9133B28EA4C0800D9DB2C /* WerkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */; };
 		B6F9133D28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */; };
 		B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */; };
-		B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */; };
+		B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */; };
+		DBAB4BA92A7B2EB100BB804C /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,27 +76,42 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7208662F2B8AF8C700357F56 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = System/Library/Frameworks/Charts.framework; sourceTree = SDKROOT; };
+		720866372B8DAFB300357F56 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		722BCA2928FCBC1900163E04 /* Werk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Werk.entitlements; sourceTree = "<group>"; };
-		726483302954140B0045A951 /* WarmUpDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpDetails.swift; sourceTree = "<group>"; };
-		7264833629542AAC0045A951 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
-		7264833929552C970045A951 /* IntervalDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalDetails.swift; sourceTree = "<group>"; };
-		7264833B29765A130045A951 /* IntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalViewModel.swift; sourceTree = "<group>"; };
-		7264833D298C8CF50045A951 /* WorkoutCreation+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutCreation+Models.swift"; sourceTree = "<group>"; };
+		7243762B2A64834700CE606C /* IntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalViewModel.swift; sourceTree = "<group>"; };
+		7243762E2A6487AC00CE606C /* IntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalPicker.swift; sourceTree = "<group>"; };
+		724376312A648CB500CE606C /* IntervalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalView.swift; path = Werk/WorkoutCreation/ExerciseData/Interval/IntervalView.swift; sourceTree = SOURCE_ROOT; };
+		724AED6B29F2038C004B6E3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		724AED7229F204D1004B6E3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		724AED7D29F4369A004B6E3D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		726483302954140B0045A951 /* IntensityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityView.swift; sourceTree = "<group>"; };
 		7264833F298F70A20045A951 /* WorkOutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutData.swift; sourceTree = "<group>"; };
 		72648341298F71660045A951 /* CGFloat_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat_ext.swift; sourceTree = "<group>"; };
-		72648343298F72BF0045A951 /* GraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphModel.swift; sourceTree = "<group>"; };
 		72648345298F73570045A951 /* UIColor_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_ext.swift; sourceTree = "<group>"; };
-		72648347298F772A0045A951 /* LowIntensitiyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowIntensitiyView.swift; sourceTree = "<group>"; };
-		72648349298F9BE30045A951 /* WarmUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpViewModel.swift; sourceTree = "<group>"; };
-		7264834D299069220045A951 /* WarmUpPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpPickerView.swift; sourceTree = "<group>"; };
+		72648349298F9BE30045A951 /* IntensityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityViewModel.swift; sourceTree = "<group>"; };
+		7264834D299069220045A951 /* IntensityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityPickerView.swift; sourceTree = "<group>"; };
 		726954862942CD0400B0DD5D /* WorkoutCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreationView.swift; sourceTree = "<group>"; };
-		726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreationViewModel.swift; sourceTree = "<group>"; };
+		726954882942CD4800B0DD5D /* WorkoutCreationEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreationEditViewModel.swift; sourceTree = "<group>"; };
 		7269548D2947B4F700B0DD5D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		726954902947C0BB00B0DD5D /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		726954932947C2FD00B0DD5D /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
-		7269549529494E2000B0DD5D /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		728DDE222A09E50D004B9ABC /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		72C4C0FD29A5A2A20050C45C /* SoundModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundModel.swift; sourceTree = "<group>"; };
-		72C4C10229B173A50050C45C /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		72C4C13F29B80DC50050C45C /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
+		72C4C14629B817900050C45C /* IntensityPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityPickerModel.swift; sourceTree = "<group>"; };
+		72C7A4FC2AC3B8CC00174441 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		72C7A4FE2AC3BD2A00174441 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
+		72D8C33D2A1FBED0004FC60D /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		72D8C3422A2964B4004FC60D /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		72F2A8D82ABD439E002FED43 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		72F2A8DB2ABD4560002FED43 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		72F2A8E02ABD4E70002FED43 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		72F2A8E22ABD4F79002FED43 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		72F2A8E42ABD50BF002FED43 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		72F2A8E82ABD5452002FED43 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		72F2A8EA2ABD5893002FED43 /* GroupedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedViews.swift; sourceTree = "<group>"; };
 		B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		B6F9131C28EA4C0200D9DB2C /* Werk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Werk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +124,8 @@
 		B6F9133A28EA4C0800D9DB2C /* WerkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITests.swift; sourceTree = "<group>"; };
 		B6F9133C28EA4C0800D9DB2C /* WerkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WerkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListView.swift; sourceTree = "<group>"; };
-		B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListModel.swift; sourceTree = "<group>"; };
+		B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListViewModel.swift; sourceTree = "<group>"; };
+		DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +133,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				724AED6F29F2042B004B6E3D /* FirebaseAuth in Frameworks */,
+				720866302B8AF8C700357F56 /* Charts.framework in Frameworks */,
+				724AED7129F2042B004B6E3D /* FirebaseFirestore in Frameworks */,
+				72F2A8EE2ABD6086002FED43 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,19 +157,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7243762D2A64877A00CE606C /* Interval */ = {
+			isa = PBXGroup;
+			children = (
+				724376312A648CB500CE606C /* IntervalView.swift */,
+				7243762B2A64834700CE606C /* IntervalViewModel.swift */,
+				7243762E2A6487AC00CE606C /* IntervalPicker.swift */,
+			);
+			name = Interval;
+			path = ../Interval;
+			sourceTree = "<group>";
+		};
+		724AED5A29D5F1C8004B6E3D /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "UI Elements";
+			sourceTree = "<group>";
+		};
+		724AED7829F4359E004B6E3D /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				724AED7D29F4369A004B6E3D /* MainView.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		726954852942CCA100B0DD5D /* WorkoutCreation */ = {
 			isa = PBXGroup;
 			children = (
-				72C4C0FF29AC18A60050C45C /* WarmUp */,
-				72C4C0FD29A5A2A20050C45C /* SoundModel.swift */,
 				726954862942CD0400B0DD5D /* WorkoutCreationView.swift */,
-				726954882942CD4800B0DD5D /* WorkoutCreationViewModel.swift */,
+				726954882942CD4800B0DD5D /* WorkoutCreationEditViewModel.swift */,
+				72648345298F73570045A951 /* UIColor_ext.swift */,
 				7269548F2947C02400B0DD5D /* ExerciseData */,
-				7264833929552C970045A951 /* IntervalDetails.swift */,
-				7264833B29765A130045A951 /* IntervalViewModel.swift */,
-				7264833D298C8CF50045A951 /* WorkoutCreation+Models.swift */,
 				7264833F298F70A20045A951 /* WorkOutData.swift */,
-				72648347298F772A0045A951 /* LowIntensitiyView.swift */,
 			);
 			path = WorkoutCreation;
 			sourceTree = "<group>";
@@ -138,12 +198,14 @@
 		7269548A2947B17900B0DD5D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				72F2A8E22ABD4F79002FED43 /* SettingsRowView.swift */,
+				72F2A8DB2ABD4560002FED43 /* InputView.swift */,
+				72C4C0FD29A5A2A20050C45C /* SoundModel.swift */,
 				726954932947C2FD00B0DD5D /* DateModel.swift */,
-				7269549529494E2000B0DD5D /* TimerModel.swift */,
 				7269548D2947B4F700B0DD5D /* Date+Ext.swift */,
-				7264833629542AAC0045A951 /* DurationPicker.swift */,
 				72648341298F71660045A951 /* CGFloat_ext.swift */,
-				72648345298F73570045A951 /* UIColor_ext.swift */,
+				728DDE222A09E50D004B9ABC /* Services.swift */,
+				DBAB4BA82A7B2EB100BB804C /* Int+Ext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -152,15 +214,10 @@
 			isa = PBXGroup;
 			children = (
 				726954902947C0BB00B0DD5D /* WorkoutModel.swift */,
+				7243762D2A64877A00CE606C /* Interval */,
+				72C4C0FF29AC18A60050C45C /* Intensity */,
 			);
 			path = ExerciseData;
-			sourceTree = "<group>";
-		};
-		726954922947C2E700B0DD5D /* DateData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DateData;
 			sourceTree = "<group>";
 		};
 		72BD5B5628F7CD19000C1AAA /* WorkoutHistory */ = {
@@ -168,28 +225,76 @@
 			children = (
 				B635CB3228EFA9DA007E69B8 /* WorkoutHistoryView.swift */,
 				B6D988B828F1E03D00CD3569 /* WorkoutHistoryViewModel.swift */,
-				726954922947C2E700B0DD5D /* DateData */,
-				72648343298F72BF0045A951 /* GraphModel.swift */,
+				72C4C13F29B80DC50050C45C /* Bar.swift */,
+				720866372B8DAFB300357F56 /* BarView.swift */,
 			);
 			path = WorkoutHistory;
 			sourceTree = "<group>";
 		};
-		72C4C0FF29AC18A60050C45C /* WarmUp */ = {
+		72C4C0FF29AC18A60050C45C /* Intensity */ = {
 			isa = PBXGroup;
 			children = (
-				726483302954140B0045A951 /* WarmUpDetails.swift */,
-				72C4C10229B173A50050C45C /* SwiftUIView.swift */,
-				7264834D299069220045A951 /* WarmUpPickerView.swift */,
-				72648349298F9BE30045A951 /* WarmUpViewModel.swift */,
+				7264834D299069220045A951 /* IntensityPickerView.swift */,
+				72648349298F9BE30045A951 /* IntensityViewModel.swift */,
+				726483302954140B0045A951 /* IntensityView.swift */,
+				72C4C14629B817900050C45C /* IntensityPickerModel.swift */,
 			);
-			path = WarmUp;
+			path = Intensity;
+			sourceTree = "<group>";
+		};
+		72C7A4FA2AC3A78000174441 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8D82ABD439E002FED43 /* LogInView.swift */,
+				72C7A4FE2AC3BD2A00174441 /* LogInViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		72C7A4FB2AC3A78A00174441 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8DD2ABD49BA002FED43 /* RegistrationView.swift */,
+				72C7A4FC2AC3B8CC00174441 /* RegistrationViewModel.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		72D8C33F2A1FD7A5004FC60D /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				72D8C3422A2964B4004FC60D /* TimerViewModel.swift */,
+				72D8C33D2A1FBED0004FC60D /* TimerView.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		72F2A8CE2ABD4256002FED43 /* UserAuth */ = {
+			isa = PBXGroup;
+			children = (
+				72F2A8E82ABD5452002FED43 /* AuthenticationViewModel.swift */,
+				72F2A8E42ABD50BF002FED43 /* UserModel.swift */,
+				72F2A8E02ABD4E70002FED43 /* ProfileView.swift */,
+				72F2A8EA2ABD5893002FED43 /* GroupedViews.swift */,
+				72C7A4FB2AC3A78A00174441 /* Registration */,
+				72C7A4FA2AC3A78000174441 /* Login */,
+			);
+			path = UserAuth;
+			sourceTree = "<group>";
+		};
+		72F2A8EC2ABD6085002FED43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7208662F2B8AF8C700357F56 /* Charts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B635CB2928ED1329007E69B8 /* WorkoutList */ = {
 			isa = PBXGroup;
 			children = (
 				B6F9134928EA4C3800D9DB2C /* WorkOutListView.swift */,
-				B6F9134B28EC7FB400D9DB2C /* WorkoutListModel.swift */,
+				B6F9134B28EC7FB400D9DB2C /* WorkoutListViewModel.swift */,
 			);
 			path = WorkoutList;
 			sourceTree = "<group>";
@@ -197,10 +302,12 @@
 		B6F9131328EA4C0200D9DB2C = {
 			isa = PBXGroup;
 			children = (
+				724AED6B29F2038C004B6E3D /* GoogleService-Info.plist */,
 				B6F9131E28EA4C0200D9DB2C /* Werk */,
 				B6F9132F28EA4C0800D9DB2C /* WerkTests */,
 				B6F9133928EA4C0800D9DB2C /* WerkUITests */,
 				B6F9131D28EA4C0200D9DB2C /* Products */,
+				72F2A8EC2ABD6085002FED43 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,12 +326,17 @@
 			children = (
 				722BCA2928FCBC1900163E04 /* Werk.entitlements */,
 				B6F9131F28EA4C0200D9DB2C /* WerkApp.swift */,
+				72F2A8CE2ABD4256002FED43 /* UserAuth */,
+				724AED7829F4359E004B6E3D /* Edit */,
 				B635CB2928ED1329007E69B8 /* WorkoutList */,
 				72BD5B5628F7CD19000C1AAA /* WorkoutHistory */,
 				726954852942CCA100B0DD5D /* WorkoutCreation */,
+				72D8C33F2A1FD7A5004FC60D /* Timer */,
 				7269548A2947B17900B0DD5D /* Utilities */,
+				724AED5A29D5F1C8004B6E3D /* UI Elements */,
 				B6F9132328EA4C0700D9DB2C /* Assets.xcassets */,
 				B6F9132528EA4C0700D9DB2C /* Preview Content */,
+				724AED7229F204D1004B6E3D /* AppDelegate.swift */,
 			);
 			path = Werk;
 			sourceTree = "<group>";
@@ -270,6 +382,11 @@
 			dependencies = (
 			);
 			name = Werk;
+			packageProductDependencies = (
+				724AED6E29F2042B004B6E3D /* FirebaseAuth */,
+				724AED7029F2042B004B6E3D /* FirebaseFirestore */,
+				72F2A8ED2ABD6086002FED43 /* FirebaseFirestoreSwift */,
+			);
 			productName = Werk;
 			productReference = B6F9131C28EA4C0200D9DB2C /* Werk.app */;
 			productType = "com.apple.product-type.application";
@@ -325,11 +442,9 @@
 					};
 					B6F9132B28EA4C0800D9DB2C = {
 						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
 					};
 					B6F9133528EA4C0800D9DB2C = {
 						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B6F9131B28EA4C0200D9DB2C;
 					};
 				};
 			};
@@ -342,6 +457,9 @@
 				Base,
 			);
 			mainGroup = B6F9131328EA4C0200D9DB2C;
+			packageReferences = (
+				724AED6D29F2042B004B6E3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B6F9131D28EA4C0200D9DB2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -360,6 +478,7 @@
 			files = (
 				B6F9132728EA4C0700D9DB2C /* Preview Assets.xcassets in Resources */,
 				B6F9132428EA4C0700D9DB2C /* Assets.xcassets in Resources */,
+				724AED6C29F2038C004B6E3D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,31 +503,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72648348298F772A0045A951 /* LowIntensitiyView.swift in Sources */,
+				72D8C3432A2964B4004FC60D /* TimerViewModel.swift in Sources */,
+				72F2A8D92ABD439E002FED43 /* LogInView.swift in Sources */,
+				724AED7329F204D1004B6E3D /* AppDelegate.swift in Sources */,
 				72648340298F70A20045A951 /* WorkOutData.swift in Sources */,
-				72648344298F72BF0045A951 /* GraphModel.swift in Sources */,
-				7269549629494E2000B0DD5D /* TimerModel.swift in Sources */,
-				7264834A298F9BE30045A951 /* WarmUpViewModel.swift in Sources */,
+				7264834A298F9BE30045A951 /* IntensityViewModel.swift in Sources */,
+				72F2A8EB2ABD5893002FED43 /* GroupedViews.swift in Sources */,
 				7269548E2947B4F700B0DD5D /* Date+Ext.swift in Sources */,
+				724AED7E29F4369A004B6E3D /* MainView.swift in Sources */,
 				B6F9134A28EA4C3800D9DB2C /* WorkOutListView.swift in Sources */,
+				72F2A8E52ABD50BF002FED43 /* UserModel.swift in Sources */,
+				DBAB4BA92A7B2EB100BB804C /* Int+Ext.swift in Sources */,
 				B6D988B928F1E03D00CD3569 /* WorkoutHistoryViewModel.swift in Sources */,
 				B635CB3328EFA9DA007E69B8 /* WorkoutHistoryView.swift in Sources */,
-				7264833729542AAC0045A951 /* DurationPicker.swift in Sources */,
-				7264833E298C8CF50045A951 /* WorkoutCreation+Models.swift in Sources */,
+				72D8C33E2A1FBED0004FC60D /* TimerView.swift in Sources */,
+				72F2A8E92ABD5452002FED43 /* AuthenticationViewModel.swift in Sources */,
 				72648346298F73570045A951 /* UIColor_ext.swift in Sources */,
-				B6F9134C28EC7FB500D9DB2C /* WorkoutListModel.swift in Sources */,
-				7264834E299069220045A951 /* WarmUpPickerView.swift in Sources */,
+				7243762F2A6487AC00CE606C /* IntervalPicker.swift in Sources */,
+				B6F9134C28EC7FB500D9DB2C /* WorkoutListViewModel.swift in Sources */,
+				720866382B8DAFB300357F56 /* BarView.swift in Sources */,
+				7243762C2A64834700CE606C /* IntervalViewModel.swift in Sources */,
+				7264834E299069220045A951 /* IntensityPickerView.swift in Sources */,
 				726954942947C2FD00B0DD5D /* DateModel.swift in Sources */,
-				7264833C29765A130045A951 /* IntervalViewModel.swift in Sources */,
 				B6F9132028EA4C0200D9DB2C /* WerkApp.swift in Sources */,
-				726954892942CD4800B0DD5D /* WorkoutCreationViewModel.swift in Sources */,
+				726954892942CD4800B0DD5D /* WorkoutCreationEditViewModel.swift in Sources */,
+				72C4C14029B80DC50050C45C /* Bar.swift in Sources */,
+				72C4C14729B817900050C45C /* IntensityPickerModel.swift in Sources */,
+				72C7A4FD2AC3B8CC00174441 /* RegistrationViewModel.swift in Sources */,
 				726954912947C0BB00B0DD5D /* WorkoutModel.swift in Sources */,
-				72C4C10329B173A50050C45C /* SwiftUIView.swift in Sources */,
 				72648342298F71660045A951 /* CGFloat_ext.swift in Sources */,
-				726483312954140B0045A951 /* WarmUpDetails.swift in Sources */,
+				72F2A8E12ABD4E70002FED43 /* ProfileView.swift in Sources */,
+				724376322A648CB500CE606C /* IntervalView.swift in Sources */,
+				72C7A4FF2AC3BD2A00174441 /* LogInViewModel.swift in Sources */,
+				728DDE232A09E50D004B9ABC /* Services.swift in Sources */,
+				726483312954140B0045A951 /* IntensityView.swift in Sources */,
+				72F2A8DE2ABD49BA002FED43 /* RegistrationView.swift in Sources */,
+				72F2A8E32ABD4F79002FED43 /* SettingsRowView.swift in Sources */,
+				72F2A8DC2ABD4560002FED43 /* InputView.swift in Sources */,
 				72C4C0FE29A5A2A20050C45C /* SoundModel.swift in Sources */,
 				726954872942CD0400B0DD5D /* WorkoutCreationView.swift in Sources */,
-				7264833A29552C970045A951 /* IntervalDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +714,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.Werk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intervaltimer.kinnectus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -611,7 +744,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.Werk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.intervaltimer.kinnectus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -623,7 +756,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -634,7 +766,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
 			};
 			name = Debug;
 		};
@@ -642,7 +773,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -653,7 +783,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Werk.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Werk";
 			};
 			name = Release;
 		};
@@ -667,10 +796,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
 			};
 			name = Debug;
 		};
@@ -684,10 +813,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = HappehPhox.WerkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Werk;
 			};
 			name = Release;
 		};
@@ -731,6 +860,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		724AED6D29F2042B004B6E3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		724AED6E29F2042B004B6E3D /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 724AED6D29F2042B004B6E3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		724AED7029F2042B004B6E3D /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 724AED6D29F2042B004B6E3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		72F2A8ED2ABD6086002FED43 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 724AED6D29F2042B004B6E3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B6F9131428EA4C0200D9DB2C /* Project object */;
 }

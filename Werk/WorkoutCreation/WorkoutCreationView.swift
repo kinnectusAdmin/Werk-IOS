@@ -1,35 +1,41 @@
 //
-//  WorkoutCreationView.swift
+//  WorkoutEditView.swift
 //  Werk
 //
-//  Created by Shaquil Campbell on 12/8/22.
+//  Created by Shaquil Campbell on 4/20/23.
 //
+
+
 
 import Foundation
 import SwiftUI
 
 
-struct WorkoutCreationViewForm: View {
+
+struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: WorkoutCreationViewModel = WorkoutCreationViewModel()
-   
-    
-    
-    
+    @ObservedObject var viewModel: WorkoutCreationEditViewModel
     
     var body: some View {
+        
         NavigationView {
             Form {
-                
                 Section {
                     HStack {
-                        
-                        TextField("Timer Name",text: viewModel.workoutNameBinding)
+                        //Text field to name workout and select its color to appear on graph
+                        TextField("Workout Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
-                        ColorPicker("", selection: $viewModel.bgColor)
+                        Picker("", selection: $viewModel.selectedColorIndex) {
+                            ForEach(0..<12) { index in
+                                Text(viewModel.colors[index].description)
+                            }
+                        }
                     }
                 }
-                NavigationLink(destination: WarmUpDetails()) {
+                NavigationLink {
+                    //takes user to warm up intensity set up
+                    IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateWarmupBinding(), intensity: .warmup))
+                } label: {
                     HStack {
                         Text("Warm Up")
                         Spacer()
@@ -37,88 +43,81 @@ struct WorkoutCreationViewForm: View {
                     }
                 }
                 
-                
-                ForEach(viewModel.intervals.cycles, id: \.id) { cycle in
+                ForEach(viewModel.workout.intervals.cycles, id: \.id) { cycle in
                     Section {
-                        NavigationLink(destination: IntervalDetails()) {
+                        NavigationLink(destination: IntervalView(viewModel: IntervalViewModel(interval: viewModel.didUpdateIntervalBinding(interval: cycle)))) {
                             HStack {
                                 Text("Interval Cycle")
                                 Spacer()
-                                Text("\(cycle.numberOfSets) set")
-                                
+                                Text(viewModel.numberOfSetsText(cycle))
                             }
-                        }
-                        
-                        NavigationLink(destination: Text("High Intensity View")) {
-                            HStack {
-                                Text("High Intensity")
-                                Spacer()
-                                Text("\(cycle.highIntensity.duration)")
-                            }
-                        }
-                        NavigationLink(destination: Text("Low Intensity View")) {
-                            HStack {
-                                Text("Low Intensity ")
-                                Spacer()
-                                Text("\(cycle.lowIntensity.duration)")
-                            }
-                            //data transfer between views
-                            //pass the parent view model to presented child viewmodel so the child has a subset of the data that it needs. once the child mutates the date it needs to report to the parent
-                            //read up on structs
-                            //refresh on MVVM MVM Viper and MVI and  MVC
                         }
                     }
                 }
                 
                 Section {
                     Button("Add Cycle") {
-                        
-                        print("Print!")
                         viewModel.didSelectAddNewCycle()
+                        
+                        if viewModel.workout.intervals.cycles.count > 1 {
+                            viewModel.showRestBetweenCycles = true
+                        }
                     }
                 }
-                //make a button that'll add a cycle to the view
-                //check to make sure forms scroll automattically
+                
+                if viewModel.showRestBetweenCycles {
+                    Section {
+                        NavigationLink(destination: IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateRestBinding(), intensity: .restBetweenPhases))) {
+                            HStack {
+                                Text("Rest Between Cycles")
+                                Spacer()
+                                Text("\(viewModel.restBetweenPhasesDuration)")
+                            }
+                        }
+                    }
+                }
+                
                 
                 Section {
-                    
-                    NavigationLink(destination: Text("Cool Down View")) {
+                    NavigationLink {
+                        
+                        IntensityView(viewModel: IntensityViewModel(workoutPhase: viewModel.didUpdateCoolDownBinding(), intensity: .coolDown))
+                    } label: {
                         HStack {
-                            Text("Cool Down ")
+                            Text("Cool Down")
                             Spacer()
-                            Text(viewModel.cooldownDuration)
+                            Text("\(viewModel.cooldownDuration)")
                         }
-                        
                     }
                     
-                }
-            }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel", role: .cancel) {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
                 }
             }
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Save") {
+                                    viewModel.didSelectSave()
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Cancel", role: .cancel) {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }
         }
         
     }
-    
+
 }
 
 
 struct WorkoutCreationViewForm_Previews: PreviewProvider {
     static var previews: some View{
-        WorkoutCreationViewForm(
-            viewModel: WorkoutCreationViewModel())
+        WorkoutCreationEditViewForm(
+            viewModel: WorkoutCreationEditViewModel(workout: WorkoutBlueprint.initial()))
     }
 }
-
-
 
 
 

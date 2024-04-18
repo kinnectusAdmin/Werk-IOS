@@ -54,25 +54,34 @@ extension Date {
         return Date(timeIntervalSince1970: Double(timestamp))
     }
     
-    static func weekOfDates(today: Date) -> [Date] {
-        //what day is it
-        //what year
-        //what month is
-        // date component
-        // week of this year relative to today
+    static func datesForWeek(weekOfYear: Int) -> [Date] {
+            let year = Calendar.current.component(.year, from: Date())
+            var dates = [Date]()
+            let calendar = Calendar.current
+            var components = DateComponents()
+            components.weekOfYear = weekOfYear
+            components.yearForWeekOfYear = year
+            components.weekday = calendar.firstWeekday // This is usually Sunday in the Gregorian calendar
+
+            // Attempt to construct a date representing the first day of the given week and year
+            guard let firstDayOfWeek = calendar.date(from: components) else {
+                return dates
+            }
+
+            for dayOffset in 0..<7 {
+                if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
+                    dates.append(date)
+                }
+            }
+            
+            return dates
+        }
+    
+    
+    func isSameDay(_ date: Date) -> Bool {
+        let dayMatches = Calendar.current.compare(self, to: date, toGranularity: .day) == .orderedSame
+        let monthMatches = Calendar.current.compare(self, to: date, toGranularity: .month) == .orderedSame
+        return dayMatches && monthMatches
         
-        // generate a date component with above information
-        //for each day of the week
-        //that includes the sunday of this week to the saturday of this week
-        let days = (1...7).map { dayValue -> Date? in
-            let component = DateComponents(calendar: Calendar.current,
-                                           month: Calendar.current.dateComponents([.month], from: today).month,
-                                           weekday: dayValue,
-                                           weekOfYear: Calendar.current.dateComponents([.weekOfYear], from: today).weekOfYear
-            )
-            return component.date
-        }.compactMap { $0 }
-        
-        return days
     }
 }

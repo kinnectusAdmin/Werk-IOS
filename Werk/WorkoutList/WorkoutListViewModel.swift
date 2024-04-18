@@ -9,18 +9,26 @@ import Foundation
 import SwiftUI
 
 class WorkoutListViewModel: ObservableObject {
-    @Published var workOuts: [WorkoutTemplate]
-    init(workOuts: [WorkoutTemplate]) {
-        self.workOuts = workOuts
+    @Published var workOuts: [WorkoutBlueprint] = []
+    private let service: DataStorageServiceIdentity
+    
+    init(service: DataStorageServiceIdentity = DataStorageService()) {
+        self.service = service
+        service.getWorkoutBlueprintsRemote()
+        service.observeWorkoutBlueprints().assign(to: &$workOuts)
+        
+    }
+    
+    func deleteWorkout(at workOut: WorkoutBlueprint) {
+        service.deleteWorkoutBlueprint(at: workOut)
     }
 }
 
 extension WorkoutListViewModel {
-    func didSelectWorkout(workout:WorkoutTemplate) {
-        
-    }
-    
-    func didSelectAddWorkout(){
-        
+    func didSelectAddworkout()-> any View {
+        //displayes workout inital workout creation page
+       return NavigationLink(destination: WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())) {
+               EmptyView()
+           }
     }
 }

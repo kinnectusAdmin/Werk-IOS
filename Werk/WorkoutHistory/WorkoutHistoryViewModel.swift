@@ -1,32 +1,48 @@
 
 import Foundation
 import SwiftUI
+import Combine
+
 //
 
-
-
 final class WorkoutHistoryViewModel: ObservableObject {
-    
     @Published var weekSelection: Int = showCurrentWeekNumber(startDate: Date())
-    var bars: [Bar] {
-        workoutDateComponenet.map { workouts -> Bar in
-            Bar(name: "",
-                day: dayStringFrom(date:workouts.first!.date),
-                value: workouts.map { $0.duration },
-                workouts: [])
-        }
-    }
+    @Published var bars: [Bar] = []
+    private let service: DataStorageServiceIdentity!
+    @Published var allWorkouts: [RecordedWorkout] = []
+    private var cancellables = Set<AnyCancellable>()
+   
+    init(service: DataStorageServiceIdentity = DataStorageService()) {
+        self.service = service
+        service.getRecordedWorkoutsRemote()
+        service.observeRecordedWorkouts().assign(to: &$allWorkouts) 
+        
+                $weekSelection.map{ [weak self] selectedWeek -> [Bar] in
+                    guard let self = self else { return [] }
+                    let weekOfDates = Date.datesForWeek(weekOfYear: selectedWeek)
+                    return weekOfDates.map { date -> Bar in  // 2.) could be here
+                        let daysWorkouts = self.allWorkouts.filter{
+                            $0.date.isSameDay(date)
+                        }
+                        return Bar(day: dayStringFrom(date: date),
+                                   value: daysWorkouts.map(\.duration))  //or here
+        
+                    }
+                }.assign(to: &$bars)
+//        func makeBars() -> [Bar] {
+//            let weekOfDates = Date.weekOfDates(weekOfYear: showCurrentWeekNumber(startDate: Date()))
+//            return weekOfDates.map { date -> Bar in  // 2.) could be here
+//                let daysWorkouts = self.allWorkouts.filter{
+//                    $0.date.isSameDay(date)
+//                }
+//                return Bar(day: dayStringFrom(date: date),
+//                           value: daysWorkouts.map(\.duration))  //or here
+//
+//            }
+//        }
+//        self.bars = makeBars()
+        print(self.bars)
 
-
-    var workoutDateComponenet: [[WorkoutTemplate]] {
-        Date.weekOfDates(today: Date()).map { theDate -> (Int, Int) in
-            let month: Int = Calendar.current.dateComponents([.month], from: theDate).month!
-            let day: Int = Calendar.current.dateComponents([.day], from: theDate).day!
-            let tuple = (month, day)
-            return tuple
-        }.map { tuple in
-            [WorkoutTemplate.randomWorkoutInRange(tuple, tuple)]
-        }
     }
     
     var maxDuration: CGFloat {
@@ -34,12 +50,9 @@ final class WorkoutHistoryViewModel: ObservableObject {
     }
     
     func relativeDuration(duration: CGFloat) -> CGFloat {
-        (duration / maxDuration) * 100
+        let height = (duration / maxDuration) * 100
+        print("maxDuration: ", maxDuration)
+        print("height: ", height)
+        return height
     }
 }
-
-
-// graph has to coencide with each week of the year and their individual days
-// mus show colors of workout progressing vertically
-
-
