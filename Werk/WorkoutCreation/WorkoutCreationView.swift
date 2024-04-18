@@ -16,10 +16,6 @@ struct WorkoutCreationEditViewForm: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: WorkoutCreationEditViewModel
     
-    let colors:[Color] =
-    [
-        Color.red, Color.blue, Color.green, Color.indigo, Color.orange
-    ]
     var body: some View {
         
         NavigationView {
@@ -30,8 +26,8 @@ struct WorkoutCreationEditViewForm: View {
                         TextField("Workout Name",text: viewModel.workoutNameBinding)
                             .keyboardType(.alphabet)
                         Picker("", selection: $viewModel.selectedColorIndex) {
-                            ForEach(0..<5) { index in
-                                Text(colors[index].description)
+                            ForEach(0..<12) { index in
+                                Text(viewModel.colors[index].description)
                             }
                         }
                     }
@@ -95,23 +91,24 @@ struct WorkoutCreationEditViewForm: View {
                     }
                     
                 }
-            }.toolbar {   //this placement type bolds the item and places it on the top right of the screen
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        viewModel.didSelectSave()
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel", role: .cancel) {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
             }
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Save") {
+                                    viewModel.didSelectSave()
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Cancel", role: .cancel) {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }
         }
         
     }
-    
+
 }
 
 

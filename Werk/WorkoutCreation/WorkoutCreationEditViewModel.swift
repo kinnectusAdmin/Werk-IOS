@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-
-
+import Firebase
 
 class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     
@@ -23,13 +22,18 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
     @Published var highIntensityDuration: String = ""
     @Published var restBetweenPhasesDuration: String = ""
     @Published var showRestBetweenCycles = false
-    
+    var onWorkoutUpdate: ((WorkoutBlueprint) -> Void)?
+    @Published var colors:[Color] =
+    [
+        Color.red, Color.blue, Color.green, Color.indigo, Color.orange, Color.yellow, Color.mint, Color.cyan, Color.purple, Color.teal, Color.pink, Color.gray
+    ]
     private let service: DataStorageServiceIdentity
     var workoutNameBinding: Binding<String> = .constant("")
     
-    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial(), service: DataStorageServiceIdentity = DataStorageService()) {
+    init(workout: WorkoutBlueprint = WorkoutBlueprint.initial(), service: DataStorageServiceIdentity = DataStorageService(), onWorkoutUpdate: ((WorkoutBlueprint) -> Void)? = nil) {
         self.service = service
         self.workout = workout
+        self.onWorkoutUpdate = onWorkoutUpdate
         self.workoutNameBinding = .init(get: provideWorkoutName, set: updateWorkoutName)
         $workout.map(\.warmup.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$warmupDuration)
         $workout.map(\.cooldown.duration).map({durationOfWorkout(duration: Double($0))}).assign(to: &$cooldownDuration)
@@ -45,28 +49,26 @@ class WorkoutCreationEditViewModel:Identifiable, ObservableObject {
         workout.name = updatedName
     }
     
-    func didSelectSave() {
+    
+    func didSelectSave() {//make if else statement for filter if true update workout if false save workout
         //expect some work to save this information
         guard let user = service.getLocalCurrentUser() else { return }
         workout.userId = user.id
-        service.saveWorkoutBlueprint(workoutBlueprint: workout)
+        service.saveWorkoutBlueprintRemote(workoutBlueprint: workout)
+        onWorkoutUpdate?(workout)
     }
-    
-    func didSelectAddNewCycle() {
-        workout.intervals._cycles.append(Interval.initial())
         
+        func didSelectAddNewCycle() {
+            workout.intervals._cycles.append(Interval.initial())
+            
+        }
+        
+        func numberOfSetsText(_ interval: Interval) -> String {
+            let sets = interval.numberOfSets
+            return sets != 1 ? "\(sets) sets" : "\(sets) set"
+        }
     }
     
-    func numberOfSetsText(_ interval: Interval) -> String {
-        let sets = interval.numberOfSets
-        return sets != 1 ? "\(sets) sets" : "\(sets) set"
-    }
-}
-
-
-
-
-
 
 extension WorkoutCreationEditViewModel {
     
@@ -75,7 +77,7 @@ extension WorkoutCreationEditViewModel {
         Binding<Interval>.init { [weak self] in
             guard let self = self else { return interval }
             print("Did update interval")
-            return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
+            return self.workout.intervals._cycles.first(where: {$0.id == interval.id }) ?? interval                  //<---------issue might be here
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
             self.workout.intervals._cycles = self.workout.intervals._cycles.map {
@@ -84,7 +86,18 @@ extension WorkoutCreationEditViewModel {
         }
     }
     
-
+//    func didUpdateIntervalBinding(interval: Interval) -> Binding<Interval> {       //<----  test to see what is returned when this fuction runs
+//        Binding<Interval>(
+//            get: {
+//                return interval
+//            },
+//            set: { updatedInterval in
+//                print("Received updated interval: \(updatedInterval)")
+//                self.workout.intervals._cycles[0] = updatedInterval
+//            }
+//        )
+//    }
+        
     
     func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
@@ -103,7 +116,6 @@ extension WorkoutCreationEditViewModel {
         }
     }
     
-    
     func didUpdateCoolDownBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {
             self.workout.cooldown
@@ -119,7 +131,5 @@ extension WorkoutCreationEditViewModel {
             self.workout.intervals.restBetweenPhases = rest
         }
     }
-    
-    
 }
 

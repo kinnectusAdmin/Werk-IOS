@@ -7,7 +7,7 @@
 
 import SwiftUI
 import DataDetection
-
+import Charts
 
 struct WorkoutHistoryView: View {
     @ObservedObject var viewModel = WorkoutHistoryViewModel()
@@ -25,19 +25,19 @@ struct WorkoutHistoryView: View {
                                 Spacer()
                                 Text(weekRangeOfYear(week:weekOfYear).2)
                             }
-                            
                         }
                         .padding(10)
                         
                         HStack(alignment: .bottom, spacing: 20) {
+                            
                             ForEach(viewModel.bars) { bar in
                                 VStack {
                                     Rectangle()
-                                        .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))
+                                        .foregroundStyle(LinearGradient(colors: bar.color, startPoint: .bottom, endPoint: .top))  //shouldn't have any issues with the bars not populating 
                                         .frame(width: 35, height: viewModel.relativeDuration(duration: bar.totalDuration),
                                                alignment: .bottom)
                                         .cornerRadius(90)
-                                    Text(bar.day)
+                                    Text(bar.day) 
                                 }
                             }
                         }
@@ -46,17 +46,18 @@ struct WorkoutHistoryView: View {
                 }
             }
             .frame(maxHeight: 270)
-            .tabViewStyle(.page)
-        }
-    }
-    
-    struct WorkoutHistoryEdit_Previews: PreviewProvider {
-        static var previews: some View {
-            VStack(spacing: 0) {
-                WorkoutHistoryView()
-                Spacer()
-            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
     }
 }
+    
+    struct WorkoutHistoryView_Previews: PreviewProvider {
+        static var previews: some View {
+            VStack(spacing: 0) {
+                WorkoutHistoryView()
+                
+            }
+        }
+    }
+
 

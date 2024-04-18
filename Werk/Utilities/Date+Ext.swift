@@ -54,36 +54,28 @@ extension Date {
         return Date(timeIntervalSince1970: Double(timestamp))
     }
     
-    static func weekOfDates(weekOfYear: Int) -> [Date] {
+    static func datesForWeek(weekOfYear: Int) -> [Date] {
+            let year = Calendar.current.component(.year, from: Date())
+            var dates = [Date]()
+            let calendar = Calendar.current
+            var components = DateComponents()
+            components.weekOfYear = weekOfYear
+            components.yearForWeekOfYear = year
+            components.weekday = calendar.firstWeekday // This is usually Sunday in the Gregorian calendar
 
-        let date = Calendar.current.date(from: DateComponents(calendar: Calendar.current, weekOfYear: weekOfYear))!
+            // Attempt to construct a date representing the first day of the given week and year
+            guard let firstDayOfWeek = calendar.date(from: components) else {
+                return dates
+            }
 
-        let days = (1...7).map { dayValue -> Date? in
-            let component = DateComponents(calendar: Calendar.current,
-                                           month: Calendar.current.dateComponents([.month], from:date).month,
-                                           weekday: dayValue,
-                                           weekOfYear: weekOfYear
-            )
-            return component.date
-        }.compactMap { $0 }
-        
-        return days
-    }
-    
-    
-    static func weekOfDates(today: Date) -> [Date] {
-       
-        let days = (1...7).map { dayValue -> Date? in
-            let component = DateComponents(calendar: Calendar.current,
-                                           month: Calendar.current.dateComponents([.month], from: today).month,
-                                           weekday: dayValue,
-                                           weekOfYear: Calendar.current.dateComponents([.weekOfYear], from: today).weekOfYear
-            )
-            return component.date
-        }.compactMap { $0 }
-        
-        return days
-    }
+            for dayOffset in 0..<7 {
+                if let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) {
+                    dates.append(date)
+                }
+            }
+            
+            return dates
+        }
     
     
     func isSameDay(_ date: Date) -> Bool {

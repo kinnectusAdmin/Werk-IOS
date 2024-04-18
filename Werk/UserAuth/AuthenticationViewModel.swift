@@ -68,6 +68,8 @@ class AuthenticationViewModel: ObservableObject {
         do {try Auth.auth().signOut() //signs user out on back end
             self.userSession = nil // clears user session
             self.currentUser = nil // clears curent user so there is no data persistance upon new user log in
+            UserDefaults.standard.recordedWorkouts = []
+            UserDefaults.standard.workoutBlueprints = []
             UserDefaults.standard.removeObject(forKey: DataKey.userId.rawValue)
             
         } catch {
@@ -79,12 +81,25 @@ class AuthenticationViewModel: ObservableObject {
         print("Delete Account")
     }
     
+    func getWorkoutBlueprint() {
+        DataStorageService().getWorkoutBlueprintsRemote()
+    }
+    
+    func getRecordedWorkouts() {
+        DataStorageService().getRecordedWorkoutsRemote()
+    }
+    
     func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        guard let snapShot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
-        self.currentUser = try? snapShot.data(as: UserModel.self)
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
         do {
-            UserDefaults.standard.userData = try JSONEncoder().encode(self.currentUser!)
+            let snapShot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+            self.currentUser = try? snapShot.data(as: UserModel.self)
+            let user = try JSONEncoder().encode(self.currentUser!)
+            UserDefaults.standard.userData = user
+            getWorkoutBlueprint()
+            getRecordedWorkouts()
         } catch {
             print(error.localizedDescription)
         }

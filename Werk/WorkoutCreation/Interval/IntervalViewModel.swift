@@ -11,10 +11,10 @@ import Combine
 
 class IntervalViewModel: ObservableObject, Identifiable {
     private var cancellables =  Set<AnyCancellable>()
-    var interval: Binding<Interval> = .constant(Interval.initial())
+    var interval: Binding<Interval>
     @Published var isPickerPresented: Bool = false
     @Published var phases: [WorkoutPhase] = []
-    @Published var editMode: EditMode = .active
+//    @Published var editMode: EditMode = .active
     private var selectedPhaseID: String = ""
     
     var selectedPhaseBinding: Binding<WorkoutPhase> {
@@ -29,7 +29,12 @@ class IntervalViewModel: ObservableObject, Identifiable {
     
     init(interval: Binding<Interval>) {
         self.interval = interval
-        self.phases = [self.interval.wrappedValue.lowIntensity, self.interval.wrappedValue.highIntensity]
+        if self.interval.wrappedValue.order  == .startsWithLowIntensity {
+            self.phases = [self.interval.wrappedValue.lowIntensity, self.interval.wrappedValue.highIntensity]
+        } else {
+            self.phases = [self.interval.wrappedValue.highIntensity, self.interval.wrappedValue.lowIntensity]
+        }
+        print("Phases: \(phases.map { $0.name })")
     }
     
     private func getSelectedWorkoutPhase() -> WorkoutPhase {
@@ -62,10 +67,31 @@ extension IntervalViewModel {
         phases.move(fromOffsets: indicies, toOffset: newOffset)
         if phases.first?.id == interval.wrappedValue.lowIntensity.id {
             interval.wrappedValue.order = .startsWithLowIntensity
+            print("\(interval.order)")
         } else {
             interval.wrappedValue.order = .startsWithHighIntensity
+            print("\(interval.order)")
         }
     }
+    
+    
+//    func move(indices: IndexSet, newOffset: Int) {                 <-- test
+//        phases.move(fromOffsets: indices, toOffset: newOffset)
+//        print("Phases after move: \(phases.map { $0.name })")
+//        
+//        if let firstPhase = phases.first, let lastPhase = phases.last {
+//            interval.wrappedValue.highIntensity = firstPhase
+//            interval.wrappedValue.lowIntensity = lastPhase
+//        }
+//        forceUpdate()
+//        print("Updated interval - High: \(interval.wrappedValue.highIntensity.name), Low: \(interval.wrappedValue.lowIntensity.name)")
+//    }
+// 
+//    func forceUpdate() {
+//        self.objectWillChange.send()
+//    }
+    
+    
     
     func didTogglePhaseDuration(_ phaseId: String) {
         selectedPhaseID = phaseId

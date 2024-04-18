@@ -16,7 +16,7 @@ import AVFoundation
 
 struct IntervalView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel = IntervalViewModel(interval: .constant(Interval.initial()))
+    @ObservedObject var viewModel = IntervalViewModel(interval: .constant(Interval.initial()))  //cause of interval part of blueprint not being saved?
     
     var body: some View {
         NavigationView{
@@ -32,8 +32,8 @@ struct IntervalView: View {
                     }
                 }
                 Section {
-                    List {
-                        ForEach(viewModel.phases) { phase in
+                    List{
+                        ForEach(viewModel.phases, id: \.self) { phase in
                             HStack{
                                 Text("\(phase.name)")
                                 Spacer()
@@ -42,9 +42,11 @@ struct IntervalView: View {
                                 }
                             }
                         }.onMove(perform: viewModel.move)
-                            .environment(\.editMode, $viewModel.editMode)
                     }
                 }
+            }
+            .toolbar {
+                EditButton()
             }
         }
         .sheet(isPresented: $viewModel.isPickerPresented) {

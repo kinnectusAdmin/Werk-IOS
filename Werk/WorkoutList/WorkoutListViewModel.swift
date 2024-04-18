@@ -16,20 +16,15 @@ class WorkoutListViewModel: ObservableObject {
         self.service = service
         service.getWorkoutBlueprintsRemote()
         service.observeWorkoutBlueprints().assign(to: &$workOuts)
+        
     }
     
     func deleteWorkout(at workOut: WorkoutBlueprint) {
-       workOuts = workOuts.filter { bluePrint in
-            bluePrint.id != workOut.id
-        }
         service.deleteWorkoutBlueprint(at: workOut)
     }
 }
 
 extension WorkoutListViewModel {
-//
-    
-    
     func didSelectAddworkout()-> any View {
         //displayes workout inital workout creation page
        return NavigationLink(destination: WorkoutCreationEditViewForm(viewModel: WorkoutCreationEditViewModel())) {

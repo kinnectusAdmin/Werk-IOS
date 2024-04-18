@@ -10,16 +10,15 @@ import SwiftUI
 import Combine
 import AudioToolbox
 
-
 class TimerViewModel: ObservableObject {
     private var services: DataStorageServiceIdentity
     var soundModel = Audio()
-    var workout: WorkoutBlueprint!
+     var workout: WorkoutBlueprint!
+    @State var timer:Timer!
     @Published var circleProgress: CGFloat = 0.0
     @State var startDate = Date.now
     @Published var workoutBlocks: [WorkoutBlock] = []
     @Published var currentPhaseIndex: Int = 0
-    @Published var currentPhaseType: Intensity = .warmup
     @Published var lastPhaseIndex: Int = 0
     @Published var maxPhaseIndex = 0
     var isTimerFinished: Binding<Bool> {
@@ -34,16 +33,24 @@ class TimerViewModel: ObservableObject {
     var currentPhaseName: String {
         selectedPhase.name
     }
+    
     @Published var setIndicator:String = ""
     private var timerElapsedTime: Int = 0
     var currentPhaseTime:Int {
         selectedPhase.plannedDuration - timerElapsedTime
     }
+    
     @Published var elapsedTime:Int = 0
     @Published var totalPlannedDuration: Int = 0
-    var timeRemaining: Int {  //Time remining in workout
-        totalPlannedDuration - elapsedTime
+    var timeRemainingInCurrentPhase: Int {
+        max(selectedPhase.plannedDuration - timerElapsedTime, 0)
     }
+    
+    var timeRemaining: Int {
+        let remainingDurationsAfterCurrentPhase = workoutBlocks[currentPhaseIndex...].dropFirst().map { $0.plannedDuration }.reduce(0, +)
+        return timeRemainingInCurrentPhase + remainingDurationsAfterCurrentPhase
+    }
+    
     var selectedPhase: WorkoutBlock { //Current phase of workout
         workoutBlocks[currentPhaseIndex]
     }
@@ -52,7 +59,6 @@ class TimerViewModel: ObservableObject {
     
     var displayedPhasename:String { //Current phase name
         "\(currentPhaseName)"
-        
     }
     
     var displayedSetInfo:String {  //Number of sets in workout
@@ -64,8 +70,9 @@ class TimerViewModel: ObservableObject {
     }
     
     var displayedTimeRemaining:String { //Time remaining in workout
-        "\(convertedTotalDuration) \nRemaining"
+        "\(convertedTimeRemaining) \nRemaining"
     }
+
     
     var convertedCurrentPhaseTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (currentPhaseTime / 60), (currentPhaseTime % 60))
@@ -78,7 +85,10 @@ class TimerViewModel: ObservableObject {
     var convertedElapsedTime:String { //shows String in 00:00 format
         return String(format: "%02d:%02d", (elapsedTime / 60), (elapsedTime % 60))
     }
-    @State var timer:Timer!
+    
+    var convertedTimeRemaining: String {//shows String in 00:00 format
+        return String(format: "%02d:%02d", (timeRemaining / 60), (timeRemaining % 60))
+    }
     
     private var timerSubscription: AnyCancellable?
     
@@ -143,6 +153,7 @@ class TimerViewModel: ObservableObject {
     }  // ^-- issue is present here
     
     func didPressExit(){
+        
         //opens a menu that ask the user if they
     }
     
@@ -155,7 +166,7 @@ class TimerViewModel: ObservableObject {
         currentPhaseIndex += 1
         if currentPhaseIndex >= workoutBlocks.count{
             currentPhaseIndex = 0
-            saveTimedWorkout()
+            didPressReset()
             return  // this should save the workout to the workout history and exit the timer
         }
         timerElapsedTime = 0
@@ -172,6 +183,7 @@ class TimerViewModel: ObservableObject {
         }
         timerElapsedTime = 0
         calculateElapsedTime()
+       
     }
     
     
@@ -202,11 +214,38 @@ class TimerViewModel: ObservableObject {
     
     func didSelectSavedWorkout() {
         guard let user = services.getLocalCurrentUser() else { return }
-
-        services.saveRecordedWorkout(recordedWorkout: RecordedWorkout(userId: user.id, name: workout.name, duration: Double(workout.duration), date: Date()))
+        services.saveRecordedWorkoutRemote(recordedWorkout: RecordedWorkout(userId: user.id, name: workout.name, duration: Double(workout.duration), date: Date()))
         
     }
     
+    func updateWorkout(with updatedWorkout: WorkoutBlueprint) {
+          self.workout = updatedWorkout
+        rebuildWorkoutBlocks()
+      }
+    
+
+    private func rebuildWorkoutBlocks() {
+        workoutBlocks.removeAll()
+            var cycleBlocks: [WorkoutBlock] = []
+            for cycle in workout.intervals.cycles {
+                for cycleSet in 0...cycle.numberOfSets {
+                    if cycleSet % 2 != 0 {
+                        cycleBlocks.append(WorkoutBlock(name: cycle.highIntensity.name, timeElapsed: 0, plannedDuration: cycle.highIntensity.duration, type: .highIntensity))
+                    } else {
+                        cycleBlocks.append(WorkoutBlock(name: cycle.lowIntensity.name, timeElapsed: 0, plannedDuration: cycle.lowIntensity.duration, type: .lowIntensity))
+                    }
+                }
+                if let rest = cycle.restPhase {
+                    cycleBlocks.append(WorkoutBlock(name: rest.name, timeElapsed: 0, plannedDuration: rest.duration, type: .restBetweenPhases))
+                }
+            }
+            let warmupBlock = WorkoutBlock(name: workout.warmup.name, timeElapsed: 0, plannedDuration: workout.warmup.duration, type: .warmup)
+            let cooldownBlock = WorkoutBlock(name: workout.cooldown.name, timeElapsed: 0, plannedDuration: workout.cooldown.duration, type: .coolDown)
+            workoutBlocks = [warmupBlock] + cycleBlocks + [cooldownBlock]
+            totalPlannedDuration = workoutBlocks.map { $0.plannedDuration }.reduce(0, +)
+            currentPhaseIndex = 0
+        didPressReset()
+        }
     
     
     private func createTimer() {
@@ -222,6 +261,7 @@ class TimerViewModel: ObservableObject {
                 } else if self.currentPhaseTime != 0 && self.isTimerActive {
                     self.timerElapsedTime += 1
                     self.elapsedTime += 1
+                    print("Tick: elapsedTime = \(self.elapsedTime), timeRemaining = \(self.timeRemaining), totalPlannedDuration = \(self.totalPlannedDuration)")
                 }
                 if self.elapsedTime == self.totalPlannedDuration {
                     self.isTimerActive = false
@@ -237,6 +277,7 @@ class TimerViewModel: ObservableObject {
         timerElapsedTime = 0
         calculateElapsedTime()
     }
+
     
     func calculateElapsedTime() {
         //Calculates the time that has elapsed during the current workout
@@ -252,10 +293,13 @@ class TimerViewModel: ObservableObject {
         elapsedTime = workoutBlocks[0..<currentPhaseIndex].map { $0.plannedDuration }.reduce(0, +)
     }
     
+    
+    
+    
     private func saveTimedWorkout() {
         //saves the full duraiton of the workout that is completed
         let dataStorageService = DataStorageService()
-        dataStorageService.saveWorkoutBlueprint(workoutBlueprint: self.workout)
+        dataStorageService.saveWorkoutBlueprintRemote(workoutBlueprint: self.workout)
     }
     
     func changeBackgroundColor(phaseName: String) -> Color {
