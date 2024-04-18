@@ -32,7 +32,7 @@ struct IntervalView: View {
                     }
                 }
                 Section {
-                    List {
+                    List{
                         ForEach(viewModel.phases, id: \.self) { phase in
                             HStack{
                                 Text("\(phase.name)")

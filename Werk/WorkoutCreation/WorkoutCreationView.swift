@@ -92,7 +92,7 @@ struct WorkoutCreationEditViewForm: View {
                     
                 }
             }
-                        .toolbar {   //this placement type bolds the item and places it on the top right of the screen
+                        .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("Save") {
                                     viewModel.didSelectSave()

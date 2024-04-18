@@ -77,7 +77,7 @@ extension WorkoutCreationEditViewModel {
         Binding<Interval>.init { [weak self] in
             guard let self = self else { return interval }
             print("Did update interval")
-            return self.intervals.cycles.first(where: {$0.id == interval.id }) ?? interval
+            return self.workout.intervals._cycles.first(where: {$0.id == interval.id }) ?? interval                  //<---------issue might be here
         } set: { [weak self] updatedInterval in
             guard let self = self else { return }
             self.workout.intervals._cycles = self.workout.intervals._cycles.map {
@@ -85,6 +85,19 @@ extension WorkoutCreationEditViewModel {
             }
         }
     }
+    
+//    func didUpdateIntervalBinding(interval: Interval) -> Binding<Interval> {       //<----  test to see what is returned when this fuction runs
+//        Binding<Interval>(
+//            get: {
+//                return interval
+//            },
+//            set: { updatedInterval in
+//                print("Received updated interval: \(updatedInterval)")
+//                self.workout.intervals._cycles[0] = updatedInterval
+//            }
+//        )
+//    }
+        
     
     func didUpdateWarmupBinding() -> Binding<WorkoutPhase> {
         Binding<WorkoutPhase> {

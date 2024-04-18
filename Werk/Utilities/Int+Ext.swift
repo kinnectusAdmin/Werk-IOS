@@ -2,7 +2,7 @@
 //  Int+Ext.swift
 //  Werk
 //
-//  Created by Blake Osonduagwueki on 8/2/23.
+//  Created by Shaquil Campbell on 8/2/23.
 //
 
 import Foundation
